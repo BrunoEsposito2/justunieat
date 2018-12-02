@@ -40,7 +40,30 @@
 
       <div class="jumbotron">
         <h1 class="display-4">Basta studiare! Cosa vuoi mangiare?</h1>
-        <a class="btn btn-primary btn-lg" href="#" role="button">ORDINA!</a>
+
+        <form action="/action_page.php">
+         <label class="check">
+           <input type="checkbox" name="pizza" value="pizza">
+          </label>Pizza<br>
+          <label class="check">
+            <input type="checkbox" name="pasta" value="pasta">
+          </label>Pasta<br>
+          <label class="check">
+            <input type="checkbox" name="pasta" value="cinese">
+          </label>Cinese<br>
+          <label class="check">
+            <input type="checkbox" name="pasta" value="giapponese">
+          </label>Giapponese<br>
+          <label class="check">
+            <input type="checkbox" name="pasta" value="italiano">
+          </label>Italiano<br>
+        </form>
+
+        <div class="form-row text-center">
+          <div class="col-12">
+           <button type="button" class="btn btn-outline-primary">ORDINA!</button>
+          </div>
+        </div>
       </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
