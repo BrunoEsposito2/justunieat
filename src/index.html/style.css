@@ -9,6 +9,7 @@ body {
 
 .display-4 {
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .carts {
@@ -73,7 +74,7 @@ label {
     
 }
 
-.btn3d:focus:hover {
+.btn3d.btn-default:focus:hover {
   background-color:  #E6E6E6;
 }
 .btn3d:active, .btn3d.active {
@@ -450,3 +451,53 @@ html {
     margin-bottom: 30px;
 }
 
+input[value="remember-me"] {
+    margin-left: 20px;
+}
+
+.form-signin {
+    width:300px;
+    margin:0 auto;
+}
+
+.form-signin input {
+    margin-top:20px;
+}
+
+.reg_but {
+    margin-top: 30px;
+}
+
+.search_section {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 400px;
+    overflow-x: hidden;
+    float:left;
+}
+
+.category_button {
+    width: 158px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.show_panel {
+    background-color: #E9ECEF;
+    height: 500px;
+    position: relative;
+}
+
+  .contact span {
+    display:inline-block;
+    margin-left: 5px;
+  }
+
+  .filter_sec .contact {
+      float:left;
+  }
