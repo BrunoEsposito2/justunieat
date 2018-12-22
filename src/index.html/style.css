@@ -500,4 +500,9 @@ input[value="remember-me"] {
 
   .filter_sec .contact {
       float:left;
+      margin-top: 5px;
+  }
+
+  .tab_pane {
+      width: 100%;
   }
