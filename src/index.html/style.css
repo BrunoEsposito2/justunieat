@@ -575,9 +575,44 @@ text-align:center;
 
 .row li {
     list-style-type: none;
-    margin:0;
 }
 
-.row .row_item_elem {
+.row_item_elem {
     float:left;
+    display: block;
+}
+
+.ratings {
+    margin-top: 50px;
+}
+
+.title_resturant {
+    margin-bottom: 50px;
+}
+
+.justify-content-between .p-2 {
+    margin-right: 30px;
+}
+
+.col-md-12 h2 {
+    margin: 20px 0px;
+}
+
+.row .ingredient {
+    margin-left: 5px;
+}
+
+
+@media screen and (min-width: 900px) {
+    .ing { 
+        height: 20px; 
+    }
+  }
+
+.material-icons.md-36 { 
+      font-size: 36px; 
+}
+
+.col-md-8 h1 {
+    color:white;
 }
