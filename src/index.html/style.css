@@ -506,3 +506,78 @@ input[value="remember-me"] {
   .tab_pane {
       width: 100%;
   }
+
+  @media screen and (max-width: 900px) {
+    .search_section {
+        display: none !important;
+    }
+  }
+
+
+  /* MESSAGE ICON*/
+
+  @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+.fa {
+  position: relative;
+  width: 36px;
+  font-size: 24px;
+}
+
+.fa > .badge {
+  font-size: 0.75rem;
+  position: absolute;
+  right: -1;
+  font-family: sans-serif;
+  top: -10px;
+}
+
+.bg-orange {
+    background: red;
+    color:#fff;
+}
+
+img {
+    width:100%;
+    max-height:560px;
+}
+
+col-md-8 h1 {
+    color: white;
+}
+
+.glyphicon {  
+    margin-bottom: 10px;
+    margin-right: 10px;
+    color: black;
+}
+
+small {
+display: block;
+line-height: 1.428571429;
+color: #999;
+}
+
+.ratings .fa
+{
+color:red;
+font-size:25px;
+}
+
+.ratings .list-inline
+{
+text-align:center;
+}
+
+.col-sm-6 col-md-8 h1 {
+    text-align: center;
+}
+
+.row li {
+    list-style-type: none;
+    margin:0;
+}
+
+.row .row_item_elem {
+    float:left;
+}

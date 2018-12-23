@@ -34,8 +34,12 @@
                         <a class="nav-link" href="#">Registrati</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Notifiche</a>
-                        <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+                        <a class="nav-link" href="#">
+                            <i class="fa fa-envelope-o">
+                                <span class="badge badge-danger">1</span>
+                            </i>
+                            Messaggi
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Miei Ordini</a>
@@ -50,172 +54,179 @@
         </div>
     </nav>
 
+    <section class="mb-5">
+        <div class="container">
+            <div class="row title py-3">
 
 
-    <div class="show_panel">
-        <div class="row">
+                <div class="col-md-8">
+                    <h1>Ristoranti</h1>
+                </div>
 
-                
-
-
-
-            <div class="col-sm col-3">
-                <button type="button" class="btn btn-default dropdown-toggle category_button" data-toggle="dropdown">Categorie<span
-                        class="caret"></span></button>
-                <ul class="dropdown-menu scrollable-menu" role="menu">
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Italiana</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Cinese</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Giapponese</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Pizza</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Rutti</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Italiana</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Eercheno</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Italiana</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Italiana</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Italiana</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Italiana</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Italiana</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Italiana</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Italiana</span>
-                            </label>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="contact">
-                            <label>
-                                <input type="checkbox">
-                                <span>Italiana</span>
-                            </label>
-                        </div>
-                    </li>
-                </ul>
+                <div class="col-md-4">
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control mr-sm-2" type="search" placeholder="Cerca ristoranti..." aria-label="Search">
+                            <button type="button" class="btn btn-primary btn-sm btn3d">Cerca</button>
+                        </form>
+                </div>
             </div>
 
-            <div class="col-sm col-3">
-                    <div class="contact">
-                        <label>
-                            <input type="checkbox">
-                            <span>Top recensioni</span>
-                        </label>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <strong>
+                                        <p>Categorie</p>
+                                    </strong>
+                                    <ul>
+                                        <li>
+                                            <div class="contact">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    <span>Italiana</span>
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contact">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    <span>Cinese</span>
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contact">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    <span>Giapponese</span>
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contact">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    <span>Pizza</span>
+                                                </label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contact">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    <span>Rutti</span>
+                                                </label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="contact">
-                        <label>
-                            <input type="checkbox">
-                            <span>Vegetariani</span>
-                        </label>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <strong>
+                                        <p>Filtri</p>
+                                    </strong>
+                                    <div class="contact">
+                                        <label>
+                                            <input type="checkbox">
+                                            <span>Top recensioni</span>
+                                        </label>
+                                    </div>
+                                    <div class="contact">
+                                        <label>
+                                            <input type="checkbox">
+                                            <span>Vegetariani</span>
+                                        </label>
+                                    </div>
+                                    <div class="contact">
+                                        <label>
+                                            <input type="checkbox">
+                                            <span>No piccante</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="contact">
-                        <label>
-                            <input type="checkbox">
-                            <span>No piccante</span>
-                        </label>
+                </div>
+                <div class="col-md-9">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img src="https://irp-cdn.multiscreensite.com/2c3ff369/import/base/dms3rep/multi/desktop/img.LTE0MDIwMTQ2NzM.jpeg">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <h5>Mandarino</h5>
+                                            <small>Cinese, Asiatico</small>
+                                            <p><small>3289696458</small></p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-outline bg-orange">MENU</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-            </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img src="https://irp-cdn.multiscreensite.com/2c3ff369/import/base/dms3rep/multi/desktop/img.LTE0MDIwMTQ2NzM.jpeg">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <h5>Mandarino</h5>
+                                            <small>Cinese, Asiatico</small>
+                                            <p><small>3289696458</small></p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-outline bg-orange">MENU</button>
+                                        </div>
+                                    </div>
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <img src="https://irp-cdn.multiscreensite.com/2c3ff369/import/base/dms3rep/multi/desktop/img.LTE0MDIwMTQ2NzM.jpeg">
+                                        </div>
+                                        <div class="col-md-7">
+                                            <h5>Mandarino</h5>
+                                            <small>Cinese, Asiatico</small>
+                                            <p><small>3289696458</small></p>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-outline bg-orange">MENU</button>
+                                        </div>
+                                    </div>
 
-            <div class="col-sm-3 col-3">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Cerca ristoranti..." aria-label="Search">
-                    <button type="button" class="btn btn-primary btn-sm btn3d">Cerca</button>
-                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
 
     <div class="content">
