@@ -53,8 +53,8 @@ input[type=checkbox]:checked:after {
     left: 6px;
 }
 
-label {
-    margin: 5px 10px;
+label input[value="remember-me"] {
+   margin: 20px 10px;
 }
 
 .btn3d {
@@ -573,8 +573,9 @@ text-align:center;
     text-align: center;
 }
 
-.row li {
+.row ul {
     list-style-type: none;
+    padding: 0;
 }
 
 .row_item_elem {
@@ -615,4 +616,64 @@ text-align:center;
 
 .col-md-8 h1 {
     color:white;
+}
+
+.container.item {
+    margin-top: 20px;
+}
+
+.d-flex i {
+    margin:10px 10px 10px 20px;
+}
+
+.check input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.form-group i {
+    margin-right: 10px;
+}
+
+
+/*QUOTE FOR OUR OPINION*/
+
+blockquote{
+    border-left:none
+}
+
+.quote-badge{
+    background-color: rgba(0, 0, 0, 0.2);   
+}
+
+.quote-box{
+    
+    overflow: hidden;
+    margin-top: -50px;
+    padding-top: -100px;
+    border-radius: 17px;
+    background-color: #907AD6;
+    margin-top: 25px;
+    color:white;
+    width: 325px;
+    box-shadow: 4px 4px 4px 4px #E0E0E0;
+}
+
+.quotation-mark{
+    
+    margin-top: -10px;
+    font-weight: bold;
+    font-size:100px;
+    color:white;
+    font-family: "Times New Roman", Georgia, Serif;
+    margin-left: 10px;
+}
+
+.quote-text{
+    
+    font-size: 19px;
+    margin-top: -65px;
+}
+
+.blog-post-actions {
+    margin-left: 10px;
 }
