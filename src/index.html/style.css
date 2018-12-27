@@ -532,10 +532,6 @@ input[value="remember-me"] {
   top: -10px;
 }
 
-.bg-orange {
-    background: red;
-    color:#fff;
-}
 
 img {
     width:100%;
@@ -676,4 +672,8 @@ blockquote{
 
 .blog-post-actions {
     margin-left: 10px;
+}
+
+.menu_bt {
+    margin-top: 30px;
 }
