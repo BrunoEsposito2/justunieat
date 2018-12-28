@@ -50,34 +50,65 @@
 
 <!--BODY-->
 
-<!--ORDINI RECENTI-->
-<div class="ordinirecenti col-sm-12">
-  <h4> I TUOI ORDINI </h4>
-<table class="table">
-  <thead>
-    <th class="col-sm-3" scope="col">ORDINE</th>
-    <th class="col-sm-3" scope="col">TEMPO</th>
-    <th class="col-sm-3" scope="col">PREZZO</th>
-    <th class="col-sm-3" scope="col">STATO</th>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">ORD1</th>
-      <td>TEMPO</td>
-      <td>PREZZO</td>
-      <td>STATO</td>
-    </tr>
-  </tbody>
+<!--I TUOI ORDINI -->
+
+<div class="container col-sm-12 col-md-8">
+  <h2 style="text-align:center">I TUOI ORDINI</h2>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ORDINE</th>
+        <th>TEMPO</th>
+        <th>PREZZO</th>
+        <th>STATO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!--TODO PHP -->
+      <tr>
+        <td>Ordine 1</td>
+        <td>Tempo 1</td>
+        <td>Prezzo 1</td>
+        <td>Stato 1</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="col-sm-2"></div>
+  <button class="btn btn-default col-sm-4" > Vedi tutti gli ordini </button>
+  <div class="col-sm-2"></div>
+</div>
+</br>
+<!--I TUOI PIATTI -->
+<div class="container col-sm-12 col-md-8">
+  <h2 style="text-align:center">I TUOI PIATTI</h2>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>PIATTO</th>
+        <th>TIPOLOGIA</th>
+        <th>CUCINA</th>
+        <th>PREZZO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!--TODO PHP -->
+      <tr>
+        <td>Piatto 1</td>
+        <td>Tipologia 1</td>
+        <td>Cucina 1</td>
+        <td>Prezzo 1</td>
+      </tr>
+
+    </tbody>
+  </table>
 
 
-  <!--TODO PHP -->
-  <tr>
-    <td>Ordine 1</td>
-    <td>Tempo 1</td>
-    <td>Prezzo 1</td>
-    <td/>Stato 1</td>
-  </tr>
-</table>
+  <button class="btn btn-default col"> Vedi tutti i tuoi piatti </button>
+
 </div>
  </body>
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
