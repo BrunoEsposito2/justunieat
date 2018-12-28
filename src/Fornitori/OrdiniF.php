@@ -12,10 +12,10 @@
      <link rel="stylesheet" href="style.css">
      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
      <link rel="icon" href="http://example.com/favicon.png">
-     <title>Just Uni Eat Fornitori</title>
+     <title>Just Uni Eat Fornitori - I tuoi ordini</title>
  </head>
- <body>
 
+ <body>
    <!---HEADER--->
    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,68 +48,85 @@
        </div>
      </nav>
 
-<!--BODY-->
-
 <!--I TUOI ORDINI -->
 
-<div class="container col-sm-12 col-md-8">
+<div id="accordion" class="col-sm-12 col-md-8">
   <h2 style="text-align:center">I TUOI ORDINI</h2>
+  <div class="card">
+    <div class="card-header" id="headingTitle">
+      <h5 class="mb-0">
+        <tr>
+          <td>ORDINE</td>
+          <td>TEMPO</td>
+          <td>PREZZO</td>
+          <td>STATO</td>
+        </tr>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Ordine #1
+        </button>
+      </h5>
+    </div>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>ORDINE</th>
-        <th>TEMPO</th>
-        <th>PREZZO</th>
-        <th>STATO</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!--TODO PHP -->
-      <tr>
-        <td>Ordine 1</td>
-        <td>Tempo 1</td>
-        <td>Prezzo 1</td>
-        <td>Stato 1</td>
-      </tr>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <tr>
+          <td>ORDINE 1</td>
+          <td>TEMPO 1</td>
+          <td>PREZZO 1</td>
+          <td>STATO 1</td>
+        </tr>
+      </div>
+    </div>
+  </div>
 
-    </tbody>
-  </table>
-
-  <div class="col-sm-2"></div>
-  <button class="btn btn-default col-sm-4" onclick="window.location.href='OrdiniF.php'"> Vedi tutti gli ordini </button>
-  <div class="col-sm-2"></div>
+  <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Ordine #2
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        <tr>
+          <td>ORDINE 2</td>
+          <td>TEMPO 2</td>
+          <td>PREZZO 2</td>
+          <td>STATO 2</td>
+        </tr>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" id="headingThree">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Ordine #3
+        </button>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
+        <tr>
+          <td>ORDINE 3</td>
+          <td>TEMPO 3</td>
+          <td>PREZZO 3</td>
+          <td>STATO 3</td>
+        </tr>
+      </div>
+    </div>
+  </div>
 </div>
-</br>
-<!--I TUOI PIATTI -->
-<div class="container col-sm-12 col-md-8">
-  <h2 style="text-align:center">I TUOI PIATTI</h2>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>PIATTO</th>
-        <th>TIPOLOGIA</th>
-        <th>CUCINA</th>
-        <th>PREZZO</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!--TODO PHP -->
-      <tr>
-        <td>Piatto 1</td>
-        <td>Tipologia 1</td>
-        <td>Cucina 1</td>
-        <td>Prezzo 1</td>
-      </tr>
-
-    </tbody>
-  </table>
+<button class="btn btn-default col" style="margin-top:1em" onclick="window.location.href='HomeF.php'">INDIETRO</button>
 
 
-  <button class="btn btn-default col"> Vedi tutti i tuoi piatti </button>
-
-</div>
  </body>
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
