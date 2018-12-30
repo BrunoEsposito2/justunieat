@@ -106,9 +106,9 @@
     </tbody>
   </table>
 
-
-  <button class="btn btn-default col"> Vedi tutti i tuoi piatti </button>
-
+<div class="col-sm-2"></div>
+  <button class="btn btn-default col-sm-4" onclick="window.location.href='ListinoF.php'"> Vedi tutti i tuoi piatti </button>
+<div class="col-sm-2"></div>
 </div>
  </body>
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

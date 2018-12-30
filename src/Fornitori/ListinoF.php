@@ -12,7 +12,7 @@
      <link rel="stylesheet" href="style.css">
      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
      <link rel="icon" href="http://example.com/favicon.png">
-     <title>Just Uni Eat Fornitori - I tuoi ordini</title>
+     <title>Just Uni Eat Fornitori - Il tuo Listino</title>
  </head>
 
  <body>
@@ -51,55 +51,60 @@
 <!--I TUOI ORDINI -->
 
 <div id="accordion" class="container col-sm-12 col-md-8">
-  <h2 style="text-align:center">I TUOI ORDINI</h2>
+  <h2 style="text-align:center">IL TUO LISTINO</h2>
   <div class="card">
     <div class="card-header" id="headingTitle">
-      <h5 class="mb-0">
-        <tr>
-          <td>ORDINE</td>
-          <td>TEMPO</td>
-          <td>PREZZO</td>
-          <td>STATO</td>
-        </tr>
+      <h5 class="mb-0" style="text-align:center"> I TUOI PIATTI</h5>
+
     </div>
   </div>
   <div class="card">
     <div class="card-header" id="headingOne">
       <h5 class="mb-0">
         <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Ordine #1
+          Piatto #1
         </button>
       </h5>
     </div>
 
     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
-        <tr>
-          <td>ORDINE 1</td>
-          <td>TEMPO 1</td>
-          <td>PREZZO 1</td>
-          <td>STATO 1</td>
-        </tr>
+
+        <!-- ADD PHP -->
+        <label for="DescrizionePiatto">Descrizione:</label>
+        <textarea name="DescrizionePiatto">Descrizione del piatto</textarea>
+
+        <label for="TipoCucina">Cucina:</label>
+        <select name="TipoCucina">
+          <option>Romagnolo</option>
+        </select>
+
+        <label for="TipoPiatto">Piatto:</label>
+        <select name="TipoPiatto">
+          <option>Primo</option>
+        </select>
+
+        <label for="PrezzoPiatto">Prezzo: </label>
+        <h6 class="mb-0" name="PrezzoPiatto">€Millemila</h6>
+
+        <!-- ADD JS OR PHP-->
+        <button name="ModificaPiatto">Modifica</button>
+        <button name="EliminaPiatto">Elimina</button>
       </div>
     </div>
   </div>
-
+  <!-- FILL WITH PHP -->
   <div class="card">
     <div class="card-header" id="headingTwo">
       <h5 class="mb-0">
         <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Ordine #2
+          Piatto #2
         </button>
       </h5>
     </div>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
       <div class="card-body">
-        <tr>
-          <td>ORDINE 2</td>
-          <td>TEMPO 2</td>
-          <td>PREZZO 2</td>
-          <td>STATO 2</td>
-        </tr>
+        Info piatto
       </div>
     </div>
   </div>
@@ -107,18 +112,13 @@
     <div class="card-header" id="headingThree">
       <h5 class="mb-0">
         <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Ordine #3
+          Piatto #3
         </button>
       </h5>
     </div>
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
       <div class="card-body">
-        <tr>
-          <td>ORDINE 3</td>
-          <td>TEMPO 3</td>
-          <td>PREZZO 3</td>
-          <td>STATO 3</td>
-        </tr>
+        Info piatto
       </div>
     </div>
   </div>
