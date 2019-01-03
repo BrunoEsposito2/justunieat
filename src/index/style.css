@@ -71,7 +71,7 @@ label input[value="remember-me"] {
 .btn3d:focus {
     -moz-outline-style:none;
     outline:medium none;
-    
+
 }
 
 .btn3d.btn-default:focus:hover {
@@ -155,47 +155,47 @@ label input[value="remember-me"] {
     animation-duration: 1s;
     animation-fill-mode: both;
   }
-  
+
   .animated.infinite {
     animation-iteration-count: infinite;
   }
-  
+
   .animated.delay-1s {
     animation-delay: 1s;
   }
-  
+
   .animated.delay-2s {
     animation-delay: 2s;
   }
-  
+
   .animated.delay-3s {
     animation-delay: 3s;
   }
-  
+
   .animated.delay-4s {
     animation-delay: 4s;
   }
-  
+
   .animated.delay-5s {
     animation-delay: 5s;
   }
-  
+
   .animated.fast {
     animation-duration: 800ms;
   }
-  
+
   .animated.faster {
     animation-duration: 500ms;
   }
-  
+
   .animated.slow {
     animation-duration: 2s;
   }
-  
+
   .animated.slower {
     animation-duration: 3s;
   }
-  
+
   @media (prefers-reduced-motion) {
     .animated {
       animation: unset !important;
@@ -208,7 +208,7 @@ label input[value="remember-me"] {
     to {
       transform: translate3d(0, 0, 0);
     }
-  
+
     10%,
     30%,
     50%,
@@ -216,7 +216,7 @@ label input[value="remember-me"] {
     90% {
       transform: translate3d(-10px, 0, 0);
     }
-  
+
     20%,
     40%,
     60%,
@@ -224,7 +224,7 @@ label input[value="remember-me"] {
       transform: translate3d(10px, 0, 0);
     }
   }
-  
+
   .shake {
     animation-name: shake;
   }
@@ -542,7 +542,7 @@ col-md-8 h1 {
     color: white;
 }
 
-.glyphicon {  
+.glyphicon {
     margin-bottom: 10px;
     margin-right: 10px;
     color: black;
@@ -601,13 +601,13 @@ text-align:center;
 
 
 @media screen and (min-width: 900px) {
-    .ing { 
-        height: 20px; 
+    .ing {
+        height: 20px;
     }
   }
 
-.material-icons.md-36 { 
-      font-size: 36px; 
+.material-icons.md-36 {
+      font-size: 36px;
 }
 
 .col-md-8 h1 {
@@ -638,11 +638,11 @@ blockquote{
 }
 
 .quote-badge{
-    background-color: rgba(0, 0, 0, 0.2);   
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .quote-box{
-    
+
     overflow: hidden;
     margin-top: -50px;
     padding-top: -100px;
@@ -655,7 +655,7 @@ blockquote{
 }
 
 .quotation-mark{
-    
+
     margin-top: -10px;
     font-weight: bold;
     font-size:100px;
@@ -665,7 +665,7 @@ blockquote{
 }
 
 .quote-text{
-    
+
     font-size: 19px;
     margin-top: -65px;
 }
@@ -677,3 +677,41 @@ blockquote{
 .menu_bt {
     margin-top: 30px;
 }
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+fieldset, label { margin: 0; padding: 0;}
+fieldset {padding-left: 60px;}
+body{ margin: 0px; }
+
+.rating {
+  border: 0;
+}
+
+.rating > input { display: none; }
+.rating > label:before {
+  margin: 5px;
+  font-size: 1.25em;
+  font-family: FontAwesome;
+  display: inline-block;
+  content: "\f005";
+}
+
+.rating > .half:before {
+  content: "\f089";
+  position: absolute;
+}
+
+.rating > label {
+  color: #ddd;
+  float: right;
+}
+
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label { color: red; }
+
+.rating > input:checked + label:hover,
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label { color: red; }
