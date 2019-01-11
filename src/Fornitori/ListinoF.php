@@ -58,41 +58,52 @@
 
     </div>
   </div>
+
+
+  <!-- TEMPLATE PER TUTTI I BUTTONS -->
   <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+    <button class="btn btn-default card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
           Piatto #1
         </button>
-      </h5>
     </div>
+    <!-- Cambiare anche gli altri buttons!-->
 
-    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
+    <div id="collapseOne" class="collapse container-fluid" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body row">
 
         <!-- ADD PHP -->
-        <label for="DescrizionePiatto">Descrizione:</label>
-        <textarea name="DescrizionePiatto">Descrizione del piatto</textarea>
+        <div class="classDescrPiatto col-sm-4 col-lg-4">
+          <label for="DescrizionePiatto">Descrizione:</label>
+          <textarea class="form-control" name="DescrizionePiatto">Descrizione del piatto</textarea>
+        </div>
 
-        <label for="TipoCucina">Cucina:</label>
-        <select name="TipoCucina">
-          <option>Romagnolo</option>
-        </select>
+        <div class="classTipoPiatto col-sm-4 col-lg-4">
+          <label for="TipoCucina">Cucina:</label>
+          <select class="form-control" name="TipoCucina">
+            <option selected>Romagnolo</option>
+            <option>Giapponese</option>
+          </select>
 
-        <label for="TipoPiatto">Piatto:</label>
-        <select name="TipoPiatto">
-          <option>Primo</option>
-        </select>
+          <label for="TipoPiatto">Piatto:</label>
+          <select class="form-control" name="TipoPiatto">
+            <option>Primo</option>
+            <option>Secondo</option>
+          </select>
+        </div>
 
-        <label for="PrezzoPiatto">Prezzo: </label>
-        <h6 class="mb-0" name="PrezzoPiatto">€Millemila</h6>
+        <div class="classButtonsPiatto col-sm-4 col-lg-4">
+          <label for="PrezzoPiatto">Prezzo: </label>
+          <h6 class="mb-0" name="PrezzoPiatto">€Millemila</h6>
 
-        <!-- ADD JS OR PHP-->
-        <button name="ModificaPiatto">Modifica</button>
-        <button name="EliminaPiatto">Elimina</button>
+          <!-- ADD JS OR PHP-->
+          <button class="btn btn-default" onclick="" name="ModificaPiatto">Modifica</button>
+          <button class="btn btn-default" onclick=""name="EliminaPiatto">Elimina</button>
+        </div>
       </div>
     </div>
   </div>
+  <!--FINE TEMPLATE PER I BUTTONS -->
+
   <!-- FILL WITH PHP -->
   <div class="card">
     <div class="card-header" id="headingTwo">
@@ -125,7 +136,13 @@
 
 
   <button class="btn btn-default col" style="margin-top:1em" onclick="window.location.href='HomeF.php'">INDIETRO</button>
+
+  <!-- CATEGORIE -->
+  <h5 class="mb-0" style="text-align:center; margin-top:1em;"> LE TUE CATEGORIE</h5>
+
+
 </div>
+
 
 
 
