@@ -85,8 +85,14 @@ create table UTENTE (
      Cognome varchar(30) not null,
      Email varchar(50) not null,
      Password varchar(50) not null,
+     Salt char(128) NOT NULL,
      ID_USER INT NOT NULL AUTO_INCREMENT,
+	Cellulare varchar(30) not null,
      constraint ID_UTENTE_ID primary key (ID_USER));
+
+create table LOGIN_ATTEMPS (
+	ID_USER INT NOT NULL,
+	TIME varchar(30) not null);
 
 
 -- Constraints Section
