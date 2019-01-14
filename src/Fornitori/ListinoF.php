@@ -97,51 +97,96 @@
 
           <!-- ADD JS OR PHP-->
           <button class="btn btn-default" onclick="" name="ModificaPiatto">Modifica</button>
-          <button class="btn btn-default" onclick=""name="EliminaPiatto">Elimina</button>
+          <button class="btn btn-default" onclick="" name="EliminaPiatto">Elimina</button>
         </div>
       </div>
     </div>
-  </div>
+
   <!--FINE TEMPLATE PER I BUTTONS -->
 
   <!-- FILL WITH PHP -->
   <div class="card">
-    <div class="card-header" id="headingTwo">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+    <button class="btn btn-default card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           Piatto #2
         </button>
-      </h5>
     </div>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-      <div class="card-body">
-        Info piatto
+
+    <div id="collapseTwo" class="collapse container-fluid" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body row">
+        <!-- ADD PHP -->
+        <div class="classDescrPiatto col-sm-4 col-lg-4">
+          <label for="DescrizionePiatto">Descrizione:</label>
+          <textarea class="form-control" name="DescrizionePiatto">Descrizione del piatto</textarea>
+        </div>
+
+        <div class="classTipoPiatto col-sm-4 col-lg-4">
+          <label for="TipoCucina">Cucina:</label>
+          <select class="form-control" name="TipoCucina">
+            <option selected>Romagnolo</option>
+            <option>Giapponese</option>
+          </select>
+
+          <label for="TipoPiatto">Piatto:</label>
+          <select class="form-control" name="TipoPiatto">
+            <option>Primo</option>
+            <option>Secondo</option>
+          </select>
+        </div>
+
+        <div class="classButtonsPiatto col-sm-4 col-lg-4">
+          <label for="PrezzoPiatto">Prezzo: </label>
+          <h6 class="mb-0" name="PrezzoPiatto">€Millemila</h6>
+
+          <!-- ADD JS AND/OR PHP-->
+          <button class="btn btn-default" onclick="" name="ModificaPiatto">Modifica</button>
+          <button class="btn btn-default" onclick="" name="EliminaPiatto">Elimina</button>
+        </div>
+
       </div>
     </div>
-  </div>
+
   <div class="card">
-    <div class="card-header" id="headingThree">
-      <h5 class="mb-0">
-        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <button id="headingThree" class="card-header btn btn-default collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
           Piatto #3
         </button>
-      </h5>
     </div>
+
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
       <div class="card-body">
         Info piatto
       </div>
     </div>
-  </div>
 
 
   <button class="btn btn-default col" style="margin-top:1em" onclick="window.location.href='HomeF.php'">INDIETRO</button>
 
+</div>
+
   <!-- CATEGORIE -->
+  <div class="container-fluid col-sm-12 col-md-8 col-lg-8">
   <h5 class="mb-0" style="text-align:center; margin-top:1em;"> LE TUE CATEGORIE</h5>
 
+  <div class="Categorie container-fluid">
+    <label class="row" for="ContainerCategorie">Categorie:</label>
+    <div class="row container-fluid">
+    <div name="ContainerCategorie" class="containerCategorie col-sm-6 col-lg-6" style="border:1px solid black;">
+      <!-- ADD CHECKBOXES -->
+      <form action="" name="FormCucine">
+        <input type="checkbox"> Ciccia</br>
+        <input type="checkbox"> Romagnolo</br>
+        <input type="checkbox"> Giapponese</br>
+        <input type="checkbox"> Americano</br>
+      </form>
+    </div>
 
+    <div class="ButtonsCategorie col-sm-6 col-lg-6 ">
+    <button class=" btn btn-default col-12" style="margin-top:5px;">ELIMINA</button>
+    <button class="btn btn-default col-12" style="margin-top:5px;">AGGIUNGI</button>
+    </div>
+  </div>
 </div>
+</div>
+
 
 
 
