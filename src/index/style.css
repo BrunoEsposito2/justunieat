@@ -715,3 +715,8 @@ body{ margin: 0px; }
 .rating > input:checked ~ label:hover,
 .rating > label:hover ~ input:checked ~ label,
 .rating > input:checked ~ label:hover ~ label { color: red; }
+
+
+.haveyet {
+    margin-top: 10px;
+}
