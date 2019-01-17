@@ -12,7 +12,7 @@
      <link rel="stylesheet" href="style.css">
      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
      <link rel="icon" href="http://example.com/favicon.png">
-     <title>Just Uni Eat Fornitori - I tuoi ordini</title>
+     <title>Just Uni Eat Fornitori - Ordine #ADDNUMBERWITHPHPORJS</title>
  </head>
 
  <body>
@@ -48,81 +48,36 @@
        </div>
      </nav>
 
-<!--I TUOI ORDINI -->
+<!--IL TUO ORDINE -->
 
-<div id="accordion" class="container col-sm-12 col-md-8">
-  <h2 style="text-align:center">I TUOI ORDINI</h2>
-  <div class="card">
-    <div class="card-header" id="headingTitle">
-      <h5 class="mb-0">
-        <tr>
-          <td>ORDINE</td>
-          <td>TEMPO</td>
-          <td>PREZZO</td>
-          <td>STATO</td>
-        </tr>
-    </div>
-  </div>
-  <div class="card">
-
-        <button class="btn btn-default card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Ordine #1
-        </button>
-
-
-
-    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-        <tr>
-          <td>ORDINE 1</td>
-          <td>TEMPO 1</td>
-          <td>PREZZO 1</td>
-          <td>STATO 1</td>
-        </tr>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-
-        <button class="btn btn-default collapsed card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Ordine #2
-        </button>
-
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-      <div class="card-body">
-        <tr>
-          <td>ORDINE 2</td>
-          <td>TEMPO 2</td>
-          <td>PREZZO 2</td>
-          <td>STATO 2</td>
-        </tr>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-
-        <button class="btn btn-default collapsed card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Ordine #3
-        </button>
-
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-      <div class="card-body">
-        <tr>
-          <td>ORDINE 3</td>
-          <td>TEMPO 3</td>
-          <td>PREZZO 3</td>
-          <td>STATO 3</td>
-        </tr>
-        <button onclick="window.location.href='OrdineCompleto.php'">Dettagli</button>
-      </div>
-    </div>
-  </div>
-
-
-  <button class="btn btn-default col" style="margin-top:1em" onclick="window.location.href='HomeF.php'">INDIETRO</button>
+<div class="menu col-lg-4">
 </div>
 
+<div class="container-fluid col-lg-8 col-sm-12 ">
+  <h5 class="mb-0 " style="text-align:center;">ORDINE #ADDWITHPHPORJS</h5>
+
+  <div class="container-fluid row">
+    <div class="col-sm-6 col" style="">
+      Piatti:</br>
+      Creato:</br>
+      data</br>
+      Fattorino:</br>
+      NomeFattorino</br>
+    </div>
+
+    <div class="col-sm-6 col">
+      Prezzo</br>
+      Consegnato:</br>
+      data</br>
+      Tel:</br>
+      Telefono</br>
+    </div>
+</div>
+
+  <h5 class="mb-0" style="text-align:center">Valutazione</h5>
+
+  <button class="btn btn-default col" style="margin-top:1em" onclick="window.location.href='OrdiniF.php'">INDIETRO</button>
+</div>
 
 
  </body>

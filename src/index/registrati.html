@@ -55,10 +55,21 @@
                 </div>
             </nav>
 
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item btn btn-default">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#RegCli" role="tab" aria-controls="home" aria-selected="true">Cliente</a>
+  </li>
+  <li class="nav-item  btn btn-default">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#RegForn" role="tab" aria-controls="profile" aria-selected="false">Ristorante</a>
+  </li>
+</ul>
 
     <div class="jumbotron text-center">
 
-        <div class="text-center">
+      <div class="tab-content" id="myTabContent">
+        <!--REGISTRAZIONE CLIENTE-->
+      <div class="tab-pane fade show active" id="RegCli" role="tabpanel" aria-labelledby="home-tab">
+        <div class="text-center" >
             <form class="form-signin" action="reg.php" method="POST">
                 <h1 class="h3 mb-3 font-weight-normal">Registrati</h1>
                 <label for="inputNome" class="sr-only">Nome</label>
@@ -84,6 +95,13 @@
                     </div>
                 </div>
         </div>
+      </div>
+      <!--FINE REGISTRAZIONE CLIENTE-->
+      <div class="tab-pane fade" id="RegForn" role="tabpanel" aria-labelledby="profile-tab">
+        prova
+      </div>
+    </div>
+
     </div>
     </form>
     </div>
