@@ -16,96 +16,82 @@
 
 <body>
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <a class="navbar-brand" href="#">Just Uni Eat</a>
                 <a href="#">
-                    <i class="material-icons md-36 carts">shopping_cart_outline</i>
+                    <i class="material-icons md-36 carts">shopping_cart</i>
                 </a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="navbar-nav float-left text-left pr-3">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Accedi</a>
+                        <li class="nav-item">
+                                <a class="nav-link" id="navUser" href="#"></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Registrati</a>
+                                <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <i class="fa fa-envelope-o">
-                                        <span class="badge badge-danger">1</span>
-                                    </i>
-                                    Messaggi
+                                <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="navMes" href="#">
+                                  <i class="fa fa-envelope-o">
+                                    <span class="badge badge-danger">1</span>
+                                  </i>
+                                  Messaggi
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Miei Ordini</a>
+                                <a class="nav-link" id="navOrd" href="#">Miei Ordini</a>
                                 <!--da rendere hidden se non si ha fatto ancora l'accesso-->
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Esci</a>
+                                <a class="nav-link" id="navExit" href="logout.php">Esci</a>
                                 <!--da rendere hidden se non si ha fatto ancora l'accesso-->
                             </li>
                         </ul>
                     </div>
                 </div>
-            </nav>
+    </nav>
 
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item btn btn-default">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#RegCli" role="tab" aria-controls="home" aria-selected="true">Cliente</a>
-  </li>
-  <li class="nav-item  btn btn-default">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#RegForn" role="tab" aria-controls="profile" aria-selected="false">Ristorante</a>
-  </li>
-</ul>
 
     <div class="jumbotron text-center">
 
-      <div class="tab-content" id="myTabContent">
-        <!--REGISTRAZIONE CLIENTE-->
-      <div class="tab-pane fade show active" id="RegCli" role="tabpanel" aria-labelledby="home-tab">
-        <div class="text-center" >
-            <form class="form-signin" action="reg.php" method="POST">
+        <div class="text-center">
+
+            <form class="form-signin" action="elogin.php" name="btnReg" method="POST">
                 <h1 class="h3 mb-3 font-weight-normal">Registrati</h1>
                 <label for="inputNome" class="sr-only">Nome</label>
-                <input type="text" id="inputName" class="form-control" placeholder="Nome" required="true" autofocus="true">
-                <label for="inputNome" class="sr-only">Cognome</label>
-                <input type="text" id="inputCognome" class="form-control" placeholder="Cognome" required="true"
+                <input type="text" name="nome" id="inputNome" class="form-control" placeholder="Nome" required="true" autofocus="true">
+                <label for="inputCognome" class="sr-only">Cognome</label>
+                <input type="text" name="cognome" id="inputCognome" class="form-control" placeholder="Cognome" required="true"
                     autofocus="true">
                 <label for="inputCell" class="sr-only">Cellulare</label>
-                <input type="tel" id="inputTel" class="form-control" placeholder="Cellulare" required="true" autofocus="true">
+                <input type="tel" name="cell" id="inputCell" class="form-control" placeholder="Cellulare" required="true" autofocus="true">
                 <label for="inputEmail" class="sr-only">Email</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email" required="true" autofocus="">
+                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required="true" autofocus="">
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="true">
-                <div class="form-row text-center">
+                <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Password" required="true">
+                <div class="form-row">
                     <div class="col-12">
-                        <button type="submit" value="Submit" class="btn btn-primary btn-lg btn3d reg_but">REGISTRATI</button>
+                        <button type="submit" id="submit" class="btn btn-primary btn-lg btn3d reg_but">REGISTRATI</button>
                     </div>
                 </div>
+            </form>
+            <div class="row haveyet">
+                <div class="col mb-12">
+                    <p>Hai già un account? <a href="accedi.php">Accedi</a></p>
+                </div>
+            </div>
 
-                <div class="row haveyet">
-                    <div class="col mb-12">
-                        <p>*Hai già un account? <a href="./accedi.html">Accedi</a></p>
-                    </div>
-                </div>
         </div>
-      </div>
-      <!--FINE REGISTRAZIONE CLIENTE-->
-      <div class="tab-pane fade" id="RegForn" role="tabpanel" aria-labelledby="profile-tab">
-        prova
-      </div>
     </div>
 
-    </div>
-    </form>
-    </div>
-    </div>
+
 
 
     <div class="content">
@@ -156,14 +142,15 @@
             <p>© 2018 Copyright Just Uni Eat</p>
         </div>
     </footer>
-    </div>
-    </div>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+    <!--<script src="validation_form.js"></script>-->
+
 </body>
 
 </html>
