@@ -455,14 +455,17 @@ input[value="remember-me"] {
     margin-left: 20px;
 }
 
-.form-signin {
-    width:300px;
-    margin:0 auto;
+@media screen and (min-width:500px){
+  .form-signin {
+      width:300px;
+      margin:0 auto;
+  }
 }
 
 .form-signin input {
     margin-top:20px;
 }
+
 
 .reg_but {
     margin-top: 30px;

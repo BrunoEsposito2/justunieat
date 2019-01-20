@@ -1,3 +1,18 @@
+<?php
+
+define("HOST", "localhost"); // E' il server a cui ti vuoi connettere
+define("USER", "admin_user"); // E' l'utente con cui ti collegherai al DB.
+define("PASSWORD", "Justunieat2019"); // Password di accesso al DB.
+define("DATABASE", "just_database"); // Nome del database.
+$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
+
+// Check connection
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+echo "Connected successfully";
+ ?>
+
 <!DOCTYPE html>
 <html lang="it-IT">
 
@@ -64,11 +79,11 @@
   </li>
 </ul>
 
-    <div class="jumbotron text-center">
+    <div class="jumbotron text-center col-sm-12">
 
-      <div class="tab-content" id="myTabContent">
+      <div class="tab-content col-sm-12" id="myTabContent">
         <!--REGISTRAZIONE CLIENTE-->
-      <div class="tab-pane fade show active" id="RegCli" role="tabpanel" aria-labelledby="home-tab">
+      <div class="tab-pane fade show active col-sm-12" id="RegCli" role="tabpanel" aria-labelledby="home-tab">
         <div class="text-center" >
             <form class="form-signin" action="reg.php" method="POST">
                 <h1 class="h3 mb-3 font-weight-normal">Registrati</h1>
@@ -94,18 +109,59 @@
                         <p>*Hai già un account? <a href="./accedi.html">Accedi</a></p>
                     </div>
                 </div>
+              </form>
         </div>
       </div>
       <!--FINE REGISTRAZIONE CLIENTE-->
-      <div class="tab-pane fade" id="RegForn" role="tabpanel" aria-labelledby="profile-tab">
-        prova
+
+      <!--REGISTRAZIONE RISTORANTE-->
+      <div class="tab-pane fade col-sm-12" id="RegForn" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="text-center col-sm-12" >
+            <form class="form-signin" action="regF.php" method="POST">
+                <h1 class="h3 mb-3 font-weight-normal">Registratifornitori</h1>
+                <label for="inputNameF" class="sr-only" >Nome</label>
+                <input type="text" id="inputNameF" name="inputNameF" class="form-control" style="margin-top:20px;" placeholder="Nome" required="true" autofocus="true">
+
+                <label for="inputSurnameF" class="sr-only">Cognome</label>
+                <input type="text" id="inputSurnameF" name="inputSurnameF" class="form-control" style="margin-top:20px;" placeholder="Cognome" required="true" autofocus="true">
+
+                <label for"inputRistoranteF" class="sr-only">Ristorante</label>
+                <input type="text" id="inputRistoranteF" name="inputRistoranteF" class="form-control" style="margin-top:20px;" placeholder="Ristorante" required="true" autofocus="true">
+
+                <label for="inputCellF" class="sr-only" >Cellulare</label>
+                <input type="tel" id="inputCellF" name="inputCellF" class="form-control" style="margin-top:20px;" placeholder="Cellulare" required="true" autofocus="true">
+
+                <label for="inputPIVAF" class="sr-only">Partita IVA</label>
+                <input type="text" id="inputPIVAF" name="inputPIVAF" class="form-control" style="margin-top:20px;" placeholder="Partita IVA" required="true" autofocus="true">
+
+                <label for="inputEmailF" class="sr-only">Email</label>
+                <input type="email" id="inputEmailF" name="inputEmailF" class="form-control" style="margin-top:20px;" placeholder="Email" required="true" autofocus="true">
+
+                <label for="inputPasswordF" class="sr-only">Password</label>
+                <input type="password" id="inputPasswordF" name="inputPasswordF" class="form-control" style="margin-top:20px;" placeholder="Password" required="true">
+
+                <label for="inputConfirmPasswordF" class="sr-only">Conferma Password</label>
+                <input type="password" id="inputConfirmPasswordF" name="inputConfirmPasswordF" class="form-control" style="margin-top:20px;" placeholder="Conferma Password" required="true">
+
+                <div class="form-row text-center">
+                    <div class="col-12">
+                        <button type="submit" value="Submit" class="btn btn-primary btn-lg btn3d reg_but">REGISTRATI</button>
+                    </div>
+                </div>
+
+                <div class="row haveyet">
+                    <div class="col mb-12">
+                        <p>*Hai già un account? <a href="./accedi.html">Accedi</a></p>
+                    </div>
+                </div>
+              </form>
+        </div>
       </div>
+      <!--FINE REGISTRAZIONE RISTORANTE-->
     </div>
 
     </div>
-    </form>
-    </div>
-    </div>
+
 
 
     <div class="content">

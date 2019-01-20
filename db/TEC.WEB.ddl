@@ -1,16 +1,16 @@
 -- *********************************************
--- * Standard SQL generation                   
+-- * Standard SQL generation
 -- *--------------------------------------------
--- * DB-MAIN version: 11.0.0              
--- * Generator date: Sep  6 2018              
--- * Generation date: Sat Jan 12 15:43:16 2019 
--- * LUN file: C:\Users\Gianfree\Google Drive\Università\3 ANNO\1.Tecnologie Web\PROGETTO\REPO\webproject\db\TEC.WEB.lun 
--- * Schema: TEC_WEB_LOGIC/SQL 
--- ********************************************* 
+-- * DB-MAIN version: 11.0.0
+-- * Generator date: Sep  6 2018
+-- * Generation date: Sat Jan 12 15:43:16 2019
+-- * LUN file: C:\Users\Gianfree\Google Drive\Università\3 ANNO\1.Tecnologie Web\PROGETTO\REPO\webproject\db\TEC.WEB.lun
+-- * Schema: TEC_WEB_LOGIC/SQL
+-- *********************************************
 
 
 -- Database Section
--- ________________ 
+-- ________________
 drop DATABASE JUST_DATABASE;
 create database JUST_DATABASE;
 
@@ -20,7 +20,7 @@ create database JUST_DATABASE;
 
 
 -- Tables Section
--- _____________ 
+-- _____________
 
 create table CATEGORIA_RISTORANTE (
      Nome varchar(30) NOT NULL,
@@ -96,7 +96,7 @@ create table LOGIN_ATTEMPS (
 
 
 -- Constraints Section
--- ___________________ 
+-- ___________________
 
 alter table CATEGORIE add constraint REF_CATEG_FORNI
      foreign key (ID_FORNITORE)
@@ -108,11 +108,11 @@ alter table CATEGORIE add constraint REF_CATEG_CATEG_FK
 
 alter table FORNITORE add constraint ID_FORNITORE_CHK
      check(exists(select * from MENU
-                  where MENU.ID_FORNITORE = ID_FORNITORE)); 
+                  where MENU.ID_FORNITORE = ID_FORNITORE));
 
 alter table MENU add constraint ID_MENU_FORNI_CHK
      check(exists(select * from PIETANZA
-                  where PIETANZA.ID_MENU = ID_FORNITORE)); 
+                  where PIETANZA.ID_MENU = ID_FORNITORE));
 
 alter table MENU add constraint ID_MENU_FORNI_FK
      foreign key (ID_FORNITORE)
@@ -142,9 +142,10 @@ alter table PIETANZA add constraint EQU_PIETA_MENU_FK
      foreign key (ID_MENU)
      references MENU (ID_MENU);
 
-
+-- Added password to Fornitori
+ALTER TABLE `fornitore` ADD `Password` VARCHAR(50) NOT NULL AFTER `Email`;
 -- Index Section
--- _____________ 
+-- _____________
 
 create unique index ID_CATEGORIA_RISTORANTE_IND
      on CATEGORIA_RISTORANTE (Nome);
@@ -193,4 +194,3 @@ create unique index ID_TIPOLOGIA_PIETANZA_IND
 
 create unique index ID_UTENTE_IND
      on UTENTE (ID_USER);
-
