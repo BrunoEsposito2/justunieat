@@ -235,6 +235,7 @@ label input[value="remember-me"] {
     background-color: #182c39;
     color: white;
     padding-top: 20px;
+    width: 100%;
 }
 
 #map-container {
@@ -261,7 +262,7 @@ label input[value="remember-me"] {
 }
 
 #myFooter .container {
-    width: auto;
+    /*width: auto;*/
 }
 
 #myFooter ul {
@@ -419,12 +420,6 @@ label input[value="remember-me"] {
 
 #myFooter .twitter:hover{
 	color: #00aced;
-}
-
-@media screen and (max-width: 767px){
-	#myFooter {
-		text-align: center;
-	}
 }
 
 html {
@@ -723,3 +718,10 @@ body{ margin: 0px; }
 .haveyet {
     margin-top: 10px;
 }
+<<<<<<< HEAD
+=======
+
+#navUser, #navMes, #navOrd, #navExit {
+    display: none;
+}
+>>>>>>> 96673558e1a5b87653093427d6a6bff5d370bcf0
