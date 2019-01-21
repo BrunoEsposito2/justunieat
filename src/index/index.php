@@ -62,6 +62,7 @@ if(!controllo_cookie()){
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="icon" href="http://example.com/favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
     <title>Just Uni Eat</title>
 </head>
 
@@ -73,7 +74,7 @@ if(!controllo_cookie()){
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="#">Just Uni Eat</a>
-        <a href="#">
+        <a href="checkout.html">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

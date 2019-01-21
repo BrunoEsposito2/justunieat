@@ -120,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 session_start();
                 $time_cookie=3600*24*7;
                 setcookie("session", $_POST['email'], time()+$time_cookie, "/");
+                setcookie("session", $_POST['nome'], time()+$time_cookie, "/");
                 $_SESSION['email'] = $email;
                 $_SESSION['nome'] = $nome;
                 $stmt->close();     
