@@ -74,19 +74,29 @@ echo "Connected successfully";
     </nav>
 
 
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item btn btn-default">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#RegCli" role="tab" aria-controls="home" aria-selected="true">Cliente</a>
+      </li>
+
+      <li class="nav-item  btn btn-default">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#RegForn" role="tab" aria-controls="profile" aria-selected="false">Ristorante</a>
+      </li>
+    </ul>
+
+
     <div class="jumbotron text-center col-sm-12">
 
-<<<<<<< HEAD:src/index/registrati.php
+<!-- Merge-conflict message <<<<<<< HEAD:src/index/registrati.php -->
       <div class="tab-content col-sm-12" id="myTabContent">
         <!--REGISTRAZIONE CLIENTE-->
       <div class="tab-pane fade show active col-sm-12" id="RegCli" role="tabpanel" aria-labelledby="home-tab">
-        <div class="text-center" >
-            <form class="form-signin" action="reg.php" method="POST">
-=======
+
+<!-- Merge-conflict message ======= -->
         <div class="text-center">
 
             <form class="form-signin" action="elogin.php" name="btnReg" method="POST">
->>>>>>> 96673558e1a5b87653093427d6a6bff5d370bcf0:src/index/registrati.html
+<!--Merge-conflict message >>>>>>> 96673558e1a5b87653093427d6a6bff5d370bcf0:src/index/registrati.html -->
                 <h1 class="h3 mb-3 font-weight-normal">Registrati</h1>
                 <label for="inputNome" class="sr-only">Nome</label>
                 <input type="text" name="nome" id="inputNome" class="form-control" placeholder="Nome" required="true" autofocus="true">
@@ -109,8 +119,9 @@ echo "Connected successfully";
                 <div class="col mb-12">
                     <p>Hai già un account? <a href="accedi.php">Accedi</a></p>
                 </div>
-<<<<<<< HEAD:src/index/registrati.php
-              </form>
+<!--Merge-conflict message <<<<<<< HEAD:src/index/registrati.php -->
+            </div>
+
         </div>
       </div>
       <!--FINE REGISTRAZIONE CLIENTE-->
@@ -162,16 +173,16 @@ echo "Connected successfully";
     </div>
 
     </div>
-=======
+<!--Merge-conflict message ======= -->
             </div>
 
         </div>
     </div>
 
->>>>>>> 96673558e1a5b87653093427d6a6bff5d370bcf0:src/index/registrati.html
+<!--Merge-conflict message >>>>>>> 96673558e1a5b87653093427d6a6bff5d370bcf0:src/index/registrati.html -->
 
 
-
+<!--FOOTER-->
     <div class="content">
     </div>
     <footer id="myFooter">
@@ -220,7 +231,7 @@ echo "Connected successfully";
             <p>© 2018 Copyright Just Uni Eat</p>
         </div>
     </footer>
-    
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
