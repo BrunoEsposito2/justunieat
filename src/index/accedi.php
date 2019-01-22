@@ -40,9 +40,9 @@
         } else {
              $error = true;
         }
-            
+
     }
-   
+
 ?>
 
 <!DOCTYPE html>
@@ -125,7 +125,7 @@
                 </div>
                 <div class="row haveyet">
                     <div class="col mb-12">
-                        <p>Non hai ancora un account? <a href="./registrati.html">Registrati</a></p>
+                        <p>Non hai ancora un account? <a href="./registrati.php">Registrati</a></p>
                     </div>
                 </div>
         </div>
@@ -198,11 +198,11 @@
     ?>
 
         <script>
-        
+
         $(document).ready(function() {
-        document.getElementById('alert-php-error').style.display = "block";       
+        document.getElementById('alert-php-error').style.display = "block";
         });
-        
+
         </script>
     <?php
     } else {
@@ -219,7 +219,7 @@
     }
     ?>
 
-             
+
 </body>
 
 </html>

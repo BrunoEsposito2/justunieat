@@ -18,6 +18,8 @@ if(isset($_POST["inputNameF"]) &&
    isset($_POST["inputEmailF"]) &&
    isset($_POST["inputPasswordF"])
  ){
+   if($_POST["inputPasswordF"] == $_POST["inputConfirmPasswordF"])
+      echo "Le password sono uguali";
 
    //Registration starts here
    echo $_POST["inputNameF"] ."<br>".
@@ -28,11 +30,21 @@ if(isset($_POST["inputNameF"]) &&
       $_POST["inputEmailF"] ."<br>".
       $_POST["inputPasswordF"];
 
-      $queryRegF = $mysqli->prepare("INSERT INTO fornitore(Nome, Cognome, Ristorante, Cellullare, Partita_IVA, Email, Password) VALUES (?, ?, ?, ?, ?, ?, ?)");
+      //Need to check if Email is already registered
+
+      $queryRegF = $mysqli->prepare("INSERT INTO fornitore(Nome, Cognome, Ristorante, Cellulare, Partita_IVA, Email, Password) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
       //Must generate sha512 Password
 
-      $queryRegF->bind_param($_POST["inputNameF"], $_POST["inputSurnameF"], $_POST["inputRistoranteF"], $_POST["inputCellF"], $_POST["inputPIVAF"], $_POST["inputEmailF"], $_POST["inputPasswordF"]);
+      $queryRegF->bind_param("sssssss", $_POST["inputNameF"], $_POST["inputSurnameF"], $_POST["inputRistoranteF"], $_POST["inputCellF"], $_POST["inputPIVAF"], $_POST["inputEmailF"], $_POST["inputPasswordF"]);
+
+
+      //WORKS
+      //$queryRegF->execute();
+
+      echo "New record created on Table fornitori";
+
+
  }
 
  ?>
