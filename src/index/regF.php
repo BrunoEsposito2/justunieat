@@ -31,19 +31,44 @@ if(isset($_POST["inputNameF"]) &&
       $_POST["inputPasswordF"];
 
       //Need to check if Email is already registered
+      $queryCheckF = $mysqli->prepare("SELECT Email FROM fornitore WHERE Email = ?");
 
-      $queryRegF = $mysqli->prepare("INSERT INTO fornitore(Nome, Cognome, Ristorante, Cellulare, Partita_IVA, Email, Password) VALUES (?, ?, ?, ?, ?, ?, ?)");
+      $email=$_POST["inputEmailF"];
 
-      //Must generate sha512 Password
-
-      $queryRegF->bind_param("sssssss", $_POST["inputNameF"], $_POST["inputSurnameF"], $_POST["inputRistoranteF"], $_POST["inputCellF"], $_POST["inputPIVAF"], $_POST["inputEmailF"], $_POST["inputPasswordF"]);
+      $queryCheckF->bind_param("s", $email);
 
 
-      //WORKS
-      //$queryRegF->execute();
 
-      echo "New record created on Table fornitori";
+      $queryCheckF->execute();
 
+      //La query mi restituisce un solo campo
+      $queryCheckF->bind_result($email);
+
+      $queryCheckF->fetch();
+
+      echo "<br><br>" . $email . "<br>";
+
+      $queryCheckF->close();
+
+      //Checks if Email already exists
+      if($email==NULL){
+
+        //If not exists
+        $queryRegF = $mysqli->prepare("INSERT INTO fornitore(Nome, Cognome, Ristorante, Cellulare, Partita_IVA, Email, Password) VALUES (?, ?, ?, ?, ?, ?, ?)");
+
+
+        //Must generate sha512 Password
+
+        $queryRegF->bind_param("sssssss", $_POST["inputNameF"], $_POST["inputSurnameF"], $_POST["inputRistoranteF"], $_POST["inputCellF"], $_POST["inputPIVAF"], $_POST["inputEmailF"], $_POST["inputPasswordF"]);
+
+        //WORKS
+        //$queryRegF->execute();
+
+        echo "New record created on Table fornitori";
+      } else {
+        //If exists
+        echo "<br>La mail " . $email . " è già registrata. <br>";
+      }
 
  }
 
