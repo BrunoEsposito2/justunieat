@@ -11,47 +11,51 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href='https://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet'>
     <title>Just Uni Eat | Checkout</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="#">Just Uni Eat</a>
-        <a href="#">
-            <i class="material-icons md-36 carts">shopping_cart_outline</i>
-        </a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="navbar-nav float-left text-left pr-3">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Accedi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Registrati</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fa fa-envelope-o">
-                                <span class="badge badge-danger">1</span>
-                            </i>
-                            Messaggi
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Miei Ordini</a>
-                        <!--da rendere hidden se non si ha fatto ancora l'accesso-->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Esci</a>
-                        <!--da rendere hidden se non si ha fatto ancora l'accesso-->
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="#">Just Uni Eat</a>
+                <a href="checkout.html">
+                    <i class="material-icons md-36 carts">shopping_cart</i>
+                </a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-nav float-left text-left pr-3">
+                        <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                                <a class="nav-link" id="navUser" href="#"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="navMes" href="#">
+                                  <i class="fa fa-envelope-o">
+                                    <span class="badge badge-danger">1</span>
+                                  </i>
+                                  Messaggi
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="navOrd" href="#">Miei Ordini</a>
+                                <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="navExit" href="logout.php">Esci</a>
+                                <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
     </nav>
 
 
@@ -302,6 +306,28 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+
+    <script>
+    function getCookie(nome) {
+    var name = nome + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ')
+            c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+
+    }
+    if(getCookie("session")) {
+        console.log(var_dump(getCookie("session")));
+    } else {
+        console.log("non va");
+    }
+
+    
+    </script>    
 </body>
 
 </html>

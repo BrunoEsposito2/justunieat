@@ -1,7 +1,10 @@
 <?php
 
-    if(isset($_POST['btnLogin'])){
+    $error = false;
 
+    
+    if(isset($_POST['btnLogin'])){
+        
         $servername = "localhost";
         $username = "root";
         $password = "";
@@ -26,6 +29,7 @@
             //setto la durata del cookies a una settimana
             $time_cookie=3600*24*7;
             setcookie("session", $_POST['email'], time()+$time_cookie, "/");
+            setcookie("session", $row['Nome'], time()+$time_cookie, "/");
             session_start();
             $_SESSION["email"]=$row['Email'];
             $_SESSION["nome"]=$row["Nome"];
@@ -58,6 +62,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href='https://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet'>
     <title>Just Uni Eat | Accedi</title>
 </head>
 
@@ -69,7 +74,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="#">Just Uni Eat</a>
-        <a href="#">
+        <a href="checkout.html">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -128,10 +133,11 @@
                         <p>Non hai ancora un account? <a href="./registrati.php">Registrati</a></p>
                     </div>
                 </div>
+            </form>    
         </div>
-        </form>
+        
     </div>
-    </div>
+    
 
 
 
