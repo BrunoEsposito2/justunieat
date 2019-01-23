@@ -145,8 +145,10 @@ if(!controllo_cookie()){
                                     }
                                                                         
                                         /*  PER MOSTRARE TUTTI I MESSAGGI DELL'UTENTE"  */
-                                    $query="SELECT * from messaggio where ID_USER='".$_SESSION['id']."'";
-                                    
+                                    $query="SELECT Orario, Data, Ristorante, Testo, Titolo, Ricevuto_Dal_Utente from messaggio, 
+                                    fornitore where ID_USER='".$_SESSION['id']."' AND ID_RISTORANTE = ID_FORNITORE AND 
+                                    Ricevuto_Dal_Utente='0' ORDER BY Data DESC";
+
                                     $result = $mysqli->query($query);
 
                                     while($row = $result->fetch_array())
@@ -165,9 +167,10 @@ if(!controllo_cookie()){
                                         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="d-flex w-100 justify-content-between">
                                                 <h5 class="mb-1"><?php printf ("%s", $row["Titolo"]);?></h5>
-                                                <small><?php printf ("%s", $row["Data"]);?></small>
+                                                <small><?php printf ("%s", $row["Data"]); echo "-" . date("H:i:s", $row["Orario"]);?></small>
                                             </div>
                                             <p class="mb-1"><?php printf ("%s", $row["Testo"]);?></p>
+                                            <small>Inviato a: <?php echo $row["Ristorante"];?></small>
                                         </a>
                                     </div> 
                                     </li>
@@ -181,9 +184,73 @@ if(!controllo_cookie()){
                     </div>
 
                 </div>
-                <!--/.col-->
+                
 
-                <div class="col-md-9">
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                    
+                            <ul>
+                                
+                                <li>
+                                     <button id="recMsg" class="btn btn-info btn3d">Messaggi Ricevuti</button>
+                                </li>
+                                
+                                <?php
+
+                                    $servername = "localhost";
+                                    $username = "root";
+                                    $password = "";
+                                    $dbname = "just_database";
+
+                                    $mysqli = new mysqli($servername, $username, $password, $dbname);
+                                    if ($mysqli->connect_error) {
+                                        die("Connection failed: " . $conn->connect_error);
+                                    }
+                                                                        
+                                        /*  PER MOSTRARE TUTTI I MESSAGGI DELL'UTENTE"  */
+                                    $query="SELECT Orario, Data, Ristorante, Testo, Titolo, Ricevuto_Dal_Utente from messaggio, 
+                                    fornitore where ID_USER='".$_SESSION['id']."' AND ID_RISTORANTE = ID_FORNITORE AND 
+                                    Ricevuto_Dal_Utente='1' ORDER BY Data DESC";
+                                    $result = $mysqli->query($query);
+
+                                    while($row = $result->fetch_array())
+                                    {
+                                    $rows[] = $row;
+                                    }
+                                    foreach($rows as $row) {
+                                    
+                                    
+                                    ?>
+
+                                    <div class="list-group msgListRec" style="display: none;">
+                                    <li>
+
+                                    <div class="list-group msgListRec" style="display: none;">
+                                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1"><?php printf ("%s", $row["Titolo"]);?></h5>
+                                                <small><?php printf ("%s", $row["Data"]); echo "-" . date("H:i:s", $row["Orario"]);?></small>
+                                            </div>
+                                            <p class="mb-1"><?php printf ("%s", $row["Testo"]);?></p>
+                                            <small>Ricevuto da: <?php echo $row["Ristorante"];?></small>
+                                        </a>
+                                    </div> 
+                                    </li>
+                                    <?php
+                                    }
+                                    ?>
+
+                                    <br>
+                                    <a href="#top">Torna su<i class="material-icons">vertical_align_top</i></a>
+                            </ul>
+                    </div>
+
+                </div>
+
+
+
+
+                <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-body message">
                             <div class="text-center">
@@ -235,7 +302,7 @@ if(!controllo_cookie()){
     <footer id="myFooter">
         <div class="container">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <h5>Inizia</h5>
                     <ul>
                         <li><a href="#">Home</a></li>
@@ -289,6 +356,12 @@ if(!controllo_cookie()){
         <script>
         $('#inBoxMsg').click(function() {
             $('.msgList').toggle('slow', function() {
+            // Animation complete.
+            });
+        });
+
+        $('#recMsg').click(function() {
+            $('.msgListRec').toggle('slow', function() {
             // Animation complete.
             });
         });
