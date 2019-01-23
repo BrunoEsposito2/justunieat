@@ -39,7 +39,7 @@ create table FORNITORE (
      Cellulare varchar(30) not null,
      Partita_IVA varchar(30) not null,
      Email varchar(50) not null,
-     Valutazione varchar(10) not null,
+     Valutazione varchar(10),
      ID_FORNITORE INT NOT NULL AUTO_INCREMENT,
      constraint ID_FORNITORE_ID primary key (ID_FORNITORE));
 
@@ -51,10 +51,11 @@ create table MENU (
 create table MESSAGGIO (
      Testo varchar(500) not null,
      Data varchar(30) not null,
+	Titolo varchar(30),
      Orario varchar(30) not null,
      ID_MESS INT NOT NULL AUTO_INCREMENT,
      ID_USER INT NOT NULL,
-     ID_RESTURANT INT NOT NULL,
+     ID_RISTORANTE INT NOT NULL,
      constraint ID_MESSAGGIO_ID primary key (ID_MESS));
 
 create table ORDINE (
@@ -79,6 +80,12 @@ create table PIETANZA (
 create table TIPOLOGIA_PIETANZA (
      Nome_Tipologia varchar(30) NOT NULL,
      constraint ID_TIPOLOGIA_PIETANZA_ID primary key(Nome_Tipologia));
+
+create table PIETANZA_NEL_ORDINE (
+	Nome varchar(30) NOT NULL,
+	ID_ORDINE INT NOT NULL,
+	Quantità INT DEFAULT '1',
+	constraint ID primary key (Nome, ID_ORDINE);
 
 create table UTENTE (
      Nome varchar(30) not null,
@@ -123,7 +130,7 @@ alter table MESSAGGIO add constraint REF_MESSA_UTENT_FK
      references UTENTE (ID_USER);
 
 alter table MESSAGGIO add constraint REF_MESSA_FORNI_FK
-     foreign key (ID_RESTURANT)
+     foreign key (ID_RISTORANTE)
      references FORNITORE (ID_FORNITORE);
 
 alter table ORDINE add constraint REF_ORDIN_UTENT_FK
@@ -141,6 +148,14 @@ alter table PIETANZA add constraint REF_PIETA_TIPOL_FK
 alter table PIETANZA add constraint EQU_PIETA_MENU_FK
      foreign key (ID_MENU)
      references MENU (ID_MENU);
+
+alter table PIETANZA_NEL_ORDINE add constraint REF_ID_ORDI
+	foreign key (ID_ORDINE)
+	references ORDINE (ID_ORDINE);
+
+alter table PIETANZA_NEL_ORDINE add constraint REF_ID_PIET
+	foreign key (Nome)
+	references PIETANZA (Nome);
 
 -- Added password to Fornitori
 ALTER TABLE `fornitore` ADD `Password` VARCHAR(50) NOT NULL AFTER `Email`;
