@@ -18,14 +18,19 @@ function controllo_cookie(){
         }
 
 
-        $q="SELECT * from utente where Email='".$tmp."'";
+        $q="SELECT * from utente where Email='".$_SESSION['email']."'";
 		//confronto username e password del cookie con il database
         $query=mysqli_query($conn, $q);
 
+
 		if($query){
-            $row=mysqli_fetch_array($query);
+            $row=mysqli_fetch_array($query, MYSQLI_ASSOC);
 			//immagazzinano le informazioni dell'utente in un array
-			$_SESSION["id"]=$row["ID_USER"];
+            $_SESSION["id"]=$row["ID_USER"];
+                /*  PER MOSTRARE TUTTI I MESSAGGI DELL'UTENTE"  */
+            $q="SELECT * from messaggio where ID_USER='".$_SESSION['id']."'";
+            $query=mysqli_query($conn, $q);
+            $conn->close();
 			return true;
 		} else {
             return false;
@@ -111,26 +116,74 @@ if(!controllo_cookie()){
             </div>
         </div>
     </nav>
-
+    <div>
+        <a name="top"></a>
+    </div>
 
     <div class="jumbotron">
         <div class="container">
             <div class="row inbox">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <div class="panel panel-default">
-                        <div class="panel-body inbox-menu">
+                    
                             <ul>
+                                
                                 <li>
-                                    <a href="#"><i class="fa fa-inbox"></i>Inviati</a>
+                                     <button id="inBoxMsg" class="btn btn-primary btn3d">Messaggi Inviati</button>
                                 </li>
+                                
+                                <?php
+
+                                    $servername = "localhost";
+                                    $username = "root";
+                                    $password = "";
+                                    $dbname = "just_database";
+
+                                    $mysqli = new mysqli($servername, $username, $password, $dbname);
+                                    if ($mysqli->connect_error) {
+                                        die("Connection failed: " . $conn->connect_error);
+                                    }
+                                                                        
+                                        /*  PER MOSTRARE TUTTI I MESSAGGI DELL'UTENTE"  */
+                                    $query="SELECT * from messaggio where ID_USER='".$_SESSION['id']."'";
+                                    
+                                    $result = $mysqli->query($query);
+
+                                    while($row = $result->fetch_array())
+                                    {
+                                    $rows[] = $row;
+                                    }
+                                    foreach($rows as $row) {
+                                    
+                                    
+                                    ?>
+
+                                    <div class="list-group msgList" style="display: none;">
+                                    <li>
+
+                                    <div class="list-group msgList" style="display: none;">
+                                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1"><?php printf ("%s", $row["Titolo"]);?></h5>
+                                                <small><?php printf ("%s", $row["Data"]);?></small>
+                                            </div>
+                                            <p class="mb-1"><?php printf ("%s", $row["Testo"]);?></p>
+                                        </a>
+                                    </div> 
+                                    </li>
+                                    <?php
+                                    }
+                                    ?>
+
+                                    <br>
+                                    <a href="#top">Torna su<i class="material-icons">vertical_align_top</i></a>
                             </ul>
-                        </div>
                     </div>
 
                 </div>
                 <!--/.col-->
 
-                <div class="col-md-10">
+                <div class="col-md-9">
                     <div class="panel panel-default">
                         <div class="panel-body message">
                             <div class="text-center">
@@ -232,6 +285,14 @@ if(!controllo_cookie()){
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+
+        <script>
+        $('#inBoxMsg').click(function() {
+            $('.msgList').toggle('slow', function() {
+            // Animation complete.
+            });
+        });
+        </script>
     
         <?php
 
