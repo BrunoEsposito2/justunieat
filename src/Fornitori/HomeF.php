@@ -1,4 +1,9 @@
 <?php
+
+session_start();
+//echo $_SESSION["Nome"] . "<br>" . $_SESSION["Cognome"];
+
+
  ?>
 
  <!DOCTYPE html>

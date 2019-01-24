@@ -10,7 +10,10 @@ $mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
-echo "Connected successfully";
+
+if(isset($_GET["pass"])){
+  echo "Le password non coincidono";
+}
  ?>
 
 <!DOCTYPE html>
