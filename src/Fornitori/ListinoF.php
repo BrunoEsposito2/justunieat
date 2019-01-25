@@ -1,4 +1,6 @@
 <?php
+
+session_start();
  ?>
 
  <!DOCTYPE html>
@@ -29,10 +31,10 @@
          <div class="navbar-nav float-left text-left pr-3">
            <ul class="navbar-nav mr-auto">
              <li class="nav-item">
-              <a class="nav-link" href="#">Accedi</a>
+              <a class="nav-link" href="#">Benvenuto!</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Registrati</a>
+              <a class="nav-link" href="#"><?php echo $_SESSION["Nome"] . " " . $_SESSION["Cognome"];?></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Notifiche</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
@@ -51,6 +53,8 @@
 <!--I TUOI ORDINI -->
 
 <div id="accordion" class="container col-sm-12 col-md-8">
+
+  <h1 style="text-align:center"><?php echo $_SESSION["Ristorante"] . "<br>";?></h1>
   <h2 style="text-align:center">IL TUO LISTINO</h2>
   <div class="card">
     <div class="card-header" id="headingTitle">
@@ -147,13 +151,53 @@
 
   <div class="card">
         <button id="headingThree" class="card-header btn btn-default collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Piatto #3
+          Aggiungi piatto
         </button>
     </div>
 
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-      <div class="card-body">
-        Info piatto
+      <div class="card-body row">
+        <!-- ADD PHP -->
+        <form action="addPiattoF.php" method="POST">
+          
+        <label for="NomePiatto">Nome:</label>
+        <textarea class="form-control" name="NomePiatto">Nome del piatto</textarea>
+
+        <div class="classDescrPiatto col-sm-12 col-lg-4">
+          <label for="DescrizionePiatto">Descrizione:</label>
+          <textarea class="form-control" name="DescrizionePiatto">Descrizione del piatto</textarea>
+        </div>
+
+        <div class="classTipoPiatto col-sm-12 col-lg-4">
+          <label for="TipoCucina">Cucina:</label>
+          <select class="form-control" name="TipoCucina">
+            <option selected>Romagnolo</option>
+            <option>Giapponese</option>
+          </select>
+
+          <label for="TipoPiatto">Piatto:</label>
+          <select class="form-control" name="TipoPiatto">
+            <option>Primo</option>
+            <option>Secondo</option>
+          </select>
+        </div>
+
+        <div class="classCheckboxes">
+          <label for="VegP">Vegetariano</label>
+          <input type="checkbox" name="VegP">
+
+          <label for="PicP">Piccante</label>
+          <input type="checkbox" name="PicP">
+
+        <div class="classButtonsPiatto col-sm-12 col-lg-4">
+          <label for="PrezzoPiatto">Prezzo: </label>
+          <textarea class="form-control" name="PrezzoPiatto">€Millemila</textarea>
+
+          <!-- ADD JS AND/OR PHP-->
+          <button class="btn btn-default" name="InserisciPiattoF">Conferma</button>
+        </div>
+
+      </form>
       </div>
     </div>
 

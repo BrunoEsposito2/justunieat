@@ -340,6 +340,10 @@ label {
     #myFooter .row {
         margin: 0;
     }
+
+    .containerMenu {
+      display:none;
+    }
 }
 
 

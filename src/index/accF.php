@@ -18,8 +18,6 @@ if(isset($_POST["emailF"])){
 
   $queryLogF->execute();
 
-  //$queryLogF->bind_result($NomeF, $CognomeF, $RistoranteF, $CellulareF, $Partita_IVAF, $EmailF, $PasswordF, $ValutazioneF, $ID_FORNITOREF);
-
   $result = $queryLogF->get_result();
 
   $num_rows = $result->num_rows;
@@ -33,6 +31,11 @@ if(isset($_POST["emailF"])){
       session_start();
       $_SESSION["Nome"] = $row["Nome"];
       $_SESSION["Cognome"] = $row["Cognome"];
+      $_SESSION["Ristorante"] = $row["Ristorante"];
+      $_SESSION["Cellulare"] = $row["Cellulare"];
+      $_SESSION["Partita_IVA"] = $row["Partita_IVA"];
+      $_SESSION["Email"] =  $row["Email"];
+      $_SESSION["ID_FORNITORE"] = $row["ID_FORNITORE"];
       header("location: /Progetto2019/src/Fornitori/HomeF.php");
     }
   } else {
