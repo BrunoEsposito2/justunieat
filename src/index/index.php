@@ -73,7 +73,7 @@ if(!controllo_cookie()){
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Just Uni Eat</a>
+        <a class="navbar-brand" href="index.php">Just Uni Eat</a>
         <a href="checkout.html">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
@@ -90,7 +90,7 @@ if(!controllo_cookie()){
                         <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navMes" href="#">
+                        <a class="nav-link" id="navMes" href="message.php">
                           <i class="fa fa-envelope-o">
                             <span class="badge badge-danger">1</span>
                           </i>
@@ -113,29 +113,32 @@ if(!controllo_cookie()){
     <div class="jumbotron animated shake">
         <h1 class="display-4 ">Basta studiare! Cosa vuoi mangiare?</h1>
 
-        <form class="category" action="/action_page.php">
+        <form class="category" action="show.php" method="GET">
             <label class="check">
-                <input type="checkbox" name="pizza" value="pizza">
+                <input type="checkbox" name="category[]" value="Pizza">
             </label>Pizza<br>
             <label class="check">
-                <input type="checkbox" name="pasta" value="pasta">
+                <input type="checkbox" name="category[]" value="Pasta">
             </label>Pasta<br>
             <label class="check">
-                <input type="checkbox" name="pasta" value="cinese">
+                <input type="checkbox" name="category[]" value="Cinese">
             </label>Cinese<br>
             <label class="check">
-                <input type="checkbox" name="pasta" value="giapponese">
+                <input type="checkbox" name="category[]" value="Giapponese">
             </label>Giapponese<br>
             <label class="check">
-                <input type="checkbox" name="pasta" value="italiano">
-            </label>Italiano<br>
-        </form>
+                <input type="checkbox" name="category[]" value="Italiana">
+            </label>Italiana<br>
+        
 
-        <div class="form-row text-center">
-            <div class="col-12">
-                <button type="button" class="btn btn-default btn-lg btn3d">ORDINA!</button>
+         <!--POTREI MODIFICARE L'INVIO DEL SHOW.PHP INNESTANDOGLI LE SCELTE FATTE DELLE CATEGORIE!" COME SI VEDE IN STACK OVERFLOW!"-->
+
+            <div class="form-row text-center">
+                <div class="col-12">
+                    <button type="submit" value="submit" class="btn btn-default btn-lg btn3d">ORDINA!</button>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 
     <div class="content">

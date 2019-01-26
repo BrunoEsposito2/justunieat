@@ -1,4 +1,9 @@
 <?php
+
+session_start();
+//echo $_SESSION["Nome"] . "<br>" . $_SESSION["Cognome"];
+
+
  ?>
 
  <!DOCTYPE html>
@@ -12,6 +17,8 @@
      <link rel="stylesheet" href="style.css">
      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
      <link rel="icon" href="http://example.com/favicon.png">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
      <title>Just Uni Eat Fornitori</title>
  </head>
  <body>
@@ -29,10 +36,10 @@
          <div class="navbar-nav float-left text-left pr-3">
            <ul class="navbar-nav mr-auto">
              <li class="nav-item">
-              <a class="nav-link" href="#">Accedi</a>
+              <a class="nav-link" href="#">Benvenuto!</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Registrati</a>
+              <a class="nav-link" href="#"><?php echo $_SESSION["Nome"] . " " . $_SESSION["Cognome"];?></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Notifiche</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
@@ -51,8 +58,24 @@
 <!--BODY-->
 
 <!--I TUOI ORDINI -->
+<button class="ShowMenuF btn btn-default row" style="margin:1em" onclick="ToggleMenu()">Menu</button></br>
+<script> function ToggleMenu() {
+
+  $(".containerMenu").toggle();
+}
+</script>
+
+<div class="containerMenu col-sm-12 col-md-4" style="margin-left: 2%; float:left;">
+
+  <button class="btn btn-default" style="margin-bottom:0.5em" onclick="window.location.href='DatiF.php'">I TUOI DATI</button></br>
+  <button class="btn btn-default" style="margin-bottom:0.5em" onclick="window.location.href='OrdiniF.php'">ORDINI</button></br>
+  <button class="btn btn-default" style="margin-bottom:0.5em" onclick="window.location.href='ListinoF.php'">LISTINO</button></br>
+
+</div>
+
 
 <div class="container col-sm-12 col-md-8">
+  <h1 style="text-align:center"><?php echo $_SESSION["Ristorante"] . "<br>";?></h1>
   <h2 style="text-align:center">I TUOI ORDINI</h2>
 
   <table class="table table-hover">

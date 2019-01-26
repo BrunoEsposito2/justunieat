@@ -958,3 +958,27 @@ body{ margin: 0px; }
         color: #d1d4d7
     }
     
+
+    #catHr {
+        color: white;
+    }
+    
+    #Hr_cat {
+        color: white;
+        background-color: white;
+        height: 1px;
+    }
+
+    #icon_show_apply {
+        font-size: 30px;
+        margin-right: 10px;
+        margin-left: 0px;
+    }
+
+    .card_icon_filtri {
+        padding-left: 0%;
+    }
+
+    .checked {
+        color: red;
+      }
