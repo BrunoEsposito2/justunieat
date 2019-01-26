@@ -66,7 +66,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link href='https://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
     <title>Just Uni Eat | Accedi</title>
 </head>
 
@@ -118,7 +118,7 @@
       </li>
 
       <li class="nav-item  btn btn-default">
-        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#AccForn" role="tab" aria-controls="profile" aria-selected="false">Ristorante</a>
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#AccForn" role="tab" aria-controls="profile" aria-selected="false">Fornitore</a>
       </li>
     </ul>
 
@@ -164,7 +164,7 @@
                   <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
                       <p>Password o Email non corretta</p>
                   </div>
-                  <h1 class="h3 mb-3 font-weight-normal">Accedifornitore</h1>
+                  <h1 class="h3 mb-3 font-weight-normal">Accedi come Fornitore</h1>
                   <label for="inputEmailF" class="sr-only">Email</label>
                   <input type="email" name="emailF" id="inputEmailF" class="form-control" placeholder="Email" required="" autofocus="">
 

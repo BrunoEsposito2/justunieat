@@ -2,6 +2,10 @@
 
     $error = false;
 
+    if(isset($_GET["errF"])){
+      echo "Credenziali errate"; 
+    }
+
 
     if(isset($_POST['btnLogin'])){
 
@@ -16,7 +20,7 @@
         }
 
         if(isset($_POST['email'])) {
-            $q="SELECT * from utente where Email ='".($_POST['email'])."' and Password='".($_POST['pass'])."'";
+            $q="SELECT * from utente where Email ='".($_POST['email'])."' and _Password='".($_POST['pass'])."'";
             $query=mysqli_query($conn, $q);
         }
 
@@ -68,13 +72,13 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
-        <a href="checkout.php">
+        <a href="checkout.html">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -107,39 +111,88 @@
         </div>
     </nav>
 
-    <div class="jumbotron text-center">
-        <div class="text-center">
-            <form class="form-signin" name="btnLogin" method="POST">
-                <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
-                    <p>Password o Email non corretta</p>
-                </div>
-                <h1 class="h3 mb-3 font-weight-normal">Accedi</h1>
-                <label for="inputEmail" class="sr-only">Email</label>
-                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Password" required="">
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Ricordami
-                    </label>
-                    <div class="form-row">
-                        <div class="col-12">
-                            <button type="submit" name="btnLogin" class="btn btn-primary btn-lg btn3d reg_but">ACCEDI</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row haveyet">
-                    <div class="col mb-12">
-                        <p>Non hai ancora un account? <a href="./registrati.php">Registrati</a></p>
-                    </div>
-                </div>
-            </form>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item ">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#AccCli" role="tab" aria-controls="home" aria-selected="true">Cliente</a>
+      </li>
+
+      <li class="nav-item  ">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#AccForn" role="tab" aria-controls="profile" aria-selected="false">Fornitore</a>
+      </li>
+    </ul>
+
+    <div class="jumbotron jumboAcc text-center">
+
+      <div class="tab-content col-sm-12" id="myTabContent">
+        <div class="tab-pane fade show active col-sm-12" id="AccCli" role="tabpanel" aria-labelledby="home-tab">
+          <div class="text-center">
+              <form class="form-signin" name="btnLogin" method="POST">
+                  <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
+                      <p>Password o Email non corretta</p>
+                  </div>
+                  <h1 class="h3 mb-3 font-weight-normal">Accedi come Utente</h1>
+                  <label for="inputEmail" class="sr-only">Email</label>
+                  <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
+
+                  <label for="inputPassword" class="sr-only">Password</label>
+                  <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Password" required="">
+
+                  <div class="checkbox mb-3">
+                      <label>
+                          <input type="checkbox" value="remember-me"> Ricordami
+                      </label>
+                      <div class="form-row">
+                          <div class="col-12">
+                              <button type="submit" name="btnLogin" class="btn btn-primary btn-lg btn3d reg_but">ACCEDI</button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row haveyet">
+                      <div class="col mb-12">
+                          <p>Non hai ancora un account? <a href="./registrati.php">Registrati</a></p>
+                      </div>
+                  </div>
+              </form>
+          </div>
         </div>
 
+
+        <div class="tab-pane fade show col-sm-12" id="AccForn" role="tabpanel" aria-labelledby="home-tab">
+          <div class="text-center">
+              <form class="form-signin" name="btnLoginF" action="accF.php" method="POST">
+                  <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
+                      <p>Password o Email non corretta</p>
+                  </div>
+                  <h1 class="h3 mb-3 font-weight-normal">Accedi come Fornitore</h1>
+                  <label for="inputEmailF" class="sr-only">Email</label>
+                  <input type="email" name="emailF" id="inputEmailF" class="form-control" placeholder="Email" required="" autofocus="">
+
+                  <label for="inputPasswordF" class="sr-only">Password</label>
+                  <input type="password" name="passwordF" id="inputPasswordF" class="form-control" placeholder="Password" required="">
+
+                  <div class="checkbox mb-3">
+                      <label>
+                          <input type="checkbox" value="remember-me"> Ricordami
+                      </label>
+                      <div class="form-row">
+                          <div class="col-12">
+                              <button type="submit" name="btnLogin" class="btn btn-primary btn-lg btn3d reg_but">ACCEDI</button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row haveyet">
+                      <div class="col mb-12">
+                          <p>Non hai ancora un account? <a href="./registrati.php">Registrati</a></p>
+                      </div>
+                  </div>
+              </form>
+          </div>
+        </div>
+
+
+      </div>
     </div>
-
-
-
 
 
     <div class="content">
