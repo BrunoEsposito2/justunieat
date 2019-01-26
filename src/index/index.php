@@ -11,7 +11,7 @@ function controllo_cookie(){
         $username = "root";
         $password = "";
         $dbname = "just_database";
-        
+
         $conn = new mysqli($servername, $username, $password, $dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -30,12 +30,12 @@ function controllo_cookie(){
 		} else {
             return false;
         }
-			
+
 
 	}else {
         return false;
     }
-		
+
 
 }
 
@@ -74,7 +74,7 @@ if(!controllo_cookie()){
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
-        <a href="checkout.html">
+        <a href="checkout.php">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -129,7 +129,7 @@ if(!controllo_cookie()){
             <label class="check">
                 <input type="checkbox" name="category[]" value="Italiana">
             </label>Italiana<br>
-        
+
 
          <!--POTREI MODIFICARE L'INVIO DEL SHOW.PHP INNESTANDOGLI LE SCELTE FATTE DELLE CATEGORIE!" COME SI VEDE IN STACK OVERFLOW!"-->
 
@@ -206,7 +206,7 @@ if(!controllo_cookie()){
     ?>
 
         <script>
-        
+
         $(document).ready(function() {
             var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
             var hello = "Ciao, ";
@@ -218,17 +218,17 @@ if(!controllo_cookie()){
             document.getElementById('navOrd').style.display = "block";
             document.getElementById('navExit').style.display = "block";
         });
-        
+
         </script>
     <?php
     } else {
     ?>
 
     <script>
-    
-    
+
+
     </script>
-    
+
     <?php
 
 

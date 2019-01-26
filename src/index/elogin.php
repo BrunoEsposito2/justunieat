@@ -22,7 +22,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="#">Just Uni Eat</a>
-        <a href="#">
+        <a href="checkout.php">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -61,9 +61,9 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
+
     $auth = false;
-    
+
         $errors = "";
         $insertError = "";
         $auth = false;
@@ -90,8 +90,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo $errors;
             if(strlen($errors) == 0){
-        
-            
+
+
             $servername = "localhost";
             $username = "root";
             $password = "";
@@ -102,9 +102,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            $stmt = $conn->prepare("INSERT INTO utente (Nome, Cognome, Email, _Password, Cellulare) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO utente (Nome, Cognome, Email, Password, Cellulare) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssss", $nome, $cognome, $email, $pass, $cell);
-                    
+
             $nome = $_POST["nome"];
             $cognome = $_POST["cognome"];
             $email = $_POST["email"];
@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if(!$isInserted){
                 $insertError = $stmt->error;
             }
-               
+
             if ($isInserted) {
                 session_start();
                 $time_cookie=3600*24*7;
@@ -123,13 +123,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 setcookie("session", $_POST['nome'], time()+$time_cookie, "/");
                 $_SESSION['email'] = $email;
                 $_SESSION['nome'] = $nome;
-                $stmt->close();     
+                $stmt->close();
                 $auth = true;
             }
-             
-        } 
 
-}    
+        }
+
+}
         ?>
 
     <div class="jumbotron animated shake">
@@ -224,7 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ?>
 
         <script>
-        
+
         $(document).ready(function() {
             var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
             var hello = "Ciao, ";
@@ -236,7 +236,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             document.getElementById('navOrd').style.display = "block";
             document.getElementById('navExit').style.display = "block";
         });
-        
+
         </script>
     <?php
     } else {
@@ -259,7 +259,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
-
-
-
-
