@@ -155,17 +155,18 @@ session_start();
         </button>
     </div>
 
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-      <div class="card-body row">
+    <div id="collapseThree" class="collapse container-fluid" aria-labelledby="headingThree" data-parent="#accordion">
+      <div class="card-body">
         <!-- ADD PHP -->
-        <form action="addPiattoF.php" method="POST">
-          
-        <label for="NomePiatto">Nome:</label>
-        <textarea class="form-control" name="NomePiatto">Nome del piatto</textarea>
+        <form action="addPiattoF.php" method="POST" class="container-fluid row">
 
         <div class="classDescrPiatto col-sm-12 col-lg-4">
+        <label for="NomePiatto">Nome:</label>
+        <textarea class="form-control " name="NomePiatto">Nome del piatto</textarea>
+
+
           <label for="DescrizionePiatto">Descrizione:</label>
-          <textarea class="form-control" name="DescrizionePiatto">Descrizione del piatto</textarea>
+          <textarea class="form-control " name="DescrizionePiatto">Descrizione del piatto</textarea>
         </div>
 
         <div class="classTipoPiatto col-sm-12 col-lg-4">
@@ -182,20 +183,24 @@ session_start();
           </select>
         </div>
 
-        <div class="classCheckboxes">
-          <label for="VegP">Vegetariano</label>
-          <input type="checkbox" name="VegP">
-
-          <label for="PicP">Piccante</label>
-          <input type="checkbox" name="PicP">
-
         <div class="classButtonsPiatto col-sm-12 col-lg-4">
-          <label for="PrezzoPiatto">Prezzo: </label>
-          <textarea class="form-control" name="PrezzoPiatto">€Millemila</textarea>
+          <div class="classCheckboxes">
+            <div class="col-sm-12">
+              <label for="VegP">Vegetariano</label>
+              <input  type="checkbox" name="VegP">
+            </div>
+            <div class="col-sm-12">
+              <label for="PicP">Piccante</label>
+              <input type="checkbox" name="PicP">
+            </div>
+
+            <label for="PrezzoPiatto">Prezzo: </label>
+            <textarea class="form-control" name="PrezzoPiatto">€Millemila</textarea>
+          </div>
 
           <!-- ADD JS AND/OR PHP-->
-          <button class="btn btn-default" name="InserisciPiattoF">Conferma</button>
-        </div>
+          <button class="btn btn-default row" name="InserisciPiattoF" style="margin-top:1em;">Conferma</button>
+          </div>
 
       </form>
       </div>

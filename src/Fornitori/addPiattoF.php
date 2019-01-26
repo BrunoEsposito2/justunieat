@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 define("HOST", "localhost"); // E' il server a cui ti vuoi connettere
 define("USER", "admin_user"); // E' l'utente con cui ti collegherai al DB.
 define("PASSWORD", "Justunieat2019"); // Password di accesso al DB.
@@ -31,11 +31,15 @@ if(isset($_POST["NomePiatto"]) &&
      $Veg = 0;
    }
 
-   $queryRegP = $mysqli->prepare("INSERT INTO pietanza(Nome, Descrizione, Prezzo, Vegetariano, Piccante, Tipologia) VALUES (?, ?, ?, ?, ?, ?)");
+   $queryRegP = $mysqli->prepare("INSERT INTO pietanza(Nome, Descrizione, Prezzo, Vegetariano, Piccante, Tipologia, ID_MENU) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-   $queryRegP->bind_param("sssiis", $_POST["NomePiatto"], $_POST["DescrizionePiatto"], $_POST["PrezzoPiatto"], $Veg, $Piccante, $_POST["TipoCucina"]);
+   $queryRegP->bind_param("sssiisi", $_POST["NomePiatto"], $_POST["DescrizionePiatto"], $_POST["PrezzoPiatto"], $Veg, $Piccante, $_POST["TipoCucina"], $_SESSION["ID_FORNITORE"]);
 
+   $queryRegP->execute();
 
+   echo "Query eseguita<br><br>";
+
+   echo $queryRegP->error;
 
  }
 ?>
