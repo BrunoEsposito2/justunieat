@@ -262,7 +262,7 @@ label input[value="remember-me"] {
 }
 
 #myFooter .container {
-    /*width: auto;*/
+    width: auto;
 }
 
 #myFooter ul {
@@ -959,7 +959,7 @@ body{ margin: 0px; }
     }
     
 
-    #catHr {
+    .catHr {
         color: white;
     }
     

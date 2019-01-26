@@ -149,17 +149,17 @@ if(!controllo_cookie()){
                 <div class="col-sm-3">
                     <h5>Inizia</h5>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Accedi</a></li>
-                        <li><a href="#">Registrati</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="accedi.php">Accedi</a></li>
+                        <li><a href="registrati.html">Registrati</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h5>Chi siamo</h5>
                     <ul>
-                        <li><a href="#">La Nostra Storia</a></li>
-                        <li><a href="#">Contattaci</a></li>
-                        <li><a href="#">Dicono di noi</a></li>
+                        <li><a href="storia.html">La Nostra Storia</a></li>
+                        <li><a href="contacci.html">Contattaci</a></li>
+                        <li><a href="our.html">Dicono di noi</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">

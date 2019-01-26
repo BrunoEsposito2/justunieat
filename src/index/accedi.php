@@ -62,7 +62,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link href='https://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
     <title>Just Uni Eat | Accedi</title>
 </head>
 
@@ -73,7 +73,7 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Just Uni Eat</a>
+        <a class="navbar-brand" href="index.php">Just Uni Eat</a>
         <a href="checkout.php">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
@@ -87,7 +87,7 @@
                         <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navMes" href="#">
+                        <a class="nav-link" id="navMes" href="message.php">
                           <i class="fa fa-envelope-o">
                             <span class="badge badge-danger">1</span>
                           </i>
@@ -150,17 +150,17 @@
                 <div class="col-sm-3">
                     <h5>Inizia</h5>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Accedi</a></li>
-                        <li><a href="#">Registrati</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="accedi.php">Accedi</a></li>
+                        <li><a href="registrati.html">Registrati</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h5>Chi siamo</h5>
                     <ul>
-                        <li><a href="#">La Nostra Storia</a></li>
-                        <li><a href="#">Contattaci</a></li>
-                        <li><a href="#">Dicono di noi</a></li>
+                        <li><a href="storia.html">La Nostra Storia</a></li>
+                        <li><a href="contacci.html">Contattaci</a></li>
+                        <li><a href="dicono_di_noi">Dicono di noi</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">

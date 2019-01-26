@@ -80,7 +80,7 @@ if(!controllo_cookie()){
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Just Uni Eat</a>
+        <a class="navbar-brand" href="index.php">Just Uni Eat</a>
         <a href="#">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
@@ -122,6 +122,9 @@ if(!controllo_cookie()){
 
     <div class="jumbotron">
         <div class="container">
+        <div class="text-center">
+                                <h2>Area Messaggi</h2>
+                            </div>
             <div class="row inbox">
                 <div class="col-md-3">
                     <div class="panel panel-default">
@@ -186,76 +189,9 @@ if(!controllo_cookie()){
                 </div>
                 
 
-                <div class="col-md-3">
-                    <div class="panel panel-default">
-                    
-                            <ul>
-                                
-                                <li>
-                                     <button id="recMsg" class="btn btn-info btn3d">Messaggi Ricevuti</button>
-                                </li>
-                                
-                                <?php
-
-                                    $servername = "localhost";
-                                    $username = "root";
-                                    $password = "";
-                                    $dbname = "just_database";
-
-                                    $mysqli = new mysqli($servername, $username, $password, $dbname);
-                                    if ($mysqli->connect_error) {
-                                        die("Connection failed: " . $conn->connect_error);
-                                    }
-                                                                        
-                                        /*  PER MOSTRARE TUTTI I MESSAGGI DELL'UTENTE"  */
-                                    $query="SELECT Orario, Data, Ristorante, Testo, Titolo, Ricevuto_Dal_Utente from messaggio, 
-                                    fornitore where ID_USER='".$_SESSION['id']."' AND ID_RISTORANTE = ID_FORNITORE AND 
-                                    Ricevuto_Dal_Utente='1' ORDER BY Data DESC";
-                                    $result = $mysqli->query($query);
-
-                                    while($row = $result->fetch_array())
-                                    {
-                                    $rows[] = $row;
-                                    }
-                                    foreach($rows as $row) {
-                                    
-                                    
-                                    ?>
-
-                                    <div class="list-group msgListRec" style="display: none;">
-                                    <li>
-
-                                    <div class="list-group msgListRec" style="display: none;">
-                                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1"><?php printf ("%s", $row["Titolo"]);?></h5>
-                                                <small><?php printf ("%s", $row["Data"]); echo "-" . date("H:i:s", $row["Orario"]);?></small>
-                                            </div>
-                                            <p class="mb-1"><?php printf ("%s", $row["Testo"]);?></p>
-                                            <small>Ricevuto da: <?php echo $row["Ristorante"];?></small>
-                                        </a>
-                                    </div> 
-                                    </li>
-                                    <?php
-                                    }
-                                    ?>
-
-                                    <br>
-                                    <a href="#top">Torna su<i class="material-icons">vertical_align_top</i></a>
-                            </ul>
-                    </div>
-
-                </div>
-
-
-
-
                 <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-body message">
-                            <div class="text-center">
-                                <h2 class="text-center">Area Messaggi</h2>
-                            </div>
                             <form class="form-horizontal" method="POST" action="sendMess.php" role="form">
                                 <div class="form-group">
                                     <label for="to" class="col-sm-1 control-label">A:</label>
@@ -290,6 +226,73 @@ if(!controllo_cookie()){
                         </div>
                     </div>
                 </div>
+
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                    
+                            <ul>
+                                
+                                <li>
+                                     <button id="recMsg" class="btn btn-info btn3d">Messaggi Ricevuti</button>
+                                </li>
+                                
+                                <?php
+
+                                    $servername = "localhost";
+                                    $username = "root";
+                                    $password = "";
+                                    $dbname = "just_database";
+                                    $rows = array();
+                                    $mysqli = new mysqli($servername, $username, $password, $dbname);
+                                    if ($mysqli->connect_error) {
+                                        die("Connection failed: " . $conn->connect_error);
+                                    }
+                                                                        
+                                        /*  PER MOSTRARE TUTTI I MESSAGGI DELL'UTENTE"  */
+                                    $query="SELECT Orario, Data, Ristorante, Testo, Titolo, Ricevuto_Dal_Utente from messaggio, 
+                                    fornitore where ID_USER='".$_SESSION['id']."' AND ID_RISTORANTE = ID_FORNITORE AND 
+                                    Ricevuto_Dal_Utente='1' ORDER BY Data DESC";
+                                    
+                                    $result = $mysqli->query($query);
+
+                                    while($row = $result->fetch_array())
+                                    {
+                                    $rows[] = $row;
+                                    }
+                                    foreach($rows as $row) {
+                                    
+                                    
+                                    ?>
+
+                                    <div class="list-group msgListRec" style="display: none;">
+                                    <li>
+
+                                    <div class="list-group msgListRec" style="display: none;">
+                                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <h5 class="mb-1"><?php printf ("%s", $row["Titolo"]);?></h5>
+                                                <small><?php printf ("%s", $row["Data"]); echo "-" . date("H:i:s", $row["Orario"]);?></small>
+                                            </div>
+                                            <p class="mb-1"><?php printf ("%s", $row["Testo"]);?></p>
+                                            <small>Inviato da: <?php echo $row["Ristorante"];?></small>
+                                        </a>
+                                    </div> 
+                                    </li>
+                                    <?php
+                                    }
+                                    ?>
+
+                                    <br>
+                                    <a id="top_rec_arr" href="#top" style="display:none;">Torna su<i class="material-icons">vertical_align_top</i></a>
+                            </ul>
+                    </div>
+
+                </div>
+
+
+
+
+                
                 <!--/.col-->
             </div>
         </div>
@@ -361,8 +364,9 @@ if(!controllo_cookie()){
         });
 
         $('#recMsg').click(function() {
-            $('.msgListRec').toggle('slow', function() {
-            // Animation complete.
+            document.getElementById('top_rec_arr').style.display = "block";
+            $('.msgListRec').toggle('fadeOut', function() {
+            //Aniamtion
             });
         });
         </script>

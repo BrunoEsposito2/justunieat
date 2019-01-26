@@ -117,112 +117,73 @@ if(!controllo_cookie()){
                     <h1>Ristoranti</h1>
                 </div>
 
-                <div class="col-md-4">
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Cerca ristorante..." aria-label="Search">
-                            <button type="button" class="btn btn-primary btn-sm btn3d">Cerca</button>
-                        </form>
-                </div>
             </div>
 
             <div class="row">
-                <div class="col-md-3">
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <strong>
-                                        <p>Categorie</p>
-                                    </strong>
-                                    <ul>
-                                        <li>
-                                            <div class="contact">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    <span>Italiana</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="contact">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    <span>Cinese</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="contact">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    <span>Giapponese</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="contact">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    <span>Pizza</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="contact">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    <span>Rutti</span>
-                                                </label>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="col-md-3">
+                        <form method="GET" >
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <strong>
+                                                <p>Categorie</p>
+                                            </strong>
+                                            <ul>
+                                            <?php
 
+                                            $servername = "localhost";
+                                            $username = "root";
+                                            $password = "";
+                                            $dbname = "just_database";
 
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <strong>
-                                        <p>Filtri</p>
-                                    </strong>
-                                    <div class="contact">
-                                        <label>
-                                            <input type="checkbox">
-                                            <span>Top recensioni</span>
-                                        </label>
-                                    </div>
-                                    <div class="contact">
-                                        <label>
-                                            <input type="checkbox">
-                                            <span>Vegetariani</span>
-                                        </label>
-                                    </div>
-                                    <div class="contact">
-                                        <label>
-                                            <input type="checkbox">
-                                            <span>No piccante</span>
-                                        </label>
+                                            $mysqli = new mysqli($servername, $username, $password, $dbname);
+                                            if ($mysqli->connect_error) {
+                                                die("Connection failed: " . $conn->connect_error);
+                                            }
+
+                                            $row = "";
+                                            $result = "";
+
+                                            $q="SELECT Nome from categoria_ristorante";
+
+                                            $result = $mysqli->query($q);
+                                            while($row = $result->fetch_array()) {
+                                                $rows[] = $row;
+                                            }
+                                            foreach($rows as $row) {
+                                            ?>
+                                                <li>
+                                                    <div class="contact">
+                                                        <label>
+                                                            <input type="checkbox" name="category[]" value="<?php echo $row['Nome']?>">
+                                                            <span><?php echo $row["Nome"]?></span>
+                                                        </label>
+                                                    </div>
+                                                </li>
+                                            <?php
+                                            }
+                                            ?>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body card_icon_filtri text-center">
-                                <i class="material-icons" id="icon_show_apply">save_alt</i><button type="button" class="btn btn-danger btn3d">Applica Filtri</button>
+
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body card_icon_filtri text-center">
+                                        <i class="material-icons" id="icon_show_apply">save_alt</i><button type="submit" class="btn btn-danger btn3d">Applica Filtri</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>    
                     </div>
-
-                </div>
+                
+                    
                 <div class="col-md-9">
 
                     <?php
@@ -241,12 +202,14 @@ if(!controllo_cookie()){
                         $row = "";
                         $result = "";
 
-                        $categorys = $_GET['category'];
-                        if(count($categorys) > 0) {
+                        if(isset($_GET['category'])) {
+                            $categorys = $_GET['category'];
+                        } 
+                        if(isset($_GET['category'])) {
                             foreach ($categorys as $category){ 
                                 $rows = array();
                                 ?>
-                                <?php echo "<h4 id='catHr'>$category</h4>" ?>
+                                <?php echo "<h4 class='catHr'>$category</h4>" ?>
                                 <hr id="Hr_cat"/>
                                 <?php
                                 $q="SELECT cef.Nome, f.ID_FORNITORE, f.Ristorante, f.Cellulare, f.Valutazione, m.ID_MENU
@@ -261,36 +224,39 @@ if(!controllo_cookie()){
                                             
                                             <div class="row mb-3">
                                                 <div class="col-md-12">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col-md-3">
-                                                                    <img src="<?php $output="http://lorempixel.com/300/150/food/"; echo $output."?".rand(); ?>">
-                                                                </div>
-                                                                <div class="col-md-7">
-                                                                    <h5><?php echo $row["Ristorante"]?></h5>
-                                                                    <small><?php echo $row["Nome"]?></small>
-                                                                    <p><small><?php echo $row["Cellulare"]?></small></p>
-                                                                    <?php 
-                                                                    $fiveStar = 5;
-                                                                    $blackStar = 5;
-                                                                    $blackStar -= (int)$row["Valutazione"];
-                                                                    for($i = 0; $i < (int)$row["Valutazione"]; $i++){
-                                                                        echo "<span class='fa fa-star checked'></span>";
-                                                                    }
-                                                                    if($blackStar > 0) {
-                                                                        for($i = 0; $i < $blackStar; $i++){
-                                                                            echo "<span class='fa fa-star'></span>";
-                                                                        } 
-                                                                    }
-                                                                    ?>
-                                                                </div>
-                                                                <div class="col-md-2">
-                                                                    <button type="button" class="btn btn-sm btn3d btn-default menu_bt">MENU</button>
+                                                    <form action='resturant.php' method="GET">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <img alt="resturant_image" src="<?php $output="http://lorempixel.com/300/150/food/"; echo $output."?".rand(); ?>">
+                                                                    </div>
+                                                                    <div class="col-md-7">
+                                                                        <input type="hidden" name="id" value="<?=$row['ID_FORNITORE'];?>" />
+                                                                        <h5><?php echo $row["Ristorante"]?></h5>
+                                                                        <small><?php echo $row["Nome"]?></small>
+                                                                        <p><small><?php echo $row["Cellulare"]?></small></p>
+                                                                        <?php 
+                                                                        $fiveStar = 5;
+                                                                        $blackStar = 5;
+                                                                        $blackStar -= (int)$row["Valutazione"];
+                                                                        for($i = 0; $i < (int)$row["Valutazione"]; $i++){
+                                                                            echo "<span class='fa fa-star checked'></span>";
+                                                                        }
+                                                                        if($blackStar > 0) {
+                                                                            for($i = 0; $i < $blackStar; $i++){
+                                                                                echo "<span class='fa fa-star'></span>";
+                                                                            } 
+                                                                        }
+                                                                        ?>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <button type="submit" class="btn btn-sm btn3d btn-default menu_bt">MENU</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </form>
                                                 </div>
                                             </div>
 
@@ -298,10 +264,62 @@ if(!controllo_cookie()){
                                 }
                             }   
                         } else {
+
+                                ?>
+
+                                <h4 class="catHr">Tutte le Categorie<h2>
+                                <?php
                                 $q="SELECT cef.Nome, f.ID_FORNITORE, f.Ristorante, f.Cellulare, f.Valutazione, m.ID_MENU
                                 FROM categorie as cat, categoria_ristorante as cef, fornitore as f, menu as m
                                 WHERE cat.ID_FORNITORE = f.ID_FORNITORE AND cef.ID_CAT = cat.ID_CAT and m.ID_MENU = f.ID_FORNITORE";
                                 
+                                $rows = array();
+                                $result = $mysqli->query($q);
+                                while($row = $result->fetch_array()) {
+                                    $rows[] = $row;
+                                }
+                                foreach($rows as $row) {
+                                        ?>
+                                            <div class="row mb-3">
+                                                <div class="col-md-12">
+                                                    <form action='resturant.php' method="GET">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-3">
+                                                                        <img alt="resturant_image" src="<?php $output="http://lorempixel.com/300/150/food/"; echo $output."?".rand(); ?>">
+                                                                    </div>
+                                                                    <div class="col-md-7">
+                                                                        <input type="hidden" name="id" value="<?=$row['ID_FORNITORE'];?>" />
+                                                                        <h5><?php echo $row["Ristorante"]?></h5>
+                                                                        <small><?php echo $row["Nome"]?></small>
+                                                                        <p><small><?php echo $row["Cellulare"]?></small></p>
+                                                                        <?php 
+                                                                        $fiveStar = 5;
+                                                                        $blackStar = 5;
+                                                                        $blackStar -= (int)$row["Valutazione"];
+                                                                        for($i = 0; $i < (int)$row["Valutazione"]; $i++){
+                                                                            echo "<span class='fa fa-star checked'></span>";
+                                                                        }
+                                                                        if($blackStar > 0) {
+                                                                            for($i = 0; $i < $blackStar; $i++){
+                                                                                echo "<span class='fa fa-star'></span>";
+                                                                            } 
+                                                                        }
+                                                                        ?>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <button type="submit" class="btn btn-sm btn3d btn-default menu_bt">MENU</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        <?php    
+                                }
                         }
                     ?>
 
