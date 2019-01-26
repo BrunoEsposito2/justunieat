@@ -31,15 +31,37 @@ if(isset($_POST["NomePiatto"]) &&
      $Veg = 0;
    }
 
-   $queryRegP = $mysqli->prepare("INSERT INTO pietanza(Nome, Descrizione, Prezzo, Vegetariano, Piccante, Tipologia, ID_MENU) VALUES (?, ?, ?, ?, ?, ?, ?)");
+   $queryCheckP = $mysqli->prepare("SELECT Nome FROM pietanza WHERE Nome = ?");
+   $queryCheckP->bind_param("s", $_POST["NomePiatto"]);
 
-   $queryRegP->bind_param("sssiisi", $_POST["NomePiatto"], $_POST["DescrizionePiatto"], $_POST["PrezzoPiatto"], $Veg, $Piccante, $_POST["TipoCucina"], $_SESSION["ID_FORNITORE"]);
+   $queryCheckP->execute();
 
-   $queryRegP->execute();
+   $queryCheckP->bind_result($piatto);
 
-   echo "Query eseguita<br><br>";
+   $queryCheckP->fetch();
 
-   echo $queryRegP->error;
+   echo "<br><br>" . $piatto . "<br><br>";
+
+   $queryCheckP->close();
+
+   if($piatto==NULL){
+
+     $queryRegP = $mysqli->prepare("INSERT INTO pietanza(Nome, Descrizione, Prezzo, Vegetariano, Piccante, Tipologia, ID_MENU) VALUES (?, ?, ?, ?, ?, ?, ?)");
+
+     $queryRegP->bind_param("sssiisi", $_POST["NomePiatto"], $_POST["DescrizionePiatto"], $_POST["PrezzoPiatto"], $Veg, $Piccante, $_POST["TipoCucina"], $_SESSION["ID_FORNITORE"]);
+
+     //$queryRegP->execute();
+
+
+     //echo $queryRegP->error;
+
+     $queryRegP->close();
+
+     header("Location: ListinoF.php?c=1");
+   } else {
+     $_SESSION["piatto"] = $piatto;
+      header("location: ListinoF.php?e=1");
+   }
 
  }
 ?>

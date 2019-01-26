@@ -66,6 +66,8 @@ if(isset($_POST["inputNameF"]) &&
 
           //echo "New record created on Table fornitori";
 
+          $queryRegF->close();
+
           header("location: /../Progetto2019/src/Fornitori/HomeF.php");
         } else {
           //If exists

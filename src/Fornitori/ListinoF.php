@@ -1,6 +1,14 @@
 <?php
 
 session_start();
+
+if(isset($_GET["c"])){
+  echo "Il piatto " . $_SESSION["piatto"] . " è stato inserito";
+}
+
+if(isset($_GET["e"])){
+  echo "Errore: Il piatto " . $_SESSION["piatto"] . " esiste già.";
+}
  ?>
 
  <!DOCTYPE html>
