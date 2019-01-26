@@ -84,8 +84,8 @@ create table TIPOLOGIA_PIETANZA (
 create table PIETANZA_NEL_ORDINE (
 	Nome varchar(30) NOT NULL,
 	ID_ORDINE INT NOT NULL,
-	Quantit‡ INT DEFAULT '1',
-	constraint ID primary key (Nome, ID_ORDINE);
+	Quantit√† INT DEFAULT '1',
+	constraint ID primary key (Nome, ID_ORDINE));
 
 create table UTENTE (
      Nome varchar(30) not null,
@@ -184,7 +184,7 @@ create index REF_MESSA_UTENT_IND
      on MESSAGGIO (ID_USER);
 
 create index REF_MESSA_FORNI_IND
-     on MESSAGGIO (ID_RESTURANT);
+     on MESSAGGIO (ID_RISTORANTE);
 
 create unique index ID_ORDINE_IND
      on ORDINE (ID_ORDINE);
