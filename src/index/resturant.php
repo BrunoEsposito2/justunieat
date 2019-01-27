@@ -11,12 +11,12 @@ function controllo_cookie(){
         $username = "root";
         $password = "";
         $dbname = "just_database";
-        
+
         $conn = new mysqli($servername, $username, $password, $dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        
+
         $q="SELECT * from utente where Email='".$tmp."'";
 		//confronto username e password del cookie con il database
         $query=mysqli_query($conn, $q);
@@ -29,12 +29,12 @@ function controllo_cookie(){
 		} else {
             return false;
         }
-			
+
 
 	}else {
         return false;
     }
-		
+
 
 }
 
@@ -72,7 +72,7 @@ if(!controllo_cookie()){
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
-        <a href="checkout.html">
+        <a href="checkout.php">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -132,7 +132,7 @@ if(!controllo_cookie()){
                 $query=mysqli_query($conn, $q);
                 $conn->close();
                 if(mysqli_num_rows($query) > 0) {
-    
+
                 $rist=mysqli_fetch_array($query);
                 }
                 ?>
@@ -172,7 +172,7 @@ if(!controllo_cookie()){
                                         <li><?php echo $row["Nome"]?></li>
                                     <?php
                                     }
-                                    ?>    
+                                    ?>
                                     </ul>
                                 </div>
                             </div>
@@ -197,7 +197,7 @@ if(!controllo_cookie()){
                     <div class="col-md-3">
                         <div class="ratings">
                             <ul class="list-inline">
-                            <?php 
+                            <?php
                                 $fiveStar = 5;
                                 $blackStar = 5;
                                 $blackStar -= (int)$rist["Valutazione"];
@@ -207,7 +207,7 @@ if(!controllo_cookie()){
                                 if($blackStar > 0) {
                                     for($i = 0; $i < $blackStar; $i++){
                                         echo "<span class='fa fa-star'></span>";
-                                    } 
+                                    }
                                 }
                                 ?>
                             </ul>
@@ -226,7 +226,7 @@ if(!controllo_cookie()){
                 $m="SELECT M.ID_MENU FROM fornitore AS F, menu AS M WHERE F.ID_FORNITORE = '".$_GET['id']."' AND F.ID_FORNITORE = M.ID_FORNITORE";
                 $query=mysqli_query($conn, $m);
                 while($menu = $query->fetch_array()) {
-                    $menus[] = $menu;                
+                    $menus[] = $menu;
                 }
                 foreach($menus as $menu) {
                 $q="SELECT * FROM pietanza AS P, menu AS M WHERE M.ID_MENU = '".$menu["ID_MENU"]."' AND P.ID_MENU = M.ID_MENU";
@@ -237,7 +237,7 @@ if(!controllo_cookie()){
                 foreach($pietanzes as $pietanze) {
                 ?>
                 <div class="container item">
-                    <form action="checkout.html" method="POST" >
+                    <form action="checkout.php" method="POST" >
                         <div class="row">
                             <div class="col-sm-12 col-sm-offset-2">
                                 <div class="card">
@@ -249,8 +249,8 @@ if(!controllo_cookie()){
                                                         <h5><?php echo $pietanze["Nome"]?></h5>
                                                     </div>
                                                     <div class="p-2">
-                                                        <input type="hidden" name="cart[]" value="<?php echo $pietanze['ID_MENU'].$pietanze['Nome']?>">
-                                                        <p><?php echo $pietanze["Prezzo"]?></p>
+                                                        <input type="hidden" name="cart[]" value="<?php echo $pietanze['Nome']?>">
+                                                        <p><?php echo $pietanze['Prezzo']?></p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -284,7 +284,7 @@ if(!controllo_cookie()){
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -294,9 +294,9 @@ if(!controllo_cookie()){
                 </div>
                 <?php
                 }
-            }   
+            }
                 ?>
-                
+
 
 
             </div>
@@ -369,7 +369,7 @@ if(!controllo_cookie()){
     ?>
 
         <script>
-        
+
         $(document).ready(function() {
             var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
             var hello = "Ciao, ";
@@ -381,7 +381,7 @@ if(!controllo_cookie()){
             document.getElementById('navOrd').style.display = "block";
             document.getElementById('navExit').style.display = "block";
         });
-        
+
         </script>
     <?php
     } else {

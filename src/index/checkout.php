@@ -46,70 +46,28 @@ if(!controllo_cookie()){
     $auth = true;
 }
 
-function checkAndAdd() {
+if(isset($_POST['saveOrder'])) {
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
 	$dbname = "just_database";
 
 	$conn = new mysqli($servername, $username, $password, $dbname);
-	if($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
+	if ($conn->connect_error) {
+			die("Connection failed: " . $conn->connect_error);
 	}
 
-	$stmt = $conn->prepare("SELECT Nome, ID, Quantità FROM pietanza_nel_ordine");
-	$result = mysqli_query($conn, $stmt);
-	$number = mysqli_num_rows($result);
+	$time = $_POST['ship_time'];
+	$stato = "in lavorazione";
 
-	$i = 0;
-	if($number >= 1) {
-		while($number > $i) {
-			$nome = mysqli_result($result, $i, "Nome");
-			$quantità = mysqli_result($result, $i, "Quantità");
-			?>
-			<div class="container item">
-					<div class="row">
-							<div class="col-sm-12 col-sm-offset-2">
-									<div class="card">
-											<div class="card-body">
-													<div class="row ing ">
-															<div class="col-xs-3">
-																	<div class="d-flex justify-content-between">
-																			<div class="p-2">
-																					<h5><?php echo $nome ?></h5>
-																			</div>
-																			<div class="p-2">
-																					<p><?php echo $quantità ?></p>
-																			</div>
-																	</div>
-															</div>
-													</div>
+	$qOrder = "INSERT INTO ordine(Orario_richiesto, Stato) VALUES ('$time', '$stato')";
 
-													<div class="row">
-															<div class="col-md-12">
-																	<div class="d-flex flex-row-reverse">
-																			<div class="p-2"><button type="button" class="btn btn-default btn-sm btn3d"><i
-																									class="material-icons md-36">remove_circle</i></button>
-																			</div>
-																	</div>
-															</div>
-													</div>
-
-													<div class="row ing">
-															<div class="col-xs-4 ingredient">
-																	<p>Gatto, soia e perché no</p>
-															</div>
-													</div>
-											</div>
-									</div>
-							</div>
-					</div>
-			</div>
-			<?php
-			$i++;
-		}
+	if(!$conn->query($qOrder)) {
+		$conn->error;
 	}
+
 }
+
 
 ?>
 
@@ -181,69 +139,160 @@ function checkAndAdd() {
             </div>
         </div>
 
-				<script>
-					$(document).ready(function() {
-						checkAndAdd();
-					});
-				</script>
+				<?php
+				if(isset($_POST['cart'])) {
+					$nome = $_POST['cart'];
+
+					$servername = "localhost";
+					$username = "root";
+					$password = "";
+					$dbname = "just_database";
+
+					$conn = new mysqli($servername, $username, $password, $dbname);
+					if ($conn->connect_error) {
+							die("Connection failed: " . $conn->connect_error);
+					}
+
+					(float)$sommaPrezzi = 0;
+					$q="SELECT * FROM pietanza";
+					$query=mysqli_query($conn, $q);
+					while($pietanze = $query->fetch_array()) {
+							$pietanzes[] = $pietanze;
+					}
+					foreach($pietanzes as $pietanze) {
+						if($pietanze['Nome'] === current($nome)) {
+					?>
+							<div class="container item">
+									<div class="row">
+											<div class="col-sm-12 col-sm-offset-2">
+													<div class="card">
+															<div class="card-body">
+																	<div class="row ing ">
+																			<div class="col-xs-3">
+																					<div class="d-flex justify-content-between">
+																							<div class="p-2">
+																									<h5>
+																									<?php
+																									echo $pietanze['Nome'];
+																									?>
+																								</h5>
+																							</div>
+																							<div class="p-2">
+																									<p>
+																									<?php
+																									echo $pietanze['Prezzo']
+																									?>
+																								</p>
+																							</div>
+																					</div>
+																			</div>
+																	</div>
+																	<form name="removeOrder" method="POST">
+																	<div class="row">
+																			<div class="col-md-12">
+																					<div class="d-flex flex-row-reverse">
+																							<div class="p-2"><button type="submit" name="removeOrder" class="btn btn-default btn-sm btn3d"><i
+																													class="material-icons md-36">remove_circle</i></button>
+																													<?php
+																													if(isset($_POST['removeOrder'])) {
+																														$servername = "localhost";
+																														$username = "root";
+																														$password = "";
+																														$dbname = "just_database";
+
+																														$conn = new mysqli($servername, $username, $password, $dbname);
+																														if ($conn->connect_error) {
+																																die("Connection failed: " . $conn->connect_error);
+																															}
+
+																														$qOrder = "DELETE FROM ordine WHERE Nome='$nome'";
+
+																														if(!$conn->query($qOrder)) {
+																															$conn->error;
+																														}
+																													}
+																													?>
+																							</div>
+																					</div>
+																			</div>
+																	</div>
+																</form>
+																	<div class="row ing">
+																			<div class="col-xs-4 ingredient">
+																					<p><?php echo $pietanze["Descrizione"] ?></p>
+																			</div>
+																	</div>
+															</div>
+													</div>
+											</div>
+									</div>
+							</div>
+							<?php
+							$sommaPrezzi = $sommaPrezzi + (float)$pietanze['Prezzo'];
+							$sommaPrezzi = number_format($sommaPrezzi, 2);
+							?>
+							<div class="jumbotron">
+					        <div class="container item">
+					            <div class="row">
+					                <div class="d-flex align-items-start">
+					                    <p><i class="material-icons">euro_symbol</i>Totale: <?php echo $sommaPrezzi?> €</p>
+					                </div>
+					            </div>
+
+					            <form name="saveOrder" method="POST">
+					                <div class="form-group row">
+					                    <label class="col-sm-3 col-form-label"><i class="material-icons">access_time</i>Orario di consegna:</label>
+					                    <div class="col-sm-3">
+					                        <div class="input-group registration-date-time ">
+					                            <span class="input-group-addon"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+					                            <select type="text" class="form-control" id="ship_date" name="ship_date">
+					                                <option value="7">07</option>
+					                                <option value="8">08</option>
+					                                <option value="9">09</option>
+					                                <option value="10">10</option>
+					                                <option value="11">11</option>
+					                                <option value="12" selected>12</option>
+					                                <option value="13">13</option>
+					                                <option value="14">14</option>
+					                                <option value="15">15</option>
+					                                <option value="16">16</option>
+					                                <option value="17">17</option>
+					                                <option value="18">18</option>
+					                                <option value="19">19</option>
+					                            </select>
+					                            <span class="input-group-addon"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
+					                            <select type="text" class="form-control" id="shiptime" name="ship_time">
+					                                <option value="00" selected>00</option>
+					                                <option value="15">15</option>
+					                                <option value="30">30</option>
+					                                <option value="45">45</option>
+					                            </select>
+					                        </div>
+					                    </div>
+					                </div>
+
+					                <div class="form-group row">
+					                    <label for="" class="col-sm-3 col-form-label"><i class="material-icons">edit_location</i>Luogo di
+					                        consegna:</label>
+					                    <div class="col-sm-4">
+					                        <input type="text" name="place" class="form-control" id="consegna" placeholder="Sala Ristoro">
+					                    </div>
+					                </div>
+
+
+					                <div class="form-row text-center">
+					                    <div class="col-12">
+					                        <button type="submit" name="saveOrder" class="btn btn-success btn-lg btn3d reg_but">INVIA ORDINE!</button>
+					                    </div>
+					                </div>
+							<?php
+							}
+						}
+					}
+				?>
+
 
 		</div>
-
-    <div class="jumbotron">
-        <div class="container item">
-            <div class="row">
-                <div class="d-flex align-items-start">
-                    <p><i class="material-icons">euro_symbol</i>Totale: 10,50 €</p>
-                </div>
-            </div>
-
-            <form>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label"><i class="material-icons">access_time</i>Orario di consegna:</label>
-                    <div class="col-sm-3">
-                        <div class="input-group registration-date-time ">
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
-                            <select type="text" class="form-control" id="ship_date" name="ship_date">
-                                <option value="7">07</option>
-                                <option value="8">08</option>
-                                <option value="9">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12" selected>12</option>
-                                <option value="13">13</option>
-                                <option value="14">14</option>
-                                <option value="15">15</option>
-                                <option value="16">16</option>
-                                <option value="17">17</option>
-                                <option value="18">18</option>
-                                <option value="19">19</option>
-                            </select>
-                            <span class="input-group-addon"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></span>
-                            <select type="text" class="form-control" id="shiptime" name="ship_time">
-                                <option value="00" selected>00</option>
-                                <option value="15">15</option>
-                                <option value="30">30</option>
-                                <option value="45">45</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="" class="col-sm-3 col-form-label"><i class="material-icons">edit_location</i>Luogo di
-                        consegna:</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" id="consegna" placeholder="Sala Ristoro">
-                    </div>
-                </div>
-
-
-                <div class="form-row text-center">
-                    <div class="col-12">
-                        <button type="button" class="btn btn-success btn-lg btn3d reg_but">INVIA ORDINE!</button>
-                    </div>
-                </div>
-
 
 
             </form>
