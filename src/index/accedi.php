@@ -88,7 +88,7 @@
                         <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
+                        <a class="nav-link" id="navReg" href="registrati.php">Registrati</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="navMes" href="message.php">
@@ -131,7 +131,7 @@
                   <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
                       <p>Password o Email non corretta</p>
                   </div>
-                  <h1 class="h3 mb-3 font-weight-normal">Accedi come Utente</h1>
+                  <h3 class="mb-3 font-weight-normal">Accedi come Utente</h3>
                   <label for="inputEmail" class="sr-only">Email</label>
                   <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
 
@@ -150,7 +150,7 @@
                   </div>
                   <div class="row haveyet">
                       <div class="col mb-12">
-                          <p>Non hai ancora un account? <a href="./registrati.php">Registrati</a></p>
+                          <p>Non hai ancora un account? <a href="registrati.php">Registrati</a></p>
                       </div>
                   </div>
               </form>
@@ -164,7 +164,7 @@
                   <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
                       <p>Password o Email non corretta</p>
                   </div>
-                  <h1 class="h3 mb-3 font-weight-normal">Accedi come Fornitore</h1>
+                  <h3 class="mb-3 font-weight-normal">Accedi come Fornitore</h3>
                   <label for="inputEmailF" class="sr-only">Email</label>
                   <input type="email" name="emailF" id="inputEmailF" class="form-control" placeholder="Email" required="" autofocus="">
 
@@ -183,7 +183,7 @@
                   </div>
                   <div class="row haveyet">
                       <div class="col mb-12">
-                          <p>Non hai ancora un account? <a href="./registrati.php">Registrati</a></p>
+                          <p>Non hai ancora un account? <a href="registrati.php">Registrati</a></p>
                       </div>
                   </div>
               </form>
@@ -205,7 +205,7 @@
                     <ul>
                         <li><a href="index.php">Home</a></li>
                         <li><a href="accedi.php">Accedi</a></li>
-                        <li><a href="registrati.html">Registrati</a></li>
+                        <li><a href="registrati.php">Registrati</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
@@ -220,8 +220,8 @@
                     <h5>Fornitori</h5>
                     <ul>
                         <li><a href="#">Elenco completo</a></li>
-                        <li><a href="#">Diventa affiliato</a></li>
-                        <li><a href="#">Diventa fattorino</a></li>
+                        <li><a href="registrati.php">Diventa affiliato</a></li>
+                        <li><a href="diventa_fattorino.php">Diventa fattorino</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
@@ -235,9 +235,9 @@
             </div>
         </div>
         <div class="social-networks">
-            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+            <a target="_blank" href="https://twitter.com/JustUniEat1" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.facebook.com/justuni.eat.5" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" href="https://plus.google.com/u/0/114848465565497583176" class="google"><i class="fa fa-google-plus"></i></a>
         </div>
         <div class="footer-copyright">
             <p>© 2018 Copyright Just Uni Eat</p>

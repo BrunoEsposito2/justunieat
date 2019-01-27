@@ -66,7 +66,7 @@ if(isset($_POST["inputNameF"]) &&
 
           //echo "New record created on Table fornitori";
 
-          header("location: /../Progetto2019/src/Fornitori/HomeF.php");
+          header("location: HomeF.php");
         } else {
           //If exists
           echo "<br>La mail " . $email . " è già registrata. <br>";
