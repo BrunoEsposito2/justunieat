@@ -29,78 +29,75 @@ if(isset($_GET["pass"])){
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
     <title>Just Uni Eat | Registrati</title>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a class="navbar-brand" href="#">Just Uni Eat</a>
-                <a href="#">
-                    <i class="material-icons md-36 carts">shopping_cart</i>
-                </a>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="navbar-nav float-left text-left pr-3">
-                        <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                                <a class="nav-link" id="navUser" href="#"></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="navMes" href="#">
-                                  <i class="fa fa-envelope-o">
-                                    <span class="badge badge-danger">1</span>
-                                  </i>
-                                  Messaggi
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="navOrd" href="#">Miei Ordini</a>
-                                <!--da rendere hidden se non si ha fatto ancora l'accesso-->
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="navExit" href="logout.php">Esci</a>
-                                <!--da rendere hidden se non si ha fatto ancora l'accesso-->
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="index.php">Just Uni Eat</a>
+        <a href="checkout.html">
+            <i class="material-icons md-36 carts">shopping_cart</i>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav float-left text-left pr-3">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="navReg" href="registrati.php">Registrati</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="navMes" href="message.php">
+                          <i class="fa fa-envelope-o">
+                            <span class="badge badge-danger">1</span>
+                          </i>
+                          Messaggi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="navOrd" href="#">Miei Ordini</a>
+                        <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="navExit" href="logout.php">Esci</a>
+                        <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item btn btn-default">
+      <li class="nav-item">
         <a class="nav-link active" id="home-tab" data-toggle="tab" href="#RegCli" role="tab" aria-controls="home" aria-selected="true">Cliente</a>
       </li>
 
-      <li class="nav-item  btn btn-default">
+      <li class="nav-item ">
         <a class="nav-link" id="profile-tab" data-toggle="tab" href="#RegForn" role="tab" aria-controls="profile" aria-selected="false">Ristorante</a>
       </li>
     </ul>
 
 
-    <div class="jumbotron text-center col-sm-12">
+    <div class="jumbotron jumboAcc text-center col-sm-12">
 
-<!-- Merge-conflict message <<<<<<< HEAD:src/index/registrati.php -->
+
       <div class="tab-content col-sm-12" id="myTabContent">
         <!--REGISTRAZIONE CLIENTE-->
       <div class="tab-pane fade show active col-sm-12" id="RegCli" role="tabpanel" aria-labelledby="home-tab">
 
-<!-- Merge-conflict message ======= -->
+
         <div class="text-center">
 
             <form class="form-signin" action="elogin.php" name="btnReg" method="POST">
-<!--Merge-conflict message >>>>>>> 96673558e1a5b87653093427d6a6bff5d370bcf0:src/index/registrati.html -->
-                <h1 class="h3 mb-3 font-weight-normal">Registrati</h1>
+                <h4 class="font-weight-normal">Registrati come Utente</h4>
                 <label for="inputNome" class="sr-only">Nome</label>
                 <input type="text" name="nome" id="inputNome" class="form-control" placeholder="Nome" required="true" autofocus="true">
                 <label for="inputCognome" class="sr-only">Cognome</label>
@@ -122,7 +119,6 @@ if(isset($_GET["pass"])){
                 <div class="col mb-12">
                     <p>Hai già un account? <a href="accedi.php">Accedi</a></p>
                 </div>
-<!--Merge-conflict message <<<<<<< HEAD:src/index/registrati.php -->
             </div>
 
         </div>
@@ -133,14 +129,14 @@ if(isset($_GET["pass"])){
       <div class="tab-pane fade col-sm-12" id="RegForn" role="tabpanel" aria-labelledby="profile-tab">
         <div class="text-center col-sm-12" >
             <form class="form-signin" action="regF.php" method="POST">
-                <h1 class="h3 mb-3 font-weight-normal">Registratifornitori</h1>
+                <h4 class="font-weight-normal">Registrati come Fornitore</h4>
                 <label for="inputNameF" class="sr-only" >Nome</label>
                 <input type="text" id="inputNameF" name="inputNameF" class="form-control" style="margin-top:20px;" placeholder="Nome" required="true" autofocus="true">
 
                 <label for="inputSurnameF" class="sr-only">Cognome</label>
                 <input type="text" id="inputSurnameF" name="inputSurnameF" class="form-control" style="margin-top:20px;" placeholder="Cognome" required="true" autofocus="true">
 
-                <label for"inputRistoranteF" class="sr-only">Ristorante</label>
+                <label for="inputRistoranteF" class="sr-only">Ristorante</label>
                 <input type="text" id="inputRistoranteF" name="inputRistoranteF" class="form-control" style="margin-top:20px;" placeholder="Ristorante" required="true" autofocus="true">
 
                 <label for="inputCellF" class="sr-only" >Cellulare</label>
@@ -166,7 +162,7 @@ if(isset($_GET["pass"])){
 
                 <div class="row haveyet">
                     <div class="col mb-12">
-                        <p>*Hai già un account? <a href="./accedi.html">Accedi</a></p>
+                        <p>Hai già un account? <a href="accedi.php">Accedi</a></p>
                     </div>
                 </div>
               </form>
@@ -176,13 +172,12 @@ if(isset($_GET["pass"])){
     </div>
 
     </div>
-<!--Merge-conflict message ======= -->
             </div>
 
         </div>
     </div>
 
-<!--Merge-conflict message >>>>>>> 96673558e1a5b87653093427d6a6bff5d370bcf0:src/index/registrati.html -->
+
 
 
 <!--FOOTER-->
@@ -194,17 +189,17 @@ if(isset($_GET["pass"])){
                 <div class="col-sm-3">
                     <h5>Inizia</h5>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Accedi</a></li>
-                        <li><a href="#">Registrati</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="accedi.php">Accedi</a></li>
+                        <li><a href="registrati.php">Registrati</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h5>Chi siamo</h5>
                     <ul>
-                        <li><a href="#">La Nostra Storia</a></li>
-                        <li><a href="#">Contattaci</a></li>
-                        <li><a href="#">Dicono di noi</a></li>
+                        <li><a href="storia.html">La Nostra Storia</a></li>
+                        <li><a href="contacci.html">Contattaci</a></li>
+                        <li><a href="dicono_di_noi">Dicono di noi</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">

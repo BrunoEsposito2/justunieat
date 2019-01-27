@@ -267,7 +267,7 @@ if(!controllo_cookie()){
 
                                 ?>
 
-                                <h4 class="catHr">Tutte le Categorie<h2>
+                                <h4 class="catHr">Tutte le Categorie<h4>
                                 <?php
                                 $q="SELECT cef.Nome, f.ID_FORNITORE, f.Ristorante, f.Cellulare, f.Valutazione, m.ID_MENU
                                 FROM categorie as cat, categoria_ristorante as cef, fornitore as f, menu as m

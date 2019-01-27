@@ -2,6 +2,10 @@
 
     $error = false;
 
+    /*if(isset($_GET["errF"])){
+      echo "Credenziali errate"; 
+    }*/
+
 
     if(isset($_POST['btnLogin'])){
 
@@ -16,13 +20,13 @@
         }
 
         if(isset($_POST['email'])) {
-            $q="SELECT * from utente where Email ='".($_POST['email'])."' and Password='".($_POST['pass'])."'";
+            $q="SELECT * from utente where Email ='".($_POST['email'])."' and _Password='".($_POST['pass'])."'";
             $query=mysqli_query($conn, $q);
         }
 
 
         //se i dati inviati al form corrispondono a un utente, allora mi loggo, creo il cookie di sessione e vado a index.php
-        if(mysqli_num_rows($query) > 0){
+        if($query) {
 
             $row=mysqli_fetch_array($query);
 
@@ -33,10 +37,9 @@
             session_start();
             $_SESSION["email"]=$row['Email'];
             $_SESSION["nome"]=$row["Nome"];
-            //vado a index.php
 
             mysqli_close($conn);
-            header("Location: index.php");
+            header("Location: logAction.php");
 
             exit;
 
@@ -68,13 +71,13 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
-        <a href="checkout.php">
+        <a href="checkout.html">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -84,7 +87,7 @@
                         <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
+                        <a class="nav-link" id="navReg" href="registrati.php">Registrati</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="navMes" href="message.php">
@@ -107,39 +110,88 @@
         </div>
     </nav>
 
-    <div class="jumbotron text-center">
-        <div class="text-center">
-            <form class="form-signin" name="btnLogin" method="POST">
-                <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
-                    <p>Password o Email non corretta</p>
-                </div>
-                <h1 class="h3 mb-3 font-weight-normal">Accedi</h1>
-                <label for="inputEmail" class="sr-only">Email</label>
-                <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Password" required="">
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Ricordami
-                    </label>
-                    <div class="form-row">
-                        <div class="col-12">
-                            <button type="submit" name="btnLogin" class="btn btn-primary btn-lg btn3d reg_but">ACCEDI</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row haveyet">
-                    <div class="col mb-12">
-                        <p>Non hai ancora un account? <a href="./registrati.php">Registrati</a></p>
-                    </div>
-                </div>
-            </form>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item ">
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#AccCli" role="tab" aria-controls="home" aria-selected="true">Cliente</a>
+      </li>
+
+      <li class="nav-item  ">
+        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#AccForn" role="tab" aria-controls="profile" aria-selected="false">Fornitore</a>
+      </li>
+    </ul>
+
+    <div class="jumbotron jumboAcc text-center">
+
+      <div class="tab-content col-sm-12" id="myTabContent">
+        <div class="tab-pane fade show active col-sm-12" id="AccCli" role="tabpanel" aria-labelledby="home-tab">
+          <div class="text-center">
+              <form class="form-signin" name="btnLogin" method="POST">
+                  <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
+                      <p>Password o Email non corretta</p>
+                  </div>
+                  <h3 class="mb-3 font-weight-normal">Accedi come Utente</h3>
+                  <label for="inputEmail" class="sr-only">Email</label>
+                  <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
+
+                  <label for="inputPassword" class="sr-only">Password</label>
+                  <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Password" required="">
+
+                  <div class="checkbox mb-3">
+                      <label>
+                          <input type="checkbox" value="remember-me"> Ricordami
+                      </label>
+                      <div class="form-row">
+                          <div class="col-12">
+                              <button type="submit" name="btnLogin" class="btn btn-primary btn-lg btn3d reg_but">ACCEDI</button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row haveyet">
+                      <div class="col mb-12">
+                          <p>Non hai ancora un account? <a href="registrati.php">Registrati</a></p>
+                      </div>
+                  </div>
+              </form>
+          </div>
         </div>
 
+
+        <div class="tab-pane fade show col-sm-12" id="AccForn" role="tabpanel" aria-labelledby="home-tab">
+          <div class="text-center">
+              <form class="form-signin" name="btnLoginF" action="accF.php" method="POST">
+                  <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
+                      <p>Password o Email non corretta</p>
+                  </div>
+                  <h3 class="mb-3 font-weight-normal">Accedi come Fornitore</h3>
+                  <label for="inputEmailF" class="sr-only">Email</label>
+                  <input type="email" name="emailF" id="inputEmailF" class="form-control" placeholder="Email" required="" autofocus="">
+
+                  <label for="inputPasswordF" class="sr-only">Password</label>
+                  <input type="password" name="passwordF" id="inputPasswordF" class="form-control" placeholder="Password" required="">
+
+                  <div class="checkbox mb-3">
+                      <label>
+                          <input type="checkbox" value="remember-me"> Ricordami
+                      </label>
+                      <div class="form-row">
+                          <div class="col-12">
+                              <button type="submit" name="btnLogin" class="btn btn-primary btn-lg btn3d reg_but">ACCEDI</button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row haveyet">
+                      <div class="col mb-12">
+                          <p>Non hai ancora un account? <a href="registrati.php">Registrati</a></p>
+                      </div>
+                  </div>
+              </form>
+          </div>
+        </div>
+
+
+      </div>
     </div>
-
-
-
 
 
     <div class="content">
@@ -152,7 +204,7 @@
                     <ul>
                         <li><a href="index.php">Home</a></li>
                         <li><a href="accedi.php">Accedi</a></li>
-                        <li><a href="registrati.html">Registrati</a></li>
+                        <li><a href="registrati.php">Registrati</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
@@ -167,8 +219,8 @@
                     <h5>Fornitori</h5>
                     <ul>
                         <li><a href="#">Elenco completo</a></li>
-                        <li><a href="#">Diventa affiliato</a></li>
-                        <li><a href="#">Diventa fattorino</a></li>
+                        <li><a href="registrati.php">Diventa affiliato</a></li>
+                        <li><a href="diventa_fattorino.php">Diventa fattorino</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
@@ -182,9 +234,9 @@
             </div>
         </div>
         <div class="social-networks">
-            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+            <a target="_blank" href="https://twitter.com/JustUniEat1" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.facebook.com/justuni.eat.5" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" href="https://plus.google.com/u/0/114848465565497583176" class="google"><i class="fa fa-google-plus"></i></a>
         </div>
         <div class="footer-copyright">
             <p>© 2018 Copyright Just Uni Eat</p>
