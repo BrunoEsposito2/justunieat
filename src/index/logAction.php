@@ -1,3 +1,53 @@
+<?php
+session_start();
+function controllo_cookie(){
+
+	if(isset($_COOKIE['session'])){
+
+		//prendo l'email presente nel cookie
+		$tmp=$_COOKIE['session'];
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "just_database";
+        
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        $q="SELECT * from utente where Email='".$_SESSION["email"]."'";
+		//confronto username e password del cookie con il database
+        $query=mysqli_query($conn, $q);
+
+		if($query){
+            $row=mysqli_fetch_array($query);
+			//immagazzinano le informazioni dell'utente in un array
+			$_SESSION["id"]=$row["ID_USER"];
+			return true;
+		} else {
+            return false;
+        }
+			
+
+	}else {
+        return false;
+    }
+		
+
+}
+
+if(!controllo_cookie()){
+    $auth = false;
+	header("location: accedi.php");
+} else {
+    $auth = true;
+    $yes = true;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="it-IT">
 
@@ -13,7 +63,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
     <link rel="stylesheet" href="circleok_ko.css">
-    <title>Just Uni Eat | Registrati</title>
+    <title>Just Uni Eat | Messaggio</title>
 </head>
 
 <body>
@@ -31,13 +81,10 @@
             <div class="navbar-nav float-left text-left pr-3">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
+                        <a class="nav-link" id="navAcc" href="#"><?php echo "Ciao, " . $_SESSION['nome']; ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navReg" href="registrati.php">Registrati</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navMes" href="message.php">
+                        <a class="nav-link" id="" href="message.php">
                           <i class="fa fa-envelope-o">
                             <span class="badge badge-danger">1</span>
                           </i>
@@ -45,11 +92,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navOrd" href="#">Miei Ordini</a>
+                        <a class="nav-link" id="" href="#">Miei Ordini</a>
                         <!--da rendere hidden se non si ha fatto ancora l'accesso-->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navExit" href="logout.php">Esci</a>
+                        <a class="nav-link" id="" href="logout.php">Esci</a>
                         <!--da rendere hidden se non si ha fatto ancora l'accesso-->
                     </li>
                 </ul>
@@ -57,119 +104,61 @@
         </div>
     </nav>
 
-<?php
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $auth = false;
-
-        $errors = "";
-        $insertError = "";
-        $auth = false;
-
-        if(!isset($_POST["nome"]) || strlen($_POST["nome"]) < 2){
-        $errors .= "Il Nome è obbligatorio e deve essere almeno 2 caratteri <br/>";
-        }
-
-        if(!isset($_POST["cognome"]) || strlen($_POST["cognome"]) < 2){
-        $errors .= "Il Cognome è obbligatorio e deve essere almeno 2 caratteri";
-        }
-
-        if(!isset($_POST["email"]) || strlen($_POST["email"]) < 2){
-        $errors .= "L'Email è obbligatoria e deve essere valida <br/>";
-        }
-
-        if(!isset($_POST["cell"]) || strlen($_POST["cell"]) < 10){
-        $errors .= "Il cellulare è obbligatorio e deve essere valido <br/>";
-        }
-
-        if(!isset($_POST["pass"]) || strlen($_POST["pass"]) < 8){
-        $errors .= "La password deve essere lunga almeno 8 caratteri <br/>";
-        }
-
-            if(strlen($errors) == 0){
-
-
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "just_database";
-
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            $stmt = $conn->prepare("INSERT INTO utente (Nome, Cognome, Email, Password, Cellulare) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssss", $nome, $cognome, $email, $pass, $cell);
-
-            $nome = $_POST["nome"];
-            $cognome = $_POST["cognome"];
-            $email = $_POST["email"];
-            $cell = $_POST["cell"];
-            $pass = $_POST["pass"];
-
-            $isInserted = $stmt->execute();
-            if(!$isInserted){
-                $insertError = $stmt->error;
-            }
-
-            if ($isInserted) {
-                session_start();
-                $time_cookie=3600*24*7;
-                setcookie("session", $_POST['email'], time()+$time_cookie, "/");
-                setcookie("session", $_POST['nome'], time()+$time_cookie, "/");
-                $_SESSION['email'] = $email;
-                $_SESSION['nome'] = $nome;
-                $stmt->close();
-                $auth = true;
-            }
-
-        }
-
-}
-        ?>
+    <script>
+    var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
+        var hello = "Ciao, ";
+        document.getElementById('navUser').innerHTML = hello.concat(myvar);
+        document.getElementById('navUser').style.display = "block";
+        document.getElementById('navAcc').style.display = "none";
+        document.getElementById('navReg').style.display = "none";
+        document.getElementById('navMes').style.display = "block";
+        document.getElementById('navOrd').style.display = "block";
+        document.getElementById('navExit').style.display = "block";
+    
+    </script>
 
     <div class="jumbotron" style="background-color:white;">
-    <?php
 
-if($auth) {
+        <?php
 
-?>    
-    <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
-        <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
-        <span class="swal2-success-line-tip"></span>
-        <span class="swal2-success-line-long"></span>
-        <div class="swal2-success-ring"></div> 
-        <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
-        <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
-    </div>
+        if($yes) {
 
-    <h3 class="text-center">Complimenti, la registrazione è andata a buon fine!</h3>
-    <form class="text-center" action="accedi.php">
-        <input type="submit" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
-    </form>
+        ?>    
+            <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
+                <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                <span class="swal2-success-line-tip"></span>
+                <span class="swal2-success-line-long"></span>
+                <div class="swal2-success-ring"></div> 
+                <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+            </div>
 
-<?php
-} else {
-?>
+            <h3 class="text-center">Credenziali Corrette!</h3>
+            <form class="text-center" action="index.php">
+                <input type="submit" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
+            </form>
 
-<div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
-<span class="swal2-x-mark">
-    <span class="swal2-x-mark-line-left">
-    </span>
-    <span class="swal2-x-mark-line-right">
-    </span>
-</span>
- </div>
+        <?php
+        } else {
+        ?>
 
-    <h3 class="text-center"><?php echo $errors?></h3>
-    <form>
-        <input type="button" class="btn btn-danger btn-lg btn3d" value="INDIETRO" onclick="history.back()">
-    </form>
-<?php    
-}
-?>
+        <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
+        <span class="swal2-x-mark">
+            <span class="swal2-x-mark-line-left">
+            </span>
+            <span class="swal2-x-mark-line-right">
+            </span>
+        </span>
+         </div>
+
+            <h3 class="text-center">Errore! Email o Password errate!<br><?php echo $errors?>.</h3>
+            <form>
+                <input type="button" class="btn btn-danger btn-lg btn3d" value="INDIETRO" onclick="history.back()">
+            </form>
+        <?php    
+        }
+        ?>
+
     </div>
 
     <div class="content">
@@ -230,44 +219,45 @@ if($auth) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
-    <?php
+        <?php
 
-    if($auth) {
-    ?>
-
-        <script>
-
-        $(document).ready(function() {
-            var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
-            var hello = "Ciao, ";
-            document.getElementById('navUser').innerHTML = hello.concat(myvar);
-            document.getElementById('navUser').style.display = "block";
-            document.getElementById('navAcc').style.display = "none";
-            document.getElementById('navReg').style.display = "none";
-            document.getElementById('navMes').style.display = "block";
-            document.getElementById('navOrd').style.display = "block";
-            document.getElementById('navExit').style.display = "block";
-        });
-
-        </script>
-    <?php
-    } else {
-    ?>
+if($yes) {
+?>
 
     <script>
-
-
+    
+    $(document).ready(function() {
+        var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
+        var hello = "Ciao, ";
+        document.getElementById('navUser').innerHTML = hello.concat(myvar);
+        document.getElementById('navUser').style.display = "block";
+        document.getElementById('navAcc').style.display = "none";
+        document.getElementById('navReg').style.display = "none";
+        document.getElementById('navMes').style.display = "block";
+        document.getElementById('navOrd').style.display = "block";
+        document.getElementById('navExit').style.display = "block";
+    });
+    
     </script>
+<?php
+} else {
+?>
 
-    <?php
-
-
-    }
-    ?>
-
+<script>
 
 
+</script>
+
+<?php
+
+
+}
+?>    
 
 </body>
 
 </html>
+
+
+
+

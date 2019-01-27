@@ -959,8 +959,8 @@ body{ margin: 0px; }
     }
     
 
-    .catHr {
-        color: white;
+    #home-tab, #profile-tab {
+        color: black
     }
     
     #Hr_cat {
@@ -982,3 +982,15 @@ body{ margin: 0px; }
     .checked {
         color: red;
       }
+
+    .jumboAcc {
+        border-radius: 0%;
+    }
+
+    .catHr {
+        color: white;
+    }
+
+    #go_after_acc {
+        margin-top: 50px;
+    }

@@ -1,5 +1,15 @@
 <?php
 
+define("HOST", "localhost"); // E' il server a cui ti vuoi connettere
+define("USER", "admin_user"); // E' l'utente con cui ti collegherai al DB.
+define("PASSWORD", "Justunieat2019"); // Password di accesso al DB.
+define("DATABASE", "just_database"); // Nome del database.
+$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
+
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+
 session_start();
 
 if(isset($_GET["c"])){
@@ -9,6 +19,25 @@ if(isset($_GET["c"])){
 if(isset($_GET["e"])){
   echo "Errore: Il piatto " . $_SESSION["piatto"] . " esiste già.";
 }
+
+$queryListF = $mysqli->prepare("SELECT * FROM pietanza WHERE ID_MENU = ?");
+$queryListF->bind_param("i", $_SESSION["ID_FORNITORE"]);
+
+$queryListF->execute();
+
+$result = $queryListF->get_result();
+
+$rows = $result->num_rows;
+
+echo $_SESSION["ID_FORNITORE"] . "<br>";
+echo $rows;
+
+
+
+if($rows > 0){
+
+
+
  ?>
 
  <!DOCTYPE html>
@@ -156,6 +185,11 @@ if(isset($_GET["e"])){
 
       </div>
     </div>
+
+
+
+<?php 
+} ?>
 
   <div class="card">
         <button id="headingThree" class="card-header btn btn-default collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">

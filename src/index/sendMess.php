@@ -190,42 +190,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <div class="jumbotron" style="background-color:white;">
 
-    <?php
+        <?php
 
-    if($isInserted) {
+        if($isInserted) {
 
-    ?>    
-        <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
-            <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
-            <span class="swal2-success-line-tip"></span>
-            <span class="swal2-success-line-long"></span>
-            <div class="swal2-success-ring"></div> 
-            <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
-            <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
-        </div>
+        ?>    
+            <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
+                <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                <span class="swal2-success-line-tip"></span>
+                <span class="swal2-success-line-long"></span>
+                <div class="swal2-success-ring"></div> 
+                <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+            </div>
 
-        <h3 class="text-center">Messaggio correttamente inviato al Ristorante!</h3>
+            <h3 class="text-center">Messaggio correttamente inviato al Ristorante!</h3>
 
-    <?php
-    } else {
-    ?>
+        <?php
+        } else {
+        ?>
 
-<div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
-    <span class="swal2-x-mark">
-        <span class="swal2-x-mark-line-left">
+        <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
+        <span class="swal2-x-mark">
+            <span class="swal2-x-mark-line-left">
+            </span>
+            <span class="swal2-x-mark-line-right">
+            </span>
         </span>
-        <span class="swal2-x-mark-line-right">
-        </span>
-    </span>
-</div>
+         </div>
 
-        <h3 class="text-center">Errore! Messaggio non corretto!<br><?php echo $errors?>.</h3>
-        <form>
-            <input type="button" class="btn btn-danger btn-lg btn3d" value="INDIETRO" onclick="history.back()">
-        </form>
-    <?php    
-    }
-    ?>
+            <h3 class="text-center">Errore! Messaggio non corretto!<br><?php echo $errors?>.</h3>
+            <form>
+                <input type="button" class="btn btn-danger btn-lg btn3d" value="INDIETRO" onclick="history.back()">
+            </form>
+        <?php    
+        }
+        ?>
 
     </div>
 

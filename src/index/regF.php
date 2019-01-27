@@ -66,9 +66,15 @@ if(isset($_POST["inputNameF"]) &&
 
           //echo "New record created on Table fornitori";
 
+<<<<<<< HEAD
           $queryRegF->close();
 
           header("location: /../Progetto2019/src/Fornitori/HomeF.php");
+||||||| merged common ancestors
+          header("location: /../Progetto2019/src/Fornitori/HomeF.php");
+=======
+          header("location: HomeF.php");
+>>>>>>> 4a00fa3e03cc74be24543ef9a29798360009812a
         } else {
           //If exists
           echo "<br>La mail " . $email . " è già registrata. <br>";

@@ -233,7 +233,7 @@ if(!controllo_cookie()){
                                                                     </div>
                                                                     <div class="col-md-7">
                                                                         <input type="hidden" name="id" value="<?=$row['ID_FORNITORE'];?>" />
-                                                                        <h5><?php echo $row["Ristorante"]?></h5>
+                                                                        <a href=<?php echo "resturant.php?id=".$row['ID_FORNITORE']?>><h5><?php echo $row["Ristorante"]?></h5></a>
                                                                         <small><?php echo $row["Nome"]?></small>
                                                                         <p><small><?php echo $row["Cellulare"]?></small></p>
                                                                         <?php 
@@ -267,7 +267,7 @@ if(!controllo_cookie()){
 
                                 ?>
 
-                                <h4 class="catHr">Tutte le Categorie<h2>
+                                <h4 class="catHr">Tutte le Categorie<h4>
                                 <?php
                                 $q="SELECT cef.Nome, f.ID_FORNITORE, f.Ristorante, f.Cellulare, f.Valutazione, m.ID_MENU
                                 FROM categorie as cat, categoria_ristorante as cef, fornitore as f, menu as m
@@ -291,7 +291,7 @@ if(!controllo_cookie()){
                                                                     </div>
                                                                     <div class="col-md-7">
                                                                         <input type="hidden" name="id" value="<?=$row['ID_FORNITORE'];?>" />
-                                                                        <h5><?php echo $row["Ristorante"]?></h5>
+                                                                        <a href=<?php echo "resturant.php?id=".$row['ID_FORNITORE']?>><h5><?php echo $row["Ristorante"]?></h5></a>
                                                                         <small><?php echo $row["Nome"]?></small>
                                                                         <p><small><?php echo $row["Cellulare"]?></small></p>
                                                                         <?php 
