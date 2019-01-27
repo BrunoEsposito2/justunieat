@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
+    <link rel="stylesheet" href="circleok_ko.css">
     <title>Just Uni Eat | Registrati</title>
 </head>
 
@@ -21,24 +23,21 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Just Uni Eat</a>
-        <a href="checkout.php">
+        <a class="navbar-brand" href="index.php">Just Uni Eat</a>
+        <a href="checkout.html">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav float-left text-left pr-3">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                        <a class="nav-link" id="navUser" href="#"></a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
+                        <a class="nav-link" id="navReg" href="registrati.php">Registrati</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navMes" href="#">
+                        <a class="nav-link" id="navMes" href="message.php">
                           <i class="fa fa-envelope-o">
                             <span class="badge badge-danger">1</span>
                           </i>
@@ -56,7 +55,7 @@
                 </ul>
             </div>
         </div>
-</nav>
+    </nav>
 
 <?php
 
@@ -88,7 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors .= "La password deve essere lunga almeno 8 caratteri <br/>";
         }
 
-        echo $errors;
             if(strlen($errors) == 0){
 
 
@@ -132,32 +130,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
         ?>
 
-    <div class="jumbotron animated shake">
-        <h1 class="display-4 ">Basta studiare! Cosa vuoi mangiare?</h1>
+    <div class="jumbotron" style="background-color:white;">
+    <?php
 
-        <form class="category" action="action_page.php">
-            <label class="check">
-                <input type="checkbox" name="pizza" value="pizza">
-            </label>Pizza<br>
-            <label class="check">
-                <input type="checkbox" name="pasta" value="pasta">
-            </label>Pasta<br>
-            <label class="check">
-                <input type="checkbox" name="pasta" value="cinese">
-            </label>Cinese<br>
-            <label class="check">
-                <input type="checkbox" name="pasta" value="giapponese">
-            </label>Giapponese<br>
-            <label class="check">
-                <input type="checkbox" name="pasta" value="italiano">
-            </label>Italiano<br>
-        </form>
+if($auth) {
 
-        <div class="form-row text-center">
-            <div class="col-12">
-                <button type="button" class="btn btn-default btn-lg btn3d">ORDINA!</button>
-            </div>
-        </div>
+?>    
+    <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
+        <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+        <span class="swal2-success-line-tip"></span>
+        <span class="swal2-success-line-long"></span>
+        <div class="swal2-success-ring"></div> 
+        <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+        <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+    </div>
+
+    <h3 class="text-center">Complimenti, la registrazione è andata a buon fine!</h3>
+    <form class="text-center" action="accedi.php">
+        <input type="submit" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
+    </form>
+
+<?php
+} else {
+?>
+
+<div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;">
+<span class="swal2-x-mark">
+    <span class="swal2-x-mark-line-left">
+    </span>
+    <span class="swal2-x-mark-line-right">
+    </span>
+</span>
+ </div>
+
+    <h3 class="text-center"><?php echo $errors?></h3>
+    <form>
+        <input type="button" class="btn btn-danger btn-lg btn3d" value="INDIETRO" onclick="history.back()">
+    </form>
+<?php    
+}
+?>
     </div>
 
     <div class="content">
@@ -168,25 +180,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="col-sm-3">
                     <h5>Inizia</h5>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Accedi</a></li>
-                        <li><a href="#">Registrati</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="accedi.php">Accedi</a></li>
+                        <li><a href="registrati.php">Registrati</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h5>Chi siamo</h5>
                     <ul>
-                        <li><a href="#">La Nostra Storia</a></li>
-                        <li><a href="#">Contattaci</a></li>
-                        <li><a href="#">Dicono di noi</a></li>
+                        <li><a href="storia.html">La Nostra Storia</a></li>
+                        <li><a href="contacci.html">Contattaci</a></li>
+                        <li><a href="dicono_di_noi">Dicono di noi</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h5>Fornitori</h5>
                     <ul>
                         <li><a href="#">Elenco completo</a></li>
-                        <li><a href="#">Diventa affiliato</a></li>
-                        <li><a href="#">Diventa fattorino</a></li>
+                        <li><a href="registrati.php">Diventa affiliato</a></li>
+                        <li><a href="diventa_fattorino.php">Diventa fattorino</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
@@ -200,9 +212,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
         <div class="social-networks">
-            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+            <a target="_blank" href="https://twitter.com/JustUniEat1" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.facebook.com/justuni.eat.5" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" href="https://plus.google.com/u/0/114848465565497583176" class="google"><i class="fa fa-google-plus"></i></a>
         </div>
         <div class="footer-copyright">
             <p>© 2018 Copyright Just Uni Eat</p>

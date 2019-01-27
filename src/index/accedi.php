@@ -2,9 +2,9 @@
 
     $error = false;
 
-    if(isset($_GET["errF"])){
+    /*if(isset($_GET["errF"])){
       echo "Credenziali errate"; 
-    }
+    }*/
 
 
     if(isset($_POST['btnLogin'])){
@@ -26,7 +26,7 @@
 
 
         //se i dati inviati al form corrispondono a un utente, allora mi loggo, creo il cookie di sessione e vado a index.php
-        if(mysqli_num_rows($query) > 0){
+        if($query) {
 
             $row=mysqli_fetch_array($query);
 
