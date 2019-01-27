@@ -50,13 +50,14 @@ if(isset($_POST["NomePiatto"]) &&
 
      $queryRegP->bind_param("sssiisi", $_POST["NomePiatto"], $_POST["DescrizionePiatto"], $_POST["PrezzoPiatto"], $Veg, $Piccante, $_POST["TipoCucina"], $_SESSION["ID_FORNITORE"]);
 
-     //$queryRegP->execute();
+     $queryRegP->execute();
 
 
-     //echo $queryRegP->error;
+     echo $queryRegP->error;
 
      $queryRegP->close();
 
+     $_SESSION["piatto"] = $_POST["NomePiatto"];
      header("Location: ListinoF.php?c=1");
    } else {
      $_SESSION["piatto"] = $piatto;
