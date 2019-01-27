@@ -17,8 +17,7 @@ function controllo_cookie(){
             die("Connection failed: " . $conn->connect_error);
         }
 
-
-        $q="SELECT * from utente where Email='".$tmp."'";
+        $q="SELECT * from utente where Email='".$_SESSION["email"]."'";
 		//confronto username e password del cookie con il database
         $query=mysqli_query($conn, $q);
 
@@ -44,6 +43,7 @@ if(!controllo_cookie()){
 	header("location: accedi.php");
 } else {
     $auth = true;
+    $yes = true;
 }
 ?>
 
@@ -73,24 +73,18 @@ if(!controllo_cookie()){
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <a class="navbar-brand" href="#">Just Uni Eat</a>
-        <a href="#">
+        <a class="navbar-brand" href="index.php">Just Uni Eat</a>
+        <a href="checkout.html">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav float-left text-left pr-3">
                 <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                        <a class="nav-link" id="navUser" href="#"></a>
+                    <li class="nav-item">
+                        <a class="nav-link" id="navAcc" href="#"><?php echo "Ciao, " . $_SESSION['nome']; ?></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navMes" href="#">
+                        <a class="nav-link" id="" href="message.php">
                           <i class="fa fa-envelope-o">
                             <span class="badge badge-danger">1</span>
                           </i>
@@ -98,101 +92,36 @@ if(!controllo_cookie()){
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navOrd" href="#">Miei Ordini</a>
+                        <a class="nav-link" id="" href="#">Miei Ordini</a>
                         <!--da rendere hidden se non si ha fatto ancora l'accesso-->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navExit" href="logout.php">Esci</a>
+                        <a class="nav-link" id="" href="logout.php">Esci</a>
                         <!--da rendere hidden se non si ha fatto ancora l'accesso-->
                     </li>
                 </ul>
             </div>
         </div>
-</nav>
+    </nav>
 
-<?php
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    <script>
+    var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
+        var hello = "Ciao, ";
+        document.getElementById('navUser').innerHTML = hello.concat(myvar);
+        document.getElementById('navUser').style.display = "block";
+        document.getElementById('navAcc').style.display = "none";
+        document.getElementById('navReg').style.display = "none";
+        document.getElementById('navMes').style.display = "block";
+        document.getElementById('navOrd').style.display = "block";
+        document.getElementById('navExit').style.display = "block";
     
-    
-        $errors = "";
-        $insertError = "";
-        $isInserted = false;
-
-        if(!isset($_POST["ristorante"]) || strlen($_POST["ristorante"]) < 2){
-        $errors .= "Il nome del Ristorante è obbligatorio e deve avere almeno 2 caratteri <br/>";
-        }
-
-        if(!isset($_POST["titolo"]) || strlen($_POST["titolo"]) < 2){
-        $errors .= "Il Titolo è obbligatorio e deve avere almeno 2 caratteri";
-        }
-
-        if(!isset($_POST["testo"]) || strlen($_POST["testo"]) < 2){
-        $errors .= "Il Testo è obbligatorio e deve avere almeno 2 caratteri <br/>";
-        }
-
-            if(strlen($errors) == 0){
-        
-            
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "just_database";
-
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
-
-            $orario=time();
-            $data=date('d-m-y');
-            $q = "SELECT ID_USER FROM utente WHERE Email ='". $_SESSION["email"] ."'";
-            
-           
-            $result=mysqli_query($conn, $q);
-            while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-                $id_user = $row['ID_USER'];
-                $flag = TRUE;
-            }
-            
-            
-            
-            $q = "SELECT ID_FORNITORE FROM fornitore WHERE Ristorante='" . $_POST["ristorante"]."'";
-            
-            $result=mysqli_query($conn, $q);
-            while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-                $id_ristorante = $row['ID_FORNITORE'];
-                $flag = TRUE;
-            }
-            
-
-            $stmt = $conn->prepare("INSERT INTO messaggio (Testo, Data, Orario, ID_USER, ID_RISTORANTE, Titolo) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssiis", $testo, $data, $orario, $id_user, $id_ristorante, $titolo);
-                    
-            $testo = $_POST["testo"];
-            $ristorante = $_POST["ristorante"];
-            $titolo = $_POST["titolo"];
-
-            $isInserted = $stmt->execute();
-            if(!$isInserted){
-                $insertError = $stmt->error;
-            }
-               
-            if ($isInserted) {
-                $stmt->close();     
-                
-            }
-             
-        } 
-
-}    
-?>
+    </script>
 
     <div class="jumbotron" style="background-color:white;">
 
         <?php
 
-        if($isInserted) {
+        if($yes) {
 
         ?>    
             <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
@@ -204,7 +133,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
             </div>
 
-            <h3 class="text-center">Messaggio correttamente inviato al Ristorante!</h3>
+            <h3 class="text-center">Credenziali Corrette!</h3>
+            <form class="text-center" action="index.php">
+                <input type="submit" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
+            </form>
 
         <?php
         } else {
@@ -219,7 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </span>
          </div>
 
-            <h3 class="text-center">Errore! Messaggio non corretto!<br><?php echo $errors?>.</h3>
+            <h3 class="text-center">Errore! Email o Password errate!<br><?php echo $errors?>.</h3>
             <form>
                 <input type="button" class="btn btn-danger btn-lg btn3d" value="INDIETRO" onclick="history.back()">
             </form>
@@ -237,25 +169,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="col-sm-3">
                     <h5>Inizia</h5>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Accedi</a></li>
-                        <li><a href="#">Registrati</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="accedi.php">Accedi</a></li>
+                        <li><a href="registrati.php">Registrati</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h5>Chi siamo</h5>
                     <ul>
-                        <li><a href="#">La Nostra Storia</a></li>
-                        <li><a href="#">Contattaci</a></li>
-                        <li><a href="#">Dicono di noi</a></li>
+                        <li><a href="storia.html">La Nostra Storia</a></li>
+                        <li><a href="contacci.html">Contattaci</a></li>
+                        <li><a href="dicono_di_noi">Dicono di noi</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
                     <h5>Fornitori</h5>
                     <ul>
                         <li><a href="#">Elenco completo</a></li>
-                        <li><a href="#">Diventa affiliato</a></li>
-                        <li><a href="#">Diventa fattorino</a></li>
+                        <li><a href="registrati.php">Diventa affiliato</a></li>
+                        <li><a href="diventa_fattorino.php">Diventa fattorino</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-3">
@@ -269,9 +201,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
         <div class="social-networks">
-            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+            <a target="_blank" href="https://twitter.com/JustUniEat1" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.facebook.com/justuni.eat.5" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" href="https://plus.google.com/u/0/114848465565497583176" class="google"><i class="fa fa-google-plus"></i></a>
         </div>
         <div class="footer-copyright">
             <p>© 2018 Copyright Just Uni Eat</p>
@@ -289,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <?php
 
-if($auth) {
+if($yes) {
 ?>
 
     <script>

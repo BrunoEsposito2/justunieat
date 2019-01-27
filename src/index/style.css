@@ -959,7 +959,7 @@ body{ margin: 0px; }
     }
     
 
-    .catHr, #home-tab, #profile-tab {
+    #home-tab, #profile-tab {
         color: black
     }
     
@@ -985,4 +985,12 @@ body{ margin: 0px; }
 
     .jumboAcc {
         border-radius: 0%;
+    }
+
+    .catHr {
+        color: white;
+    }
+
+    #go_after_acc {
+        margin-top: 50px;
     }

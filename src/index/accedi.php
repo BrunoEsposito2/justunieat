@@ -37,10 +37,9 @@
             session_start();
             $_SESSION["email"]=$row['Email'];
             $_SESSION["nome"]=$row["Nome"];
-            //vado a index.php
 
             mysqli_close($conn);
-            header("Location: index.php");
+            header("Location: logAction.php");
 
             exit;
 
