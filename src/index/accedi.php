@@ -20,7 +20,7 @@
         }
 
         if(isset($_POST['email'])) {
-            $q="SELECT * from utente where Email ='".($_POST['email'])."' and _Password='".($_POST['pass'])."'";
+            $q="SELECT * from utente where Email ='".($_POST['email'])."' and Password='".($_POST['pass'])."'";
             $query=mysqli_query($conn, $q);
         }
 
@@ -77,7 +77,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
-        <a href="checkout.html">
+        <a href="checkout.php">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

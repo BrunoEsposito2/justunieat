@@ -994,3 +994,23 @@ body{ margin: 0px; }
     #go_after_acc {
         margin-top: 50px;
     }
+
+    .usr_block, .block_button {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    /*COOKIE*/
+
+    .cookie-accept {
+        max-width: 350px;
+        width: 100%;
+        right: 20px;
+        height: auto;
+        z-index: 9999;
+        bottom: 0px;
+    }
+
+    .a_cookie:hover {
+        background-color: rgb(57, 99, 215);
+    }
