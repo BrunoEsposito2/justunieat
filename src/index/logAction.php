@@ -1,4 +1,5 @@
 <?php
+$change = "";
 session_start();
 function controllo_cookie(){
 
@@ -24,7 +25,7 @@ function controllo_cookie(){
 		if($query){
             $row=mysqli_fetch_array($query);
 			//immagazzinano le informazioni dell'utente in un array
-			$_SESSION["id"]=$row["ID_USER"];
+            $_SESSION["id"]=$row["ID_USER"];  
 			return true;
 		} else {
             return false;
@@ -44,6 +45,9 @@ if(!controllo_cookie()){
 } else {
     $auth = true;
     $yes = true;
+    if (strcmp($_SESSION['email'],"justunieat@gmail.com") == 0) {
+        $change = true;  
+    } 
 }
 ?>
 
@@ -134,9 +138,19 @@ if(!controllo_cookie()){
             </div>
 
             <h3 class="text-center">Credenziali Corrette!</h3>
-            <form class="text-center" action="index.php">
+
+            <form name="continua" class="text-center" action="index.php">
                 <input type="submit" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
             </form>
+
+            <?php
+            if($change) {
+            echo "<form class='text-center' action='dashboard.php'>
+                <input type='submit' id='go_after_acc' class='btn btn-success btn-lg btn3d' value='DASHBOARD'>
+            </form>";
+            
+            }
+            ?>
 
         <?php
         } else {

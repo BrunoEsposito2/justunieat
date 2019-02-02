@@ -125,6 +125,12 @@ if(isset($_GET["pass"])){
       </div>
       <!--FINE REGISTRAZIONE CLIENTE-->
 
+    <div class="cookie-accept d-block position-fixed mw-25 bg-primary text-white rounded-top pt-2 pr-3 pl-3 pb-2">
+        <h5>Uso dei Cookie e dei dati personali</h5>
+        <p>Noi - <em>e i nostri partern</em> - usano i cookie per offrire un servizio migliore e inerente ai tui gusti. Ulteriori informazioni le troverai nel sezione: Privacy Policy. Usando il nostro sito, sei d'accordo all'utilizzo dei cookie.</p>
+    <a target="_blank" href="" class="btn btn-outline-light btn-block">Accetto</a>
+    </div>
+
       <!--REGISTRAZIONE RISTORANTE-->
       <div class="tab-pane fade col-sm-12" id="RegForn" role="tabpanel" aria-labelledby="profile-tab">
         <div class="text-center col-sm-12" >

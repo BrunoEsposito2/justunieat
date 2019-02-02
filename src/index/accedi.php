@@ -1,12 +1,20 @@
 <?php
 
-    $error = false;
+$error = false;
 
+<<<<<<< HEAD
     /*if(isset($_GET["errF"])){
       echo "Credenziali errate";
     }*/
+=======
+/*if(isset($_GET["errF"])){
+echo "Credenziali errate";
+}*/
+>>>>>>> 5d9f86ee934e30699f636123cefc163fb4f98091
 
+if (isset($_POST['btnLogin'])) {
 
+<<<<<<< HEAD
     if(isset($_POST['btnLogin'])){
 
         $servername = "localhost";
@@ -23,32 +31,45 @@
             $q="SELECT * from utente where Email ='".($_POST['email'])."' and Password='".($_POST['pass'])."'";
             $query=mysqli_query($conn, $q);
         }
+=======
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "just_database";
+>>>>>>> 5d9f86ee934e30699f636123cefc163fb4f98091
 
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 
-        //se i dati inviati al form corrispondono a un utente, allora mi loggo, creo il cookie di sessione e vado a index.php
-        if($query) {
+    if (isset($_POST['email'])) {
+        $q = "SELECT * from utente where Email ='" . ($_POST['email']) . "' and Password='" . ($_POST['pass']) . "'";
+        $query = mysqli_query($conn, $q);
+    }
 
-            $row=mysqli_fetch_array($query);
+    //se i dati inviati al form corrispondono a un utente, allora mi loggo, creo il cookie di sessione e vado a index.php
+    if ($query) {
 
-            //setto la durata del cookies a una settimana
-            $time_cookie=3600*24*7;
-            setcookie("session", $_POST['email'], time()+$time_cookie, "/");
-            setcookie("session", $row['Nome'], time()+$time_cookie, "/");
-            session_start();
-            $_SESSION["email"]=$row['Email'];
-            $_SESSION["nome"]=$row["Nome"];
+        $row = mysqli_fetch_array($query);
 
-            mysqli_close($conn);
-            header("Location: logAction.php");
+        //setto la durata del cookies a una settimana
+        $time_cookie = 3600 * 24 * 7;
+        setcookie("session", $_POST['email'], time() + $time_cookie, "/");
+        session_start();
+        $_SESSION["email"] = $row['Email'];
+        $_SESSION["nome"] = $row["Nome"];
 
-            exit;
+        mysqli_close($conn);
+        header("Location: logAction.php");
+        exit;
 
         //nessuna corrispondenza con gli utenti: non mi loggo e ritorno al form
-        } else {
-             $error = true;
-        }
-
+    } else {
+        $error = true;
     }
+
+}
 
 ?>
 
@@ -77,7 +98,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
-        <a href="checkout.html">
+        <a href="checkout.php">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -113,7 +134,7 @@
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item ">
-        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#AccCli" role="tab" aria-controls="home" aria-selected="true">Cliente</a>
+        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#AccCli" role="tab" aria-controls="home" aria-selected="true">Utente</a>
       </li>
 
       <li class="nav-item  ">
@@ -123,74 +144,74 @@
 
     <div class="jumbotron jumboAcc text-center">
 
-      <div class="tab-content col-sm-12" id="myTabContent">
-        <div class="tab-pane fade show active col-sm-12" id="AccCli" role="tabpanel" aria-labelledby="home-tab">
-          <div class="text-center">
-              <form class="form-signin" name="btnLogin" method="POST">
-                  <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
-                      <p>Password o Email non corretta</p>
-                  </div>
-                  <h3 class="mb-3 font-weight-normal">Accedi come Utente</h3>
-                  <label for="inputEmail" class="sr-only">Email</label>
-                  <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
+        <div class="tab-content col-sm-12" id="myTabContent">
+            <div class="tab-pane fade show active col-sm-12" id="AccCli" role="tabpanel" aria-labelledby="home-tab">
+                <div class="text-center">
+                    <form class="form-signin" name="btnLogin" method="POST">
+                        <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
+                            <p>Password o Email non corretta</p>
+                        </div>
+                        <h3 class="mb-3 font-weight-normal">Accedi come Utente</h3>
+                        <label for="inputEmail" class="sr-only">Email</label>
+                            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
 
-                  <label for="inputPassword" class="sr-only">Password</label>
-                  <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Password" required="">
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" name="pass" id="inputPassword" class="form-control" placeholder="Password" required="">
 
-                  <div class="checkbox mb-3">
-                      <label>
-                          <input type="checkbox" value="remember-me"> Ricordami
-                      </label>
-                      <div class="form-row">
-                          <div class="col-12">
-                              <button type="submit" name="btnLogin" class="btn btn-primary btn-lg btn3d reg_but">ACCEDI</button>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row haveyet">
-                      <div class="col mb-12">
-                          <p>Non hai ancora un account? <a href="registrati.php">Registrati</a></p>
-                      </div>
-                  </div>
-              </form>
-          </div>
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" value="remember-me"> Ricordami
+                            </label>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <button type="submit" name="btnLogin" class="btn btn-primary btn-lg btn3d reg_but">ACCEDI</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row haveyet">
+                            <div class="col mb-12">
+                                <p>Non hai ancora un account? <a href="registrati.php">Registrati</a></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <div class="tab-pane fade show col-sm-12" id="AccForn" role="tabpanel" aria-labelledby="home-tab">
+                <div class="text-center">
+                    <form class="form-signin" name="btnLoginF" action="accF.php" method="POST">
+                        <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
+                            <p>Password o Email non corretta</p>
+                        </div>
+                        <h3 class="mb-3 font-weight-normal">Accedi come Fornitore</h3>
+                        <label for="inputEmailF" class="sr-only">Email</label>
+                        <input type="email" name="emailF" id="inputEmailF" class="form-control" placeholder="Email" required="" autofocus="">
+
+                        <label for="inputPasswordF" class="sr-only">Password</label>
+                        <input type="password" name="passwordF" id="inputPasswordF" class="form-control" placeholder="Password" required="">
+
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" value="remember-me"> Ricordami
+                            </label>
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <button type="submit" name="btnLogin" class="btn btn-primary btn-lg btn3d reg_but">ACCEDI</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row haveyet">
+                            <div class="col mb-12">
+                                <p>Non hai ancora un account? <a href="registrati.php">Registrati</a></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
         </div>
-
-
-        <div class="tab-pane fade show col-sm-12" id="AccForn" role="tabpanel" aria-labelledby="home-tab">
-          <div class="text-center">
-              <form class="form-signin" name="btnLoginF" action="accF.php" method="POST">
-                  <div class="h6 mb-3 alert alert-danger alert-php" id="alert-php-error" style="display:none" role="alert">
-                      <p>Password o Email non corretta</p>
-                  </div>
-                  <h3 class="mb-3 font-weight-normal">Accedi come Fornitore</h3>
-                  <label for="inputEmailF" class="sr-only">Email</label>
-                  <input type="email" name="emailF" id="inputEmailF" class="form-control" placeholder="Email" required="" autofocus="">
-
-                  <label for="inputPasswordF" class="sr-only">Password</label>
-                  <input type="password" name="passwordF" id="inputPasswordF" class="form-control" placeholder="Password" required="">
-
-                  <div class="checkbox mb-3">
-                      <label>
-                          <input type="checkbox" value="remember-me"> Ricordami
-                      </label>
-                      <div class="form-row">
-                          <div class="col-12">
-                              <button type="submit" name="btnLogin" class="btn btn-primary btn-lg btn3d reg_but">ACCEDI</button>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="row haveyet">
-                      <div class="col mb-12">
-                          <p>Non hai ancora un account? <a href="registrati.php">Registrati</a></p>
-                      </div>
-                  </div>
-              </form>
-          </div>
-        </div>
-
-
-      </div>
     </div>
 
 
@@ -252,7 +273,7 @@
         crossorigin="anonymous"></script>
         <?php
 
-    if($error) {
+if ($error) {
     ?>
 
         <script>
@@ -263,7 +284,7 @@
 
         </script>
     <?php
-    } else {
+} else {
     ?>
 
     <script>
@@ -273,9 +294,8 @@
 
     <?php
 
-
-    }
-    ?>
+}
+?>
 
 
 </body>
