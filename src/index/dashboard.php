@@ -1,12 +1,13 @@
 <?php
 session_start();
-$button="";
-function controllo_cookie(){
+$button = "";
+function controllo_cookie()
+{
 
-	if(isset($_COOKIE['session'])){
+    if (isset($_COOKIE['session'])) {
 
-		//prendo l'email presente nel cookie
-		$tmp=$_COOKIE['session'];
+        //prendo l'email presente nel cookie
+        $tmp = $_COOKIE['session'];
 
         $servername = "localhost";
         $username = "root";
@@ -18,100 +19,31 @@ function controllo_cookie(){
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $q="SELECT * from utente where Email='justunieat@gmail.com'";
-		//confronto username e password del cookie con il database
-        $query=mysqli_query($conn, $q);
+        $q = "SELECT * from utente where Email='justunieat@gmail.com'";
+        //confronto username e password del cookie con il database
+        $query = mysqli_query($conn, $q);
 
-		if($query){
-            $row=mysqli_fetch_array($query);
-			//immagazzinano le informazioni dell'utente in un array
-			$_SESSION["id"]=$row["ID_USER"];
-			return true;
-		} else {
+        if ($query) {
+            $row = mysqli_fetch_array($query);
+            //immagazzinano le informazioni dell'utente in un array
+            $_SESSION["id"] = $row["ID_USER"];
+            return true;
+        } else {
             return false;
         }
 
-
-	}else {
+    } else {
         return false;
     }
 
-
 }
 
-if(!controllo_cookie()){
+if (!controllo_cookie()) {
     $auth = false;
-	header("location: accedi.php");
+    header("location: accedi.php");
 } else {
     $auth = true;
 }
-?>
-
-<?php
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "just_database";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-/*
-UPDATE Customers
-SET ContactName = 'Alfred Schmidt', City= 'Frankfurt'
-WHERE CustomerID = 1;
-*/
-if(isset($_POST["fornUpdate"])) {
-    echo "yesss";
-    console.log("sciaooo");
-    $count = 0;
-    $update ="SET";
-    if(isset($_POST["nomeF"])) {
-        $count++;
-        $update .= "Nome = . '".$_POST['nomeF']."'";
-    }
-    if(isset($_POST["cognomeF"])) {
-        $count++;
-        $update .= "Cognome = . '".$_POST['cognomeF']."'";
-    }
-    if(isset($_POST["cellF"])) {
-        $count++;
-        $update .= "Cellulare = . '".$_POST['cellF']."'";
-    }
-    if(isset($_POST["citta"])) {
-        $count++;
-        $update .= "Città = . '".$_POST['citta']."'";
-    }
-    if(isset($_POST["partita_iva"])) {
-        $count++;
-        $update .= "Partita_IVA = . '".$_POST['partita_iva']."'";
-    }
-    if(isset($_POST["via_e_num"])) {
-        $count++;
-        $update .= "Via_e_Num = . '".$_POST['via_e_num']."'";
-    }
-    if(isset($_POST["email"])) {
-        $count++;
-        $update .= "Email = . '".$_POST['via_e_num']."'";
-    }
-
-    $query = "UPDATE fornitore WHERE ID_FORNITORE = '".$_POST['ID_FORNITORE']."' ";
-
-    if(count($count) == 1) {
-        $query .= $update;
-        $conn->query($query);
-        $conn->close();
-    }
-
-
-
-}
-
-
-
-
 ?>
 
 <!DOCTYPE html>
@@ -135,16 +67,16 @@ if(isset($_POST["fornUpdate"])) {
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
+    </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
         <a href="checkout.php">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="navbar-nav float-left text-left pr-3">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav float-left text-left pr-3">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                         <a class="nav-link" id="navUser" href="#"></a>
@@ -172,9 +104,9 @@ if(isset($_POST["fornUpdate"])) {
                         <!--da rendere hidden se non si ha fatto ancora l'accesso-->
                     </li>
                 </ul>
-            </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item ">
@@ -188,8 +120,6 @@ if(isset($_POST["fornUpdate"])) {
 
     <div class="jumbotron jumboAcc text-center">
 
-        
-        
         <div class="tab-content col-sm-12" id="myTabContent">
             <div class="tab-pane fade show active col-sm-12" id="AccCli" role="tabpanel" aria-labelledby="home-tab">
 
@@ -209,159 +139,12 @@ if(isset($_POST["fornUpdate"])) {
                     <div class="col-xl-2">
                         <button type="submit" value="orderBlock" class="btn btn-primary btn3d">VISUALIZZA NON ABILITATI</button>
                     </div>
-                    
+
                 </div>
 
                 <?php
 
-                    $tmp=$_COOKIE['session'];
-
-                    $servername = "localhost";
-                    $username = "root";
-                    $password = "";
-                    $dbname = "just_database";
-
-                    $conn = new mysqli($servername, $username, $password, $dbname);
-                    if ($conn->connect_error) {
-                        die("Connection failed: " . $conn->connect_error);
-                    }
-                    $m="SELECT * FROM utente";
-                    $m .= $button;
-                        $query=mysqli_query($conn, $m);
-                        while($utente = $query->fetch_array()) {
-                            $utentes[] = $utente;                
-                        }
-                        foreach($utentes as $utente) {
-                        ?>
-                        <div class="container item">
-                            <form method="POST" >
-                                <div class="card usr_block">     
-                                    <div class="card-body usr_body">
-                                        <div class="row">
-                                            <div class="p-2 col-md-4">
-                                                <h5><?php echo $utente["Nome"] . " " . $utente["Cognome"]?></h5>
-                                            </div>
-                                            <div class="p-2 col-md-4">
-                                                <p><?php echo "Cellulare: " .$utente["Cellulare"]?></p>
-                                            </div>
-                                            <div class="p-2 col-md-4">
-                                                <p><?php echo "ID: " .$utente["ID_USER"]?></p>
-                                            </div>  
-                                        </div>
-                                                     
-
-                                        <div class="row">
-                                            <div class="p-2 col-md-6">
-                                                <p><?php echo "Email: " .$utente["Email"]?></p>
-                                            </div>
-                                            <div class="p-2 col-md-6">
-                                                <p><?php echo "Abilitato: " .$utente["abilitato"]?></p>
-                                            </div>         
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="p-2 col-md-12">
-                                                <a class="btn btn-warning btn3d" data-toggle="collapse" href="#collapseExample<?php echo $utente['ID_USER']?>" 
-                                                role="button" aria-expanded="false" aria-controls="collapseExample">EDIT</a>
-                                                    <div class="collapse" id="collapseExample<?php echo $utente['ID_USER']?>">
-                                                        <div class="card card-body">
-                                                            <div id="collapse1" class="collapse show">
-                                                                <form method="POST"></form>
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2 col-lg-4">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">Nome</label>
-                                                                                    <input name="nome" type="text" class="form-control" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-1 col-lg-4">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">Cognome</label>
-                                                                                    <input name="cognome" type="text" class="form-control" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-2 col-lg-4 text-center">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">ID</label>
-                                                                                    <input disabled placeholder="<?php echo $utente['ID_USER']?>" value="<?php echo $utente['ID_USER']?>" class="form-control" type="text" />
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-4 col-lg-4">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">Email</label>
-                                                                                    <input name="email" type="text" class="form-control" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-2 col-lg-3">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">Cellulare</label>
-                                                                                    <input name="cell" type="text" class="form-control" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-3 col-lg-3">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">Abilitato</label>
-                                                                                    <input name="abilitato" type="text" class="form-control" />
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                    
-                                                                        <div class="row">
-                                                                            <div class="col-md-3 col-lg-12">
-                                                                                <div class="form-group">
-                                                                                    <button type="submit" name="userUpdate" class="btn-sm btn-success btn3d">AGGIORNA</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                     
-                                    </div>
-                                </div> 
-                                         
-                            </form>
-                        
-                        <?php
-                    }
-                ?> 
-         </div>
-       
-         
-        <div class="tab-pane fade show col-sm-12" id="AccForn" role="tabpanel" aria-labelledby="home-tab">
-                
-
-            <div class="row">
-                <div class="col-sm-2">
-                    <button type="submit" value="orderSurnameR" class="btn btn-primary btn3d">ORDINA PER COGNOME</button>
-                </div>
-                <div class="col-sm-2">
-                    <button type="submit" value="orderRID" class="btn btn-primary btn3d">ORDINA PER ID</button>
-                </div>
-                <div class="col-sm-4">
-                    <h3 class="text-center">Dashboard Fornitori</h3>
-                </div>
-                <div class="col-sm-2">
-                    <button type="submit" value="orderRist" class="btn btn-primary btn3d">ORDINA PER RISTORANTE</button>
-                </div>
-                <div class="col-sm-2">
-                    <button type="submit" value="topOrders" class="btn btn-primary btn3d">CON PIU' ORDINI</button>
-                </div>
-                
-            </div>
-
-                <?php
-
-                $tmp=$_COOKIE['session'];
+                $tmp = $_COOKIE['session'];
 
                 $servername = "localhost";
                 $username = "root";
@@ -372,78 +155,221 @@ if(isset($_POST["fornUpdate"])) {
                 if ($conn->connect_error) {
                     die("Connection failed: " . $conn->connect_error);
                 }
-                    $m="SELECT * FROM fornitore";
-                        $query=mysqli_query($conn, $m);
-                        while($fornitore = $query->fetch_array()) {
-                            $fornitores[] = $fornitore;                
-                        }
-                        foreach($fornitores as $fornitore) {
-                        ?>
+                $m = "SELECT * FROM utente";
+                $m .= $button;
+                $query = mysqli_query($conn, $m);
+                while ($utente = $query->fetch_array()) {
+                    $utentes[] = $utente;
+                }
+                foreach ($utentes as $utente) {
+                    ?>
+                        <div class="container item">
+                            <div class="card usr_block">
+                                <div class="card-body usr_body">
+                                    <div class="row">
+                                            <div class="p-2 col-md-4">
+                                                <h5 id='ngU<?php echo $utente["ID_USER"] ?>'><?php echo $utente["Nome"] . " " . $utente["Cognome"] ?></h5>
+                                            </div>
+                                            <div class="p-2 col-md-4">
+                                                <p id='cellU<?php echo $utente["ID_USER"] ?>'><?php echo "Cellulare: " . $utente["Cellulare"] ?></p>
+                                            </div>
+                                            <div class="p-2 col-md-4">
+                                                <p><?php echo "ID: " . $utente["ID_USER"] ?></p>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="p-2 col-md-6">
+                                                <p id='emU<?php echo $utente["ID_USER"] ?>'><?php echo "Email: " . $utente["Email"] ?></p>
+                                            </div>
+                                            <div class="p-2 col-md-6">
+                                                <p id='abU<?php echo $utente["ID_USER"] ?>'><?php echo "Abilitato: " . $utente["abilitato"] ?></p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="p-2 col-md-12">
+                                                <a class="btn btn-warning btn3d Usave" data-toggle="collapse" href="#collapseExample<?php echo $utente['ID_USER'] ?>"
+                                                role="button" aria-expanded="false" aria-controls="collapseExample<?php echo $utente['ID_USER'] ?>">EDIT</a>
+                                                    <div class="collapse" id="collapseExample<?php echo $utente['ID_USER'] ?>">
+                                                        <div class="card card-body">
+                                                            <div id="collapse1" class="collapse show">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-lg-4">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Nome</label>
+                                                                                    <input id='nomeU<?php echo $utente["ID_USER"] ?>' value='<?php echo $utente["Nome"] ?>' name="nome" type="text" class="form-control" />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-1 col-lg-4">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Cognome</label>
+                                                                                    <input id='cognomeU<?php echo $utente["ID_USER"] ?>' name="cognome"  value='<?php echo $utente["Cognome"] ?>' type="text" class="form-control" />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2 col-lg-4 text-center">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">ID</label>
+                                                                                    <input disabled value="<?php echo $utente['ID_USER'] ?>" class="form-control" type="text" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-4 col-lg-4">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Email</label>
+                                                                                    <input id='emailU<?php echo $utente["ID_USER"] ?>' value='<?php echo $utente["Email"] ?>' name="email" type="text" class="form-control" />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-2 col-lg-3">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Cellulare</label>
+                                                                                    <input id='cellU<?php echo $utente["ID_USER"] ?>' value='<?php echo $utente["Cellulare"] ?>' name="cell" type="text" class="form-control" />
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-3 col-lg-3">
+                                                                                <div class="form-group">
+                                                                                    <label class="control-label">Abilitato</label>
+                                                                                    <input id='abilitatoU<?php echo $utente["ID_USER"] ?>'  value='<?php echo $utente["abilitato"] ?>' name="abilitato" type="text" class="form-control" />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-3 col-lg-12">
+                                                                                <div class="form-group">
+                                                                                    <button type="button" name="userUpdate" class="btn-sm btn-success btn3d updateU">AGGIORNA</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+            
+                <?php
+                }
+                ?>
+            </div>
+
+            <div class="tab-pane fade show col-sm-12" id="AccForn" role="tabpanel" aria-labelledby="home-tab">
+
+
+                <div class="row">
+                    <div class="col-xl-2">
+                        <button type="submit" value="orderSurnameR" class="btn btn-primary btn3d">ORDINA PER COGNOME</button>
+                    </div>
+                    <div class="col-xl-2">
+                        <button type="submit" value="orderRID" class="btn btn-primary btn3d">ORDINA PER ID</button>
+                    </div>
+                    <div class="col-xl-4">
+                        <h3 class="text-center">Dashboard Fornitori</h3>
+                    </div>
+                    <div class="col-xl-2">
+                        <button type="submit" value="orderRist" class="btn btn-primary btn3d">ORDINA PER RISTORANTE</button>
+                    </div>
+                    <div class="col-xl-2">
+                        <button type="submit" value="topOrders" class="btn btn-primary btn3d">CON PIU' ORDINI</button>
+                    </div>
+
+                </div>
+
+                <?php
+
+                $tmp = $_COOKIE['session'];
+
+                $servername = "localhost";
+                $username = "root";
+                $password = "";
+                $dbname = "just_database";
+
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                }
+                $m = "SELECT * FROM fornitore";
+                $query = mysqli_query($conn, $m);
+                while ($fornitore = $query->fetch_array()) {
+                    $fornitores[] = $fornitore;
+                }
+                foreach ($fornitores as $fornitore) {
+                    ?>
                         <div class="container item">
                             <div class="card usr_block">
                                 <div class="card-body ">
                                     <div class="row ">
                                         <div class=" col-md-3">
-                                            <h5><?php echo $fornitore["Nome"] . " " . $fornitore["Cognome"]?></h5>
+                                            <h5 id="ng<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="nameTarget"><?php echo $fornitore["Nome"] . " " . $fornitore["Cognome"] ?></h5>
                                         </div>
                                         <div class=" col-md-3">
-                                            <p><?php echo "Cellulare: " .$fornitore["Cellulare"]?></p>
+                                            <p id="cel<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="cellTarget"><?php echo "Cellulare: " . $fornitore["Cellulare"] ?></p>
                                         </div>
                                         <div class=" col-md-3">
-                                            <p><?php echo "ID: " .$fornitore["ID_FORNITORE"]?></p>
+                                            <p data-target="idTarget"><?php echo "ID: " . $fornitore["ID_FORNITORE"] ?></p>
                                         </div>
                                         <div class=" col-md-3">
-                                            <p><?php echo "Partita_IVA: " .$fornitore["Partita_IVA"]?></p>
+                                            <p id="pa<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="P_ivaTarget"><?php echo "Partita_IVA: " . $fornitore["Partita_IVA"] ?></p>
                                         </div>
-                                                        
+
                                     </div>
-                                            
+
                                     <div class="row">
                                         <div class=" col-md-4">
-                                            <p><?php echo "Email: " .$fornitore["Email"]?></p>
+                                            <p id="em<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="emailTarget"><?php echo "Email: " . $fornitore["Email"] ?></p>
                                         </div>
                                         <div class=" col-md-4">
-                                            <p><?php echo "Ristorante: " .$fornitore["Ristorante"]?></p>
+                                            <p id="rist<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="ristoranteTarget"><?php echo "Ristorante: " . $fornitore["Ristorante"] ?></p>
                                         </div>
                                         <div class="col-md-4">
-                                            <p><?php echo "Location: " .$fornitore["Città"] . ' - ' .$fornitore["Via_e_Num"] ?></p>
+                                            <p id="civinu<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="cittaTarget"><?php echo "Location: " . $fornitore["Città"] . ' - ' . $fornitore["Via_e_Num"] ?></p>
                                         </div>
                                     </div>
-                                    
+
+
                                     <div class="row">
                                         <div class="p-2 col-md-12">
-                                            <a class="btn btn-warning btn3d" data-toggle="collapse" href="#collapseExample<?php echo $fornitore['ID_FORNITORE']?>" 
+                                            <a class="btn btn-warning btn3d Fsave" data-toggle="collapse" href="#FcollapseExample<?php echo $fornitore['ID_FORNITORE'] ?>"
                                             role="button" aria-expanded="false" aria-controls="collapseExample">EDIT</a>
-                                                 <div class="collapse" id="collapseExample<?php echo $fornitore['ID_FORNITORE']?>">
-                                                    <div class="card card-body">
+                                                 <div class="collapse" id="FcollapseExample<?php echo $fornitore['ID_FORNITORE'] ?>">
+                                                    <div class="card card-body" id="<?php echo $fornitore['ID_FORNITORE'] ?>">
                                                         <div id="collapse1" class="collapse show">
-                                                            <form method="POST"></form>
                                                                 <div class="card-body">
                                                                     <div class="row">
                                                                         <div class="col-md-2 col-lg-3">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Nome</label>
-                                                                                <input name="nomeF" type="text" class="form-control" />
+                                                                                <input name="nomeF" id="nomeF<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Nome'] ?>" type="text" class="form-control" />
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-1 col-lg-4">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Cognome</label>
-                                                                                <input name="cognomeF" type="text" class="form-control" />
+                                                                                <input value="<?php echo $fornitore['Cognome'] ?>" id="cognomeF<?php echo $fornitore['ID_FORNITORE'] ?>" name="cognomeF" type="text" class="form-control" />
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-2 col-lg-2 text-center">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">ID</label>
-                                                                                <input disabled placeholder="<?php echo $fornitore['ID_FORNITORE']?>" value="<?php echo $fornitore['ID_FORNITORE']?>" class="form-control" type="text" />
+                                                                                <input disabled placeholder="<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['ID_FORNITORE'] ?>" class="form-control" type="text" />
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-2 col-lg-3">
                                                                             <div class="form-group">
                                                                                <label class="control-label">Partita_IVA</label>
                                                                                 <div class="input-group">
-                                                                                    <input name="partita_iva" class="form-control" type="text" />
-                                                                                </div> 
+                                                                                    <input value="<?php echo $fornitore['Partita_IVA'] ?>" id="partita_iva<?php echo $fornitore['ID_FORNITORE'] ?>" name="partita_iva" class="form-control" type="text" />
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -452,25 +378,25 @@ if(isset($_POST["fornUpdate"])) {
                                                                         <div class="col-md-4 col-lg-4">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Email</label>
-                                                                                <input name="emailF" type="text" class="form-control" />
+                                                                                <input value="<?php echo $fornitore['Email'] ?>" id="emailF<?php echo $fornitore['ID_FORNITORE'] ?>" name="emailF" type="text" class="form-control" />
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-2 col-lg-3">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Cellulare</label>
-                                                                                <input name="cellF" type="text" class="form-control" />
+                                                                                <input value="<?php echo $fornitore['Cellulare'] ?>" id="cellF<?php echo $fornitore['ID_FORNITORE'] ?>" name="cellF" type="text" class="form-control" />
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-3 col-lg-3">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Città</label>
-                                                                                <input name="citta" type="text" class="form-control" />
+                                                                                <input name="citta" id="cittaF<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Città'] ?>" type="text" class="form-control" />
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-3 col-lg-2">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Via</label>
-                                                                                <input name="via" type="text" class="form-control" />
+                                                                                <input name="via" id="viaF<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Via_e_Num'] ?>" type="text" class="form-control" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -479,20 +405,20 @@ if(isset($_POST["fornUpdate"])) {
                                                                         <div class="col-md-3 col-lg-12">
                                                                             <div class="form-group">
                                                                                 <label class="control-label">Ristorante</label>
-                                                                                <input name="ristorante" type="text" class="form-control" />
+                                                                                <input name="ristorante" id="ristorante<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Ristorante'] ?>" type="text" class="form-control" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                
+
                                                                     <div class="row">
                                                                         <div class="col-md-3 col-lg-12">
                                                                             <div class="form-group">
-                                                                                <button type="submit" name="fornUpdate" class="btn-sm btn-success btn3d">AGGIORNA</button>
+                                                                                <a type="button" class="btn-sm btn-success btn3d updateF">AGGIORNA</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </form>
+                                                    
                                                         </div>
                                                     </div>
                                                 </div>
@@ -500,15 +426,15 @@ if(isset($_POST["fornUpdate"])) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>   
+                            </div>
                         </div>
                     <?php
                     }
-                    ?> 
-                </div>
+                    ?>
             </div>
-
         </div>
+
+    </div>
 
     <div class="content">
     </div>
@@ -561,7 +487,7 @@ if(isset($_POST["fornUpdate"])) {
     </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
@@ -571,7 +497,7 @@ if(isset($_POST["fornUpdate"])) {
 
     <?php
 
-    if($auth) {
+if ($auth) {
     ?>
 
         <script>
@@ -590,7 +516,7 @@ if(isset($_POST["fornUpdate"])) {
 
         </script>
     <?php
-    } else {
+} else {
     ?>
 
     <script>
@@ -600,9 +526,126 @@ if(isset($_POST["fornUpdate"])) {
 
     <?php
 
+}
+?>
 
-    }
-    ?>
+
+
+        <script>
+            $(document).ready(function() {
+
+            var ID = "";
+            $('.Fsave').click(function(){
+                var id = $(this).next();
+                var allId = id.prop('id');
+                ID = allId.substring(16, allId.length);
+
+            })
+
+            $('.updateF').click(function(){
+
+                var id = ID;
+                var nome = $('#nomeF' + ID).val();
+                var cognome = $('#cognomeF' + ID).val();
+                var partita_iva = $('#partita_iva' + ID).val();
+                var cell = $('#cellF' + ID).val();
+                var citta = $('#cittaF' + ID).val();
+                var email = $('#emailF' + ID).val();
+                var via = $('#viaF' + ID).val();
+                var ristorante = $('#ristorante' + ID).val();
+
+                $.ajax({
+
+                    url : 'ajaxFornitore.php',
+                    method : 'post',
+                    data : {nome : nome, cognome : cognome, email: email, partita_iva : partita_iva, cell : cell, ristorante : ristorante, citta : citta, via : via, id : id},
+
+                    success : function(response) {
+                    $('#nomeF' + ID).text(nome);
+                    $('#cognomeF' + ID).text(cognome);
+                    $('#partita_iva' + ID).text(partita_iva);
+                    $('#cellF' + ID).text(cell);
+                    $('#emialF' + ID).text(email);
+                    $('#viaF' + ID).text(via);
+                    $('#ristorante' + ID).text(ristorante);
+                    $('#cittaF' + ID).text(citta);
+
+                    $('#ng' + ID).text(nome + " " + cognome);
+                    $('#pa' + ID).text("Partita_IVA: " + partita_iva);
+                    $('#cel' + ID).text("Cellulare: " + cell);
+                    $('#em' + ID).text("Email: " + email);
+                    $('#civinu' + ID).text("Location: " + citta + " - " + via);
+                    $('#rist' + ID).text("Ristorante: "  + ristorante);
+
+
+                    }
+
+
+
+
+                });
+
+            });
+
+
+            var IDU = "";
+            $('.Usave').click(function(){
+                var id = $(this).next();
+                var allId = id.prop('id');
+                IDU = allId.substring(15, allId.length);
+            })
+
+            $('.updateU').click(function(){
+
+                var id = IDU;
+                var nome = $('#nomeU' + IDU).val();
+                var cognome = $('#cognomeU' + IDU).val();
+                var cell = $('#cellU' + IDU).val();
+                var email = $('#emailU' + IDU).val();
+                var abilitato = $('#abilitatoU' + IDU).val();
+
+                $.ajax({
+
+                    url : 'ajaxUtente.php',
+                    method : 'post',
+                    data : {nome : nome, cognome : cognome, email: email, cell : cell, abilitato: abilitato, id : id},
+
+                    success : function(response) {
+                    $('#nomeU' + ID).text(nome);
+                    $('#cognomeU' + ID).text(cognome);
+                    $('#abilitatoU' + IDU).text(abilitato);
+                    $('#cellU' + ID).text(cell);
+                    $('#emailU' + ID).text(email);
+
+
+                    $('#ngU' + IDU).text(nome + " " + cognome);
+                    $('#celU' + IDU).text("Cellulare: " + cell);
+                    $('#emU' + IDU).text("Email: " + email);
+                    $('#abU' + IDU).text("Abilitato: " + abilitato);
+
+
+                    }
+
+
+
+
+                });
+
+            });
+
+
+
+
+
+
+
+            });
+         </script>
+
+
+
+
+
 </body>
 
 </html>

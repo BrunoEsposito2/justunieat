@@ -11,13 +11,13 @@ function controllo_cookie(){
         $username = "root";
         $password = "";
         $dbname = "just_database";
-
+        
         $conn = new mysqli($servername, $username, $password, $dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-
+        echo $tmp;
         $q="SELECT * from utente where Email='".$tmp."'";
 		//confronto username e password del cookie con il database
         $query=mysqli_query($conn, $q);
@@ -25,17 +25,28 @@ function controllo_cookie(){
 		if($query){
             $row=mysqli_fetch_array($query);
 			//immagazzinano le informazioni dell'utente in un array
-			$_SESSION["id"]=$row["ID_USER"];
+            $_SESSION["id"]=$row["ID_USER"];
+
+            echo $row["ID_USER"];
+            
+            
+            $q= "SELECT COUNT(*) FROM utente AS U, messaggio AS M WHERE U.ID_USER='".$row["ID_USER"]."' AND U.ID_USER = M.ID_USER AND M.Letto='0'";
+            $query=mysqli_query($conn, $q);
+            $result = mysqli_fetch_array($query);
+           echo $result['COUNT(*)'];
+
+
+
 			return true;
 		} else {
             return false;
         }
-
+			
 
 	}else {
         return false;
     }
-
+		
 
 }
 
@@ -129,12 +140,12 @@ if(!controllo_cookie()){
             <label class="check">
                 <input type="checkbox" name="category[]" value="Italiana">
             </label>Italiana<br>
-
+        
 
          <!--POTREI MODIFICARE L'INVIO DEL SHOW.PHP INNESTANDOGLI LE SCELTE FATTE DELLE CATEGORIE!" COME SI VEDE IN STACK OVERFLOW!"-->
 
             <div class="form-row text-center">
-                <div class="col-12">
+                <div class="col-8">
                     <button type="submit" value="submit" class="btn btn-default btn-lg btn3d">ORDINA!</button>
                 </div>
             </div>
@@ -144,46 +155,38 @@ if(!controllo_cookie()){
     <div class="content">
     </div>
     <footer id="myFooter">
-        <div class="container">
+        <div class="container text-center">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4 ">
                     <h5>Inizia</h5>
                     <ul>
                         <li><a href="index.php">Home</a></li>
                         <li><a href="accedi.php">Accedi</a></li>
-                        <li><a href="registrati.html">Registrati</a></li>
+                        <li><a href="registrati.php">Registrati</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>Chi siamo</h5>
                     <ul>
                         <li><a href="storia.html">La Nostra Storia</a></li>
-                        <li><a href="contacci.html">Contattaci</a></li>
-                        <li><a href="our.html">Dicono di noi</a></li>
+                        <li><a href="contattaci.html">Contattaci</a></li>
+                        <li><a href="dicono_di_noi.html">Dicono di noi</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
-                    <h5>Fornitori</h5>
+                <div class="col-sm-4">
+                    <h5>Info</h5>
                     <ul>
-                        <li><a href="#">Elenco completo</a></li>
-                        <li><a href="#">Diventa affiliato</a></li>
-                        <li><a href="#">Diventa fattorino</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <h5>Termini</h5>
-                    <ul>
-                        <li><a href="#">Termini del servizio</a></li>
-                        <li><a href="#">Termini di utilizzo</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="privacy.php">Privacy & Cookie</a></li>
+                        <li><a href="registrati.php">Diventa affiliato</a></li>
+                        <li><a href="diventa_fattorino.php">Diventa fattorino</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="social-networks">
-            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+            <a target="_blank" href="https://twitter.com/JustUniEat1" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.facebook.com/justuni.eat.5" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" href="https://plus.google.com/u/0/114848465565497583176" class="google"><i class="fa fa-google-plus"></i></a>
         </div>
         <div class="footer-copyright">
             <p>© 2018 Copyright Just Uni Eat</p>
@@ -206,7 +209,7 @@ if(!controllo_cookie()){
     ?>
 
         <script>
-
+        
         $(document).ready(function() {
             var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
             var hello = "Ciao, ";
@@ -218,17 +221,17 @@ if(!controllo_cookie()){
             document.getElementById('navOrd').style.display = "block";
             document.getElementById('navExit').style.display = "block";
         });
-
+        
         </script>
     <?php
     } else {
     ?>
 
     <script>
-
-
+    
+    
     </script>
-
+    
     <?php
 
 
