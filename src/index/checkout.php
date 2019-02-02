@@ -1,5 +1,6 @@
 <?php
 session_start();
+session_id("cart");
 function controllo_cookie(){
 
 	if(isset($_COOKIE['session'])){
@@ -67,9 +68,19 @@ if(isset($_POST['saveOrder'])) {
 	}
 
 }
+ /*Azzero il vettore cart appena invio un ordine*/
+if(isset($_POST['saveOrder'])) {
+	session_unset();
+}
 
+if(isset($_POST['rem'])) {
+	if(count($_SESSION['cart']) === 1) {
+		session_unset();
+	}
+}
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="it-IT">
@@ -140,7 +151,7 @@ if(isset($_POST['saveOrder'])) {
         </div>
 
 				<?php
-				if(isset($_POST['cart'])) {
+				if(isset($_POST['cart']) || count($_SESSION) > 0) {
 					$nome = $_POST['cart'];
 
 					$servername = "localhost";
@@ -160,8 +171,11 @@ if(isset($_POST['saveOrder'])) {
 							$pietanzes[] = $pietanze;
 					}
 					foreach($pietanzes as $pietanze) {
-						if($pietanze['Nome'] === current($nome)) {
-					?>
+						if($pietanze['Nome'] === current($nome) || in_array($pietanze['Nome'], $_SESSION['cart'])) {
+							if(!in_array($pietanze['Nome'], $_SESSION['cart'])) {
+								$_SESSION['cart'][] = $pietanze['Nome'];
+							}
+							?>
 							<div class="container item">
 									<div class="row">
 											<div class="col-sm-12 col-sm-offset-2">
@@ -173,53 +187,32 @@ if(isset($_POST['saveOrder'])) {
 																							<div class="p-2">
 																									<h5>
 																									<?php
-																									echo $pietanze['Nome'];
+																										echo $pietanze['Nome'];
 																									?>
 																								</h5>
 																							</div>
 																							<div class="p-2">
 																									<p>
 																									<?php
-																									echo $pietanze['Prezzo']
-																									?>
+																										echo $pietanze['Prezzo'];
+																									?>€
 																								</p>
 																							</div>
 																					</div>
 																			</div>
 																	</div>
-																	<form name="removeOrder" method="POST">
 																	<div class="row">
 																			<div class="col-md-12">
 																					<div class="d-flex flex-row-reverse">
-																							<div class="p-2"><button type="submit" name="removeOrder" class="btn btn-default btn-sm btn3d"><i
+																							<div class="p-2"><button type="submit" id="<?php echo $pietanze['Nome'] ?>" onclick="remove(this.id)" class="btn btn-default btn-sm btn3d"><i
 																													class="material-icons md-36">remove_circle</i></button>
-																													<?php
-																													if(isset($_POST['removeOrder'])) {
-																														$servername = "localhost";
-																														$username = "root";
-																														$password = "";
-																														$dbname = "just_database";
-
-																														$conn = new mysqli($servername, $username, $password, $dbname);
-																														if ($conn->connect_error) {
-																																die("Connection failed: " . $conn->connect_error);
-																															}
-
-																														$qOrder = "DELETE FROM ordine WHERE Nome='$nome'";
-
-																														if(!$conn->query($qOrder)) {
-																															$conn->error;
-																														}
-																													}
-																													?>
 																							</div>
 																					</div>
 																			</div>
 																	</div>
-																</form>
 																	<div class="row ing">
 																			<div class="col-xs-4 ingredient">
-																					<p><?php echo $pietanze["Descrizione"] ?></p>
+																					<p><?php echo $pietanze['Descrizione']; ?></p>
 																			</div>
 																	</div>
 															</div>
@@ -230,14 +223,21 @@ if(isset($_POST['saveOrder'])) {
 							<?php
 							$sommaPrezzi = $sommaPrezzi + (float)$pietanze['Prezzo'];
 							$sommaPrezzi = number_format($sommaPrezzi, 2);
-							?>
-							<div class="jumbotron">
-					        <div class="container item">
-					            <div class="row">
-					                <div class="d-flex align-items-start">
-					                    <p><i class="material-icons">euro_symbol</i>Totale: <?php echo $sommaPrezzi?> €</p>
-					                </div>
-					            </div>
+							print_r($_SESSION['cart']);
+						}
+					}
+				?>
+
+
+
+						<div class="jumbotron">
+								<div class="container item">
+										<div class="row">
+												<div class="d-flex align-items-start">
+														<p><i class="material-icons">euro_symbol</i>Totale: <?php echo $sommaPrezzi?> €</p>
+												</div>
+										</div>
+
 
 					            <form name="saveOrder" method="POST">
 					                <div class="form-group row">
@@ -283,25 +283,13 @@ if(isset($_POST['saveOrder'])) {
 					                <div class="form-row text-center">
 					                    <div class="col-12">
 					                        <button type="submit" name="saveOrder" class="btn btn-success btn-lg btn3d reg_but">INVIA ORDINE!</button>
-					                    </div>
+															</div>
 					                </div>
-							<?php
-							}
-						}
-					}
-				?>
-
-
-		</div>
-
-
-            </form>
-        </div>
-
-
-
-
+						</div>
+          </form>
+      </div>
     </div>
+		<?php } ?>
 
 
     <div class="content">
@@ -418,6 +406,19 @@ if(isset($_POST['saveOrder'])) {
     }
     ?>
 
+		<script>
+		function remove(el) {
+				var httpRequest = new XMLHttpRequest();
+				httpRequest.onreadystatechange = function()	{
+						location.reload(true);
+						//document.getElementById(el).innerHTML = this.responseText;
+				};
+				httpRequest.open("GET", "removeRecord.php?val="+el, true);
+				httpRequest.send();
+		}
+		</script>
+
 </body>
+
 
 </html>

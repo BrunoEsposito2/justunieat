@@ -3,7 +3,7 @@
     $error = false;
 
     /*if(isset($_GET["errF"])){
-      echo "Credenziali errate"; 
+      echo "Credenziali errate";
     }*/
 
 
@@ -20,7 +20,7 @@
         }
 
         if(isset($_POST['email'])) {
-            $q="SELECT * from utente where Email ='".($_POST['email'])."' and _Password='".($_POST['pass'])."'";
+            $q="SELECT * from utente where Email ='".($_POST['email'])."' and Password='".($_POST['pass'])."'";
             $query=mysqli_query($conn, $q);
         }
 
