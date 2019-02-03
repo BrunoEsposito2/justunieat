@@ -1,3 +1,4 @@
+<?php include_once("./addAndRemove.php"); ?>
 <?php
 session_start();
 function controllo_cookie(){
@@ -237,7 +238,7 @@ if(!controllo_cookie()){
                 foreach($pietanzes as $pietanze) {
                 ?>
                 <div class="container item">
-                    <form action="checkout.php" method="POST" >
+                    <form method="POST" >
                         <div class="row">
                             <div class="col-sm-12 col-sm-offset-2">
                                 <div class="card">

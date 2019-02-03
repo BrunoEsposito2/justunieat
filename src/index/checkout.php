@@ -1,6 +1,5 @@
 <?php
-session_start();
-session_id("cart");
+include_once("./addAndRemove.php");
 function controllo_cookie(){
 
 	if(isset($_COOKIE['session'])){
@@ -45,38 +44,6 @@ if(!controllo_cookie()){
 	header("location: accedi.php");
 } else {
     $auth = true;
-}
-
-if(isset($_POST['saveOrder'])) {
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "just_database";
-
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	if ($conn->connect_error) {
-			die("Connection failed: " . $conn->connect_error);
-	}
-
-	$time = $_POST['ship_time'];
-	$stato = "in lavorazione";
-
-	$qOrder = "INSERT INTO ordine(Orario_richiesto, Stato) VALUES ('$time', '$stato')";
-
-	if(!$conn->query($qOrder)) {
-		$conn->error;
-	}
-
-}
- /*Azzero il vettore cart appena invio un ordine*/
-if(isset($_POST['saveOrder'])) {
-	session_unset();
-}
-
-if(isset($_POST['rem'])) {
-	if(count($_SESSION['cart']) === 1) {
-		session_unset();
-	}
 }
 
 ?>
@@ -151,9 +118,6 @@ if(isset($_POST['rem'])) {
         </div>
 
 				<?php
-				if(isset($_POST['cart']) || count($_SESSION) > 0) {
-					$nome = $_POST['cart'];
-
 					$servername = "localhost";
 					$username = "root";
 					$password = "";
@@ -164,18 +128,14 @@ if(isset($_POST['rem'])) {
 							die("Connection failed: " . $conn->connect_error);
 					}
 
-					(float)$sommaPrezzi = 0;
-					$q="SELECT * FROM pietanza";
-					$query=mysqli_query($conn, $q);
-					while($pietanze = $query->fetch_array()) {
-							$pietanzes[] = $pietanze;
-					}
-					foreach($pietanzes as $pietanze) {
-						if($pietanze['Nome'] === current($nome) || in_array($pietanze['Nome'], $_SESSION['cart'])) {
-							if(!in_array($pietanze['Nome'], $_SESSION['cart'])) {
-								$_SESSION['cart'][] = $pietanze['Nome'];
-							}
-							?>
+					$sommaPrezzi = 0;
+					$sel = "SELECT * FROM carrello";
+			    $ex = mysqli_query($conn, $sel);
+			    if($ex) {
+			      echo "Query eseguita";
+			    	while($riga = mysqli_fetch_array($ex)) {
+				?>
+
 							<div class="container item">
 									<div class="row">
 											<div class="col-sm-12 col-sm-offset-2">
@@ -187,15 +147,24 @@ if(isset($_POST['rem'])) {
 																							<div class="p-2">
 																									<h5>
 																									<?php
-																										echo $pietanze['Nome'];
+																										echo $riga['Nome'];
 																									?>
 																								</h5>
 																							</div>
 																							<div class="p-2">
 																									<p>
 																									<?php
-																										echo $pietanze['Prezzo'];
+																										$sommaPrezzi += $riga['Prezzo'];
+																										echo $riga['Prezzo'];
 																									?>€
+																								</p>
+																							</div>
+																							<div class="p-3">
+																								<p>
+																									<?php
+																									$sommaPrezzi *= $riga['Quantita'];
+																									echo "Quantità: ".$riga['Quantita'];
+																									 ?>
 																								</p>
 																							</div>
 																					</div>
@@ -204,7 +173,7 @@ if(isset($_POST['rem'])) {
 																	<div class="row">
 																			<div class="col-md-12">
 																					<div class="d-flex flex-row-reverse">
-																							<div class="p-2"><button type="submit" id="<?php echo $pietanze['Nome'] ?>" onclick="remove(this.id)" class="btn btn-default btn-sm btn3d"><i
+																							<div class="p-2"><button type="button" id="<?php echo $riga['Nome'] ?>" onclick="remove(this.id)" class="btn btn-default btn-sm btn3d"><i
 																													class="material-icons md-36">remove_circle</i></button>
 																							</div>
 																					</div>
@@ -212,7 +181,7 @@ if(isset($_POST['rem'])) {
 																	</div>
 																	<div class="row ing">
 																			<div class="col-xs-4 ingredient">
-																					<p><?php echo $pietanze['Descrizione']; ?></p>
+																					<p><?php echo $riga['Ingredienti']; ?></p>
 																			</div>
 																	</div>
 															</div>
@@ -221,15 +190,11 @@ if(isset($_POST['rem'])) {
 									</div>
 							</div>
 							<?php
-							$sommaPrezzi = $sommaPrezzi + (float)$pietanze['Prezzo'];
-							$sommaPrezzi = number_format($sommaPrezzi, 2);
-							print_r($_SESSION['cart']);
 						}
+					} else {
+						echo "Query non eseguita";
 					}
-				?>
-
-
-
+					?>
 						<div class="jumbotron">
 								<div class="container item">
 										<div class="row">
@@ -237,7 +202,6 @@ if(isset($_POST['rem'])) {
 														<p><i class="material-icons">euro_symbol</i>Totale: <?php echo $sommaPrezzi?> €</p>
 												</div>
 										</div>
-
 
 					            <form name="saveOrder" method="POST">
 					                <div class="form-group row">
@@ -289,7 +253,6 @@ if(isset($_POST['rem'])) {
           </form>
       </div>
     </div>
-		<?php } ?>
 
 
     <div class="content">
@@ -411,7 +374,7 @@ if(isset($_POST['rem'])) {
 				var httpRequest = new XMLHttpRequest();
 				httpRequest.onreadystatechange = function()	{
 						location.reload(true);
-						//document.getElementById(el).innerHTML = this.responseText;
+						//document.getElementById(el).innerHTML = this.responseText; //FOR DEBUGGING
 				};
 				httpRequest.open("GET", "removeRecord.php?val="+el, true);
 				httpRequest.send();

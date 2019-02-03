@@ -2,19 +2,10 @@
 
 $error = false;
 
-<<<<<<< HEAD
-    /*if(isset($_GET["errF"])){
-      echo "Credenziali errate";
-    }*/
-=======
-/*if(isset($_GET["errF"])){
-echo "Credenziali errate";
-}*/
->>>>>>> 5d9f86ee934e30699f636123cefc163fb4f98091
 
 if (isset($_POST['btnLogin'])) {
 
-<<<<<<< HEAD
+
     if(isset($_POST['btnLogin'])){
 
         $servername = "localhost";
@@ -31,43 +22,26 @@ if (isset($_POST['btnLogin'])) {
             $q="SELECT * from utente where Email ='".($_POST['email'])."' and Password='".($_POST['pass'])."'";
             $query=mysqli_query($conn, $q);
         }
-=======
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "just_database";
->>>>>>> 5d9f86ee934e30699f636123cefc163fb4f98091
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
 
-    if (isset($_POST['email'])) {
-        $q = "SELECT * from utente where Email ='" . ($_POST['email']) . "' and Password='" . ($_POST['pass']) . "'";
-        $query = mysqli_query($conn, $q);
-    }
+        //se i dati inviati al form corrispondono a un utente, allora mi loggo, creo il cookie di sessione e vado a index.php
+        if (!is_null($row)) {
 
-    //se i dati inviati al form corrispondono a un utente, allora mi loggo, creo il cookie di sessione e vado a index.php
-    if ($query) {
+            //setto la durata del cookies a una settimana
+            $time_cookie = 3600 * 24 * 7;
+            setcookie("session", $_POST['email'], time() + $time_cookie, "/");
+            session_start();
+            $_SESSION["email"] = $row['Email'];
+            $_SESSION["nome"] = $row["Nome"];
 
-        $row = mysqli_fetch_array($query);
+            mysqli_close($conn);
+            header("Location: logAction.php");
+            exit;
 
-        //setto la durata del cookies a una settimana
-        $time_cookie = 3600 * 24 * 7;
-        setcookie("session", $_POST['email'], time() + $time_cookie, "/");
-        session_start();
-        $_SESSION["email"] = $row['Email'];
-        $_SESSION["nome"] = $row["Nome"];
-
-        mysqli_close($conn);
-        header("Location: logAction.php");
-        exit;
-
-        //nessuna corrispondenza con gli utenti: non mi loggo e ritorno al form
-    } else {
-        $error = true;
-    }
+            //nessuna corrispondenza con gli utenti: non mi loggo e ritorno al form
+        } else {
+            $error = true;
+        }
 
 }
 
