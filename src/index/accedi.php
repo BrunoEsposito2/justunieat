@@ -2,13 +2,9 @@
 
 $error = false;
 
-<<<<<<< HEAD
-
 if (isset($_POST['btnLogin'])) {
 
 
-=======
->>>>>>> fc4f2e69dc0f9f7fb9e7e28d3c432ff9b0ba592c
     if(isset($_POST['btnLogin'])){
 
         $servername = "localhost";
@@ -27,7 +23,6 @@ if (isset($_POST['btnLogin'])) {
         }
 
 
-<<<<<<< HEAD
         //se i dati inviati al form corrispondono a un utente, allora mi loggo, creo il cookie di sessione e vado a index.php
         if (!is_null($row)) {
 
@@ -46,7 +41,7 @@ if (isset($_POST['btnLogin'])) {
         } else {
             $error = true;
         }
-=======
+
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -81,7 +76,6 @@ if (isset($_POST['btnLogin'])) {
     } else {
         $error = true;
     }
->>>>>>> fc4f2e69dc0f9f7fb9e7e28d3c432ff9b0ba592c
 
 }
 
