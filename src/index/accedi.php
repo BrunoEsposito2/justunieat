@@ -2,19 +2,19 @@
 
 $error = false;
 
-<<<<<<< HEAD
+
     /*if(isset($_GET["errF"])){
       echo "Credenziali errate";
     }*/
-=======
+
 /*if(isset($_GET["errF"])){
 echo "Credenziali errate";
 }*/
->>>>>>> 5d9f86ee934e30699f636123cefc163fb4f98091
+
 
 if (isset($_POST['btnLogin'])) {
 
-<<<<<<< HEAD
+
     if(isset($_POST['btnLogin'])){
 
         $servername = "localhost";
@@ -31,12 +31,11 @@ if (isset($_POST['btnLogin'])) {
             $q="SELECT * from utente where Email ='".($_POST['email'])."' and Password='".($_POST['pass'])."'";
             $query=mysqli_query($conn, $q);
         }
-=======
+
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "just_database";
->>>>>>> 5d9f86ee934e30699f636123cefc163fb4f98091
 
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
