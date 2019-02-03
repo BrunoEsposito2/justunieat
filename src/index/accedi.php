@@ -2,41 +2,16 @@
 
 $error = false;
 
-<<<<<<< HEAD
-    /*if(isset($_GET["errF"])){
-      echo "Credenziali errate";
-    }*/
-=======
 /*if(isset($_GET["errF"])){
 echo "Credenziali errate";
 }*/
->>>>>>> 5d9f86ee934e30699f636123cefc163fb4f98091
 
 if (isset($_POST['btnLogin'])) {
 
-<<<<<<< HEAD
-    if(isset($_POST['btnLogin'])){
-
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "just_database";
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        if(isset($_POST['email'])) {
-            $q="SELECT * from utente where Email ='".($_POST['email'])."' and Password='".($_POST['pass'])."'";
-            $query=mysqli_query($conn, $q);
-        }
-=======
     $servername = "localhost";
     $username = "root";
     $password = "";
     $dbname = "just_database";
->>>>>>> 5d9f86ee934e30699f636123cefc163fb4f98091
 
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
@@ -46,12 +21,11 @@ if (isset($_POST['btnLogin'])) {
     if (isset($_POST['email'])) {
         $q = "SELECT * from utente where Email ='" . ($_POST['email']) . "' and Password='" . ($_POST['pass']) . "'";
         $query = mysqli_query($conn, $q);
+        $row = mysqli_fetch_array($query);
     }
 
     //se i dati inviati al form corrispondono a un utente, allora mi loggo, creo il cookie di sessione e vado a index.php
-    if ($query) {
-
-        $row = mysqli_fetch_array($query);
+    if (!is_null($row)) {
 
         //setto la durata del cookies a una settimana
         $time_cookie = 3600 * 24 * 7;
