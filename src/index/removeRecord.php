@@ -1,5 +1,6 @@
 <?php
   $val = $_REQUEST["val"];
+  $sum = $_REQUEST["sum"];
 
   $servername = "localhost";
   $username = "root";
@@ -19,6 +20,7 @@
       if($riga['Nome'] === $val) {
         $updated = $riga['Quantita'];
         $updated--;
+        $sum -= $riga['Prezzo'];
         if($updated === 0) {
           $del = "DELETE FROM carrello WHERE Nome='$val'";
           mysqli_query($conn, $del);

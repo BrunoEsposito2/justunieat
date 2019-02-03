@@ -129,6 +129,7 @@ if(!controllo_cookie()){
 					}
 
 					$sommaPrezzi = 0;
+					$totale = 0;
 					$sel = "SELECT * FROM carrello";
 			    $ex = mysqli_query($conn, $sel);
 			    if($ex) {
@@ -154,7 +155,6 @@ if(!controllo_cookie()){
 																							<div class="p-2">
 																									<p>
 																									<?php
-																										$sommaPrezzi += $riga['Prezzo'];
 																										echo $riga['Prezzo'];
 																									?>€
 																								</p>
@@ -162,7 +162,7 @@ if(!controllo_cookie()){
 																							<div class="p-3">
 																								<p>
 																									<?php
-																									$sommaPrezzi *= $riga['Quantita'];
+																									$sommaPrezzi = $riga['Prezzo'] * $riga['Quantita'];
 																									echo "Quantità: ".$riga['Quantita'];
 																									 ?>
 																								</p>
@@ -173,7 +173,7 @@ if(!controllo_cookie()){
 																	<div class="row">
 																			<div class="col-md-12">
 																					<div class="d-flex flex-row-reverse">
-																							<div class="p-2"><button type="button" id="<?php echo $riga['Nome'] ?>" onclick="remove(this.id)" class="btn btn-default btn-sm btn3d"><i
+																							<div class="p-2"><button type="button" id="<?php echo $riga['Nome'] ?>" onclick="remove(this.id, <?php echo $sommaPrezzi ?>)" class="btn btn-default btn-sm btn3d"><i
 																													class="material-icons md-36">remove_circle</i></button>
 																							</div>
 																					</div>
@@ -190,6 +190,7 @@ if(!controllo_cookie()){
 									</div>
 							</div>
 							<?php
+							$totale += $sommaPrezzi;
 						}
 					} else {
 						echo "Query non eseguita";
@@ -199,7 +200,7 @@ if(!controllo_cookie()){
 								<div class="container item">
 										<div class="row">
 												<div class="d-flex align-items-start">
-														<p><i class="material-icons">euro_symbol</i>Totale: <?php echo $sommaPrezzi?> €</p>
+														<p id="price"><i class="material-icons">euro_symbol</i>Totale: <?php echo $totale?> €</p>
 												</div>
 										</div>
 
@@ -370,13 +371,14 @@ if(!controllo_cookie()){
     ?>
 
 		<script>
-		function remove(el) {
+		function remove(el, sum) {
 				var httpRequest = new XMLHttpRequest();
 				httpRequest.onreadystatechange = function()	{
+						$("#price").val(sum);
 						location.reload(true);
 						//document.getElementById(el).innerHTML = this.responseText; //FOR DEBUGGING
 				};
-				httpRequest.open("GET", "removeRecord.php?val="+el, true);
+				httpRequest.open("GET", "removeRecord.php?val="+el+"&amount="+sum, true);
 				httpRequest.send();
 		}
 		</script>
