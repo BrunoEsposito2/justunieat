@@ -75,17 +75,18 @@ create table PIETANZA (
      Piccante bit not null,
      Tipologia varchar(30) not null,
      ID_MENU INT NOT NULL,
-     constraint ID_PIETANZA_ID primary key (Nome));
+	ID_PIETANZA INT AUTO_INCREMENT,
+     constraint ID_PIETANZA_ID primary key (ID_PIETANZA));
 
 create table TIPOLOGIA_PIETANZA (
      Nome_Tipologia varchar(30) NOT NULL,
      constraint ID_TIPOLOGIA_PIETANZA_ID primary key(Nome_Tipologia));
 
 create table PIETANZA_NEL_ORDINE (
-	Nome varchar(30) NOT NULL,
+	ID_PIETANZA INT NOT NULL,
 	ID_ORDINE INT NOT NULL,
 	Quantità INT DEFAULT '1',
-	constraint ID primary key (Nome, ID_ORDINE));
+	constraint ID primary key (ID_PIETANZA, ID_ORDINE));
 
 create table UTENTE (
      Nome varchar(30) not null,
@@ -154,8 +155,8 @@ alter table PIETANZA_NEL_ORDINE add constraint REF_ID_ORDI
 	references ORDINE (ID_ORDINE);
 
 alter table PIETANZA_NEL_ORDINE add constraint REF_ID_PIET
-	foreign key (Nome)
-	references PIETANZA (Nome);
+	foreign key (ID_PIETANZA)
+	references PIETANZA (ID_PIETANZA);
 
 -- Added password to Fornitori
 ALTER TABLE `fornitore` ADD `Password` VARCHAR(50) NOT NULL AFTER `Email`;
