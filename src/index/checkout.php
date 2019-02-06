@@ -1,5 +1,6 @@
 <?php
-include_once("./addAndRemove.php");
+//include_once("./addAndRemove.php");
+session_start();
 function controllo_cookie(){
 
 	if(isset($_COOKIE['session'])){
@@ -46,6 +47,84 @@ if(!controllo_cookie()){
     $auth = true;
 }
 
+if(isset($_POST['ship_date']) && isset($_POST['ship_time'])) {
+	$hours = $_POST['ship_date'];
+	$minutes = $_POST['ship_time'];
+	$id_user = $_SESSION['id'];
+
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "just_database";
+
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+
+	$takeOrders = "SELECT * FROM ordine";
+	$exec = mysqli_query($conn, $takeOrders);
+	while($rec = mysqli_fetch_array($exec)) {
+		if($rec['ID_USER'] === $id_user) {
+			$orario = $hours.":".$minutes;
+			//echo "ORARIO -> ".$orario;
+			$up = "UPDATE ordine SET Orario_richiesto='$orario'";
+			$exUp = mysqli_query($conn, $up);
+		}
+	}
+}
+
+if(isset($_POST['saveOrder'])) {
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "just_database";
+
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+
+	$user_ID = $_SESSION['id'];
+
+	$sendOrd = "SELECT * FROM ordine WHERE ID_USER='$user_ID'";
+	$exSend = mysqli_query($conn, $sendOrd);
+	while($row = mysqli_fetch_array($exSend)) {
+		if(!$row['ORDINE_INVIATO']) {
+			$upOrd = "UPDATE ordine SET ORDINE_INVIATO=1";
+			$exUpOrd = mysqli_query($conn, $upOrd);
+		}
+	}
+
+	mysqli_close($conn);
+	$_POST['success_order'] = true;
+
+}
+
+/*
+if(isset($_POST['place'])) {
+	$place = $_POST['place'];
+
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "just_database";
+
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+
+	$takeOrders = "SELECT * FROM ordine";
+	$exec = mysqli_query($conn, $takeOrders);
+	while($rec = mysqli_fetch_array($exec)) {
+		if($rec['ID_USER'] === $id_user) {
+			$up = "UPDATE ordine SET Luogo='$luogo'";
+			$exUp = mysqli_query($conn, $up);
+		}
+	}
+}*/
+
 ?>
 
 
@@ -63,6 +142,7 @@ if(!controllo_cookie()){
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href='https://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet'>
+		<link rel="stylesheet" href="circleok_ko.css">
     <title>Just Uni Eat | Checkout</title>
 </head>
 
@@ -109,6 +189,28 @@ if(!controllo_cookie()){
                 </div>
     </nav>
 
+		<?php
+		if(isset($_POST['success_order'])) { ?>
+			<div class="jumbotron" style="background-color:white;">
+			<div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
+					<div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+					<span class="swal2-success-line-tip"></span>
+					<span class="swal2-success-line-long"></span>
+					<div class="swal2-success-ring"></div>
+					<div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+					<div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+			</div>
+
+			<h3 class="text-center">Ordine Effettuato!</h3>
+
+			<form name="continua" class="text-center" action="index.php">
+					<input type="submit" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
+			</form>
+		</div>
+		<?php
+	} else {
+		?>
+
 
     <div class="jumbotron">
         <div class="row">
@@ -118,6 +220,7 @@ if(!controllo_cookie()){
         </div>
 
 				<?php
+
 					$servername = "localhost";
 					$username = "root";
 					$password = "";
@@ -130,11 +233,15 @@ if(!controllo_cookie()){
 
 					$sommaPrezzi = 0;
 					$totale = 0;
-					$sel = "SELECT * FROM carrello";
+					$sel = "SELECT * FROM pietanza_nel_ordine";
 			    $ex = mysqli_query($conn, $sel);
 			    if($ex) {
-			      echo "Query eseguita";
+			      //echo "Query eseguita";
 			    	while($riga = mysqli_fetch_array($ex)) {
+							$getPiet = "SELECT * FROM pietanza";
+							$exGetP = mysqli_query($conn, $getPiet);
+							while($piet = mysqli_fetch_array($exGetP)) {
+								if($riga['ID_PIETANZA'] === $piet['ID_PIETANZA']) {
 				?>
 
 							<div class="container item">
@@ -148,21 +255,21 @@ if(!controllo_cookie()){
 																							<div class="p-2">
 																									<h5>
 																									<?php
-																										echo $riga['Nome'];
+																										echo $piet['Nome'];
 																									?>
 																								</h5>
 																							</div>
 																							<div class="p-2">
 																									<p>
 																									<?php
-																										echo $riga['Prezzo'];
+																										echo $piet['Prezzo'];
 																									?>€
 																								</p>
 																							</div>
 																							<div class="p-3">
 																								<p>
 																									<?php
-																									$sommaPrezzi = $riga['Prezzo'] * $riga['Quantita'];
+																									$sommaPrezzi = $piet['Prezzo'] * $riga['Quantita'];
 																									echo "Quantità: ".$riga['Quantita'];
 																									 ?>
 																								</p>
@@ -173,7 +280,7 @@ if(!controllo_cookie()){
 																	<div class="row">
 																			<div class="col-md-12">
 																					<div class="d-flex flex-row-reverse">
-																							<div class="p-2"><button type="button" id="<?php echo $riga['Nome'] ?>" onclick="remove(this.id, <?php echo $sommaPrezzi ?>)" class="btn btn-default btn-sm btn3d"><i
+																							<div class="p-2"><button type="button" id="<?php echo $piet['ID_PIETANZA'] ?>" onclick="remove(this.id, <?php echo $sommaPrezzi ?>)" class="btn btn-default btn-sm btn3d"><i
 																													class="material-icons md-36">remove_circle</i></button>
 																							</div>
 																					</div>
@@ -181,7 +288,7 @@ if(!controllo_cookie()){
 																	</div>
 																	<div class="row ing">
 																			<div class="col-xs-4 ingredient">
-																					<p><?php echo $riga['Ingredienti']; ?></p>
+																					<p><?php echo $piet['Descrizione']; ?></p>
 																			</div>
 																	</div>
 															</div>
@@ -192,10 +299,9 @@ if(!controllo_cookie()){
 							<?php
 							$totale += $sommaPrezzi;
 						}
-					} else {
-						echo "Query non eseguita";
-					}
-					?>
+							}
+						}
+						?>
 						<div class="jumbotron">
 								<div class="container item">
 										<div class="row">
@@ -254,6 +360,12 @@ if(!controllo_cookie()){
           </form>
       </div>
     </div>
+		<?php
+	} else {
+		echo "Query non eseguita";
+	}
+					}
+					?>
 
 
     <div class="content">
@@ -312,6 +424,8 @@ if(!controllo_cookie()){
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+		/* For ajax compact ($.ajax ...) */
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
     <script>
     function getCookie(nome) {
@@ -371,7 +485,23 @@ if(!controllo_cookie()){
     ?>
 
 		<script>
+
 		function remove(el, sum) {
+			$.ajax({
+   			type: "POST",
+   			url: "removeRecord.php",
+   			data: "val="+el+"&sum="+sum,
+   			success: function(msg){
+     			//alert( "Data Saved: " + msg );
+   			},
+				error: function() {
+					alert("Operazione non eseguita. Riprovare!");
+				}
+ 			});
+			location.reload();
+		}
+
+		/*function remove(el, sum) {
 				var httpRequest = new XMLHttpRequest();
 				httpRequest.onreadystatechange = function()	{
 						$("#price").val(sum);
@@ -380,7 +510,7 @@ if(!controllo_cookie()){
 				};
 				httpRequest.open("GET", "removeRecord.php?val="+el+"&amount="+sum, true);
 				httpRequest.send();
-		}
+		}*/
 		</script>
 
 </body>

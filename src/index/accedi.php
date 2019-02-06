@@ -5,8 +5,6 @@ $error = false;
 if (isset($_POST['btnLogin'])) {
 
 
-    if(isset($_POST['btnLogin'])){
-
         $servername = "localhost";
         $username = "root";
         $password = "";

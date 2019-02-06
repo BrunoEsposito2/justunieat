@@ -12,7 +12,7 @@ function controllo_cookie(){
         $username = "root";
         $password = "";
         $dbname = "just_database";
-        
+
         $conn = new mysqli($servername, $username, $password, $dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -25,17 +25,17 @@ function controllo_cookie(){
 		if($query){
             $row=mysqli_fetch_array($query);
 			//immagazzinano le informazioni dell'utente in un array
-            $_SESSION["id"]=$row["ID_USER"];  
+            $_SESSION["id"]=$row["ID_USER"];
 			return true;
 		} else {
             return false;
         }
-			
+
 
 	}else {
         return false;
     }
-		
+
 
 }
 
@@ -46,8 +46,8 @@ if(!controllo_cookie()){
     $auth = true;
     $yes = true;
     if (strcmp($_SESSION['email'],"justunieat@gmail.com") == 0) {
-        $change = true;  
-    } 
+        $change = true;
+    }
 }
 ?>
 
@@ -118,21 +118,21 @@ if(!controllo_cookie()){
         document.getElementById('navMes').style.display = "block";
         document.getElementById('navOrd').style.display = "block";
         document.getElementById('navExit').style.display = "block";
-    
+
     </script>
 
     <div class="jumbotron" style="background-color:white;">
 
-        <?php
+				<?php
 
         if($yes) {
 
-        ?>    
+        ?>
             <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
                 <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
                 <span class="swal2-success-line-tip"></span>
                 <span class="swal2-success-line-long"></span>
-                <div class="swal2-success-ring"></div> 
+                <div class="swal2-success-ring"></div>
                 <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
                 <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
             </div>
@@ -148,7 +148,7 @@ if(!controllo_cookie()){
             echo "<form class='text-center' action='dashboard.php'>
                 <input type='submit' id='go_after_acc' class='btn btn-success btn-lg btn3d' value='DASHBOARD'>
             </form>";
-            
+
             }
             ?>
 
@@ -169,7 +169,7 @@ if(!controllo_cookie()){
             <form>
                 <input type="button" class="btn btn-danger btn-lg btn3d" value="INDIETRO" onclick="history.back()">
             </form>
-        <?php    
+        <?php
         }
         ?>
 
@@ -239,7 +239,7 @@ if($yes) {
 ?>
 
     <script>
-    
+
     $(document).ready(function() {
         var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
         var hello = "Ciao, ";
@@ -251,7 +251,7 @@ if($yes) {
         document.getElementById('navOrd').style.display = "block";
         document.getElementById('navExit').style.display = "block";
     });
-    
+
     </script>
 <?php
 } else {
@@ -266,12 +266,8 @@ if($yes) {
 
 
 }
-?>    
+?>
 
 </body>
 
 </html>
-
-
-
-
