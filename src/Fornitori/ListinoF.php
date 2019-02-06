@@ -121,27 +121,33 @@ $rows = $result->num_rows;
           <h6 name="TipoCucina">'.$ris["Tipologia"].'</h6>
 
           <label for="TipoPiatto">Piatto:</label>
-          <select class="form-control" name="TipoPiatto">
-            <option>Primo</option>
-            <option>Secondo</option>
-          </select>
+          <h6 name="TipoPiatto">'.$ris["TipoPiatto"].'</h6>
+
         </div>
 
-        <div class="classButtonsPiatto col-sm-4 col-lg-4">
-        <div class="col-sm-12">
-          <label for="VegP">Vegetariano</label>
-          <input  type="checkbox" name="VegP">
-        </div>
-        <div class="col-sm-12">
-          <label for="PicP">Piccante</label>
-          <input type="checkbox" name="PicP">
-        </div>
-          <label for="PrezzoPiatto">Prezzo: </label>
+        <div class="classButtonsPiatto col-sm-4 col-lg-4">';
+
+        //Inserire if
+        if($ris["Vegetariano"]){
+        echo '<div class="col-sm-12">
+          Vegetariano
+        </div>';
+        }
+        //Inserire if
+        if($ris["Piccante"]){
+        echo '<div class="col-sm-12">
+          Piccante
+        </div>';
+        }
+        echo  '<label for="PrezzoPiatto">Prezzo: </label>
           <h6 class="mb-0" name="PrezzoPiatto">'.$ris["Prezzo"].'</h6>
 
           <!-- ADD JS OR PHP-->
-          <button class="btn btn-default" onclick="" name="ModificaPiatto">Modifica</button>
-          <button class="btn btn-default" onclick="" name="EliminaPiatto">Elimina</button>
+
+          <button class="btn btn-default"  name="'.$ris["ID_PIETANZA"].'">Modifica</button>
+          <form action="deletePiatto.php" method="post">
+          <button class="btn btn-default"  name="eliminare" value="'.$ris["ID_PIETANZA"].'">Elimina</button>
+          </form>
         </div>
       </div>
     </div>';
@@ -163,17 +169,17 @@ $rows = $result->num_rows;
 
         <div class="classDescrPiatto col-sm-12 col-lg-4">
         <label for="NomePiatto">Nome:</label>
-        <textarea class="form-control " name="NomePiatto">Nome del piatto</textarea>
+        <textarea class="form-control " name="NomePiatto" placeholder="Nome del piatto"></textarea>
 
 
           <label for="DescrizionePiatto">Descrizione:</label>
-          <textarea class="form-control " name="DescrizionePiatto">Descrizione del piatto</textarea>
+          <textarea class="form-control " name="DescrizionePiatto" placeholder="Descrizione del piatto"></textarea>
         </div>
 
         <div class="classTipoPiatto col-sm-12 col-lg-4">
           <label for="TipoCucina">Cucina:</label>
           <select class="form-control" name="TipoCucina">
-            <option selected>Romagnolo</option>
+            <option>Romagnolo</option>
             <option>Giapponese</option>
           </select>
 
@@ -181,6 +187,9 @@ $rows = $result->num_rows;
           <select class="form-control" name="TipoPiatto">
             <option>Primo</option>
             <option>Secondo</option>
+            <option>Contorno</option>
+            <option>Dolce</option>
+            <option>Bevanda</option>
           </select>
         </div>
 
@@ -196,7 +205,7 @@ $rows = $result->num_rows;
             </div>
 
             <label for="PrezzoPiatto">Prezzo: </label>
-            <textarea class="form-control" name="PrezzoPiatto">€Millemila</textarea>
+            <textarea class="form-control" name="PrezzoPiatto" placeholder="Prezzo"></textarea>
           </div>
 
           <!-- ADD JS AND/OR PHP-->

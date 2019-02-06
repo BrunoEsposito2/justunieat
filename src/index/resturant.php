@@ -1,6 +1,8 @@
-<?php include_once("./addAndRemove.php"); ?>
 <?php
 session_start();
+
+//include_once("./addAndRemove.php");
+
 function controllo_cookie(){
 
 	if(isset($_COOKIE['session'])){
@@ -45,6 +47,7 @@ if(!controllo_cookie()){
 } else {
     $auth = true;
 }
+
 ?>
 
 
@@ -260,7 +263,8 @@ if(!controllo_cookie()){
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="d-flex flex-row-reverse">
-                                                    <div class="p-2"><button type="submit" class="btn btn-default btn-sm btn3d"><i
+                                                    <div class="p-2">
+																											<button type="button" onclick="link('<?php echo $pietanze['Nome'] ?>')" class="btn btn-default btn-sm btn3d"><i
                                                             class="material-icons md-36">add_shopping_cart</i></button>
                                                     </div>
                                                 </div>
@@ -363,6 +367,8 @@ if(!controllo_cookie()){
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+		/* For ajax compact ($.ajax ...) */
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
         <?php
 
@@ -399,6 +405,20 @@ if(!controllo_cookie()){
     }
     ?>
 
+		<script>
+
+		function link(el) {
+			$.ajax({
+   			type: "POST",
+   			url: "addAndRemove.php",
+   			data: "cart="+el,
+   			success: function(msg){
+     			//alert( "Data Saved: " + msg );
+   			}
+ 			});
+		}
+
+		</script>
 
 
 </body>
