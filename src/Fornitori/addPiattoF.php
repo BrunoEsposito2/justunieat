@@ -31,8 +31,8 @@ if(isset($_POST["NomePiatto"]) &&
      $Veg = 0;
    }
 
-   $queryCheckP = $mysqli->prepare("SELECT Nome FROM pietanza WHERE Nome = ?");
-   $queryCheckP->bind_param("s", $_POST["NomePiatto"]);
+   $queryCheckP = $mysqli->prepare("SELECT Nome FROM pietanza WHERE Nome = ? AND ID_MENU = ?");
+   $queryCheckP->bind_param("si", $_POST["NomePiatto"], $_SESSION["ID_FORNITORE"]);
 
    $queryCheckP->execute();
 
@@ -46,9 +46,9 @@ if(isset($_POST["NomePiatto"]) &&
 
    if($piatto==NULL){
 
-     $queryRegP = $mysqli->prepare("INSERT INTO pietanza(Nome, Descrizione, Prezzo, Vegetariano, Piccante, Tipologia, ID_MENU) VALUES (?, ?, ?, ?, ?, ?, ?)");
+     $queryRegP = $mysqli->prepare("INSERT INTO pietanza(Nome, Descrizione, Prezzo, Vegetariano, Piccante, Tipologia,TipoPiatto, ID_MENU) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
-     $queryRegP->bind_param("sssiisi", $_POST["NomePiatto"], $_POST["DescrizionePiatto"], $_POST["PrezzoPiatto"], $Veg, $Piccante, $_POST["TipoCucina"], $_SESSION["ID_FORNITORE"]);
+     $queryRegP->bind_param("sssiissi", $_POST["NomePiatto"], $_POST["DescrizionePiatto"], $_POST["PrezzoPiatto"], $Veg, $Piccante, $_POST["TipoCucina"], $_POST["TipoPiatto"], $_SESSION["ID_FORNITORE"]);
 
      $queryRegP->execute();
 
