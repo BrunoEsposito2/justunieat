@@ -22,7 +22,6 @@ function controllo_cookie(){
 		//confronto username e password del cookie con il database
         $query=mysqli_query($conn, $q);
 
-
 		if($query){
             $row=mysqli_fetch_array($query, MYSQLI_ASSOC);
 			//immagazzinano le informazioni dell'utente in un array
@@ -99,7 +98,7 @@ if(!controllo_cookie()){
                     <li class="nav-item">
                         <a class="nav-link" id="navMes" href="message.php">
                             <i class="fa fa-envelope-o">
-                                <span class="badge badge-danger">1</span>
+                                <span id="messUnRead" class="badge badge-danger">0</span>
                             </i>
                             Messaggi
                         </a>
@@ -159,7 +158,6 @@ if(!controllo_cookie()){
                                     $rows[] = $row;
                                     }
                                     foreach($rows as $row) {
-                                    
                                     
                                     ?>
 
@@ -261,22 +259,21 @@ if(!controllo_cookie()){
                                     }
                                     foreach($rows as $row) {
                                     
-                                    
                                     ?>
 
                                     <div class="list-group msgListRec" style="display: none;">
                                     <li>
 
-                                    <div class="list-group msgListRec" style="display: none;">
-                                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1"><?php printf ("%s", $row["Titolo"]);?></h5>
-                                                <small><?php printf ("%s", $row["Data"]); echo "-" . date("H:i:s", $row["Orario"]);?></small>
-                                            </div>
-                                            <p class="mb-1"><?php printf ("%s", $row["Testo"]);?></p>
-                                            <small>Inviato da: <?php echo $row["Ristorante"];?></small>
-                                        </a>
-                                    </div> 
+                                        <div class="list-group msgListRec" style="display: none;">
+                                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1"><?php printf ("%s", $row["Titolo"]);?></h5>
+                                                    <small><?php printf ("%s", $row["Data"]); echo "-" . date("H:i:s", $row["Orario"]);?></small>
+                                                </div>
+                                                <p class="mb-1"><?php printf ("%s", $row["Testo"]);?></p>
+                                                <small>Inviato da: <?php echo $row["Ristorante"];?></small>
+                                            </a>
+                                        </div> 
                                     </li>
                                     <?php
                                     }
@@ -349,31 +346,75 @@ if(!controllo_cookie()){
         </div>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
 
-        <script>
-        $('#inBoxMsg').click(function() {
-            $('.msgList').toggle('slow', function() {
-            // Animation complete.
-            });
-        });
+    <script>
 
-        $('#recMsg').click(function() {
-            document.getElementById('top_rec_arr').style.display = "block";
-            $('.msgListRec').toggle('fadeOut', function() {
-            //Aniamtion
+            var id = <?php echo $_SESSION['id']?>;
+            $('#inBoxMsg').click(function() {
+                $('.msgList').toggle('slow', function() {
+                });
             });
-        });
+
+            $('#recMsg').click(function() {
+                document.getElementById('top_rec_arr').style.display = "block";
+                $('.msgListRec').toggle('fadeOut', function() {
+                    $.ajax({
+
+                    url : 'updateMessageCount.php',
+                    method : 'post',
+                    data : {id : id},
+
+                    success : function(response) {
+
+                    document.getElementById("messUnRead").innerHTML = "0";
+
+                    }
+
+                    });
+                });
+            });
+
+    </script>
+    
+    <?php
+
+        if($auth) {
+
+        $tmp=$_COOKIE['session'];
+
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "just_database";
+
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        //$row=mysqli_fetch_array($query);
+        //immagazzinano le informazioni dell'utente in un array
+       // $_SESSION["id"]=$row["ID_USER"];
+
+        $q= "SELECT COUNT(*) FROM utente AS U, messaggio AS M WHERE U.Email='".$_COOKIE['session']."' AND U.ID_USER = M.ID_USER AND M.Letto='0'";
+        $query=mysqli_query($conn, $q);
+        $result = mysqli_fetch_array($query);
+        ?>
+            
+        <script>
+        document.getElementById("messUnRead").innerHTML = <?php echo $result['COUNT(*)']?>;
         </script>
     
-        <?php
+    <?php
+    }
 
-    if($auth) {
+
     ?>
 
         <script>
@@ -391,20 +432,7 @@ if(!controllo_cookie()){
         });
         
         </script>
-    <?php
-    } else {
-    ?>
-
-    <script>
     
-    
-    </script>
-    
-    <?php
-
-
-    }
-    ?>
 
 </body>
 
