@@ -62,12 +62,31 @@ if(isset($_POST["inputNameF"]) &&
           $queryRegF->bind_param("sssssss", $_POST["inputNameF"], $_POST["inputSurnameF"], $_POST["inputRistoranteF"], $_POST["inputCellF"], $_POST["inputPIVAF"], $_POST["inputEmailF"], $_POST["inputPasswordF"]);
 
           //WORKS   <<<<<<<REMEMBER TO DECOMMENT>>>>>>>>>
-          //$queryRegF->execute();
+          $queryRegF->execute();
 
           //echo "New record created on Table fornitori";
 
 //<<<<<<< HEAD
           $queryRegF->close();
+
+          $queryMenuF = $mysqli->prepare("SELECT ID_FORNITORE FROM fornitore WHERE Email = ?");
+          $queryMenuF->bind_param("s", $_POST["inputEmailF"]);
+
+          $queryMenuF->execute();
+
+          $queryMenuF->bind_result($idmenu);
+
+          $queryMenuF->fetch();
+
+          $queryMenuF->close();
+
+          $queryMenuFInse = $mysqli->prepare("INSERT INTO menu(ID_FORNITORE, ID_MENU) VALUES (?, ?)");
+
+          $queryMenuFInse->bind_param("ii", $idmenu, $idmenu);
+
+          $queryMenuFInse->execute();
+
+          $queryMenuFInse->close();
 
           header("location: /../Progetto2019/src/Fornitori/HomeF.php");
 //||||||| merged common ancestors
