@@ -11,7 +11,7 @@ function controllo_cookie(){
         $username = "root";
         $password = "";
         $dbname = "just_database";
-        
+
         $conn = new mysqli($servername, $username, $password, $dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -30,12 +30,12 @@ function controllo_cookie(){
 		} else {
             return false;
         }
-			
+
 
 	}else {
         return false;
     }
-		
+
 
 }
 
@@ -75,7 +75,31 @@ if(!controllo_cookie()){
         </button>
         <a class="navbar-brand" href="#">Just Uni Eat</a>
         <a href="#">
-            <i class="material-icons md-36 carts">shopping_cart</i>
+					<?php
+					$servername = "localhost";
+					$username = "root";
+					$password = "";
+					$dbname = "just_database";
+
+					$conn = new mysqli($servername, $username, $password, $dbname);
+					if ($conn->connect_error) {
+							die("Connection failed: " . $conn->connect_error);
+					}
+
+					$idUs = $_SESSION['id'];
+					$checkCart = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$idUs' AND ORDINE_INVIATO=0";
+					$execControl = mysqli_query($conn, $checkCart);
+					$n_rows = mysqli_num_rows($execControl);
+
+					if($n_rows === 0) {
+					 ?>
+						<i class="material-icons md-36 carts">remove_shopping_cart</i>
+						<?php
+					} else if($n_rows > 0) {
+						?>
+						<i class="material-icons md-36 carts">shopping_cart</i>
+						<?php
+					}	 ?>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav float-left text-left pr-3">
@@ -113,8 +137,8 @@ if(!controllo_cookie()){
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    
-    
+
+
         $errors = "";
         $insertError = "";
         $isInserted = false;
@@ -132,8 +156,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
             if(strlen($errors) == 0){
-        
-            
+
+
             $servername = "localhost";
             $username = "root";
             $password = "";
@@ -147,28 +171,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $orario=time();
             $data=date('d-m-y');
             $q = "SELECT ID_USER FROM utente WHERE Email ='". $_SESSION["email"] ."'";
-            
-           
+
+
             $result=mysqli_query($conn, $q);
             while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
                 $id_user = $row['ID_USER'];
                 $flag = TRUE;
             }
-            
-            
-            
+
+
+
             $q = "SELECT ID_FORNITORE FROM fornitore WHERE Ristorante='" . $_POST["ristorante"]."'";
-            
+
             $result=mysqli_query($conn, $q);
             while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
                 $id_ristorante = $row['ID_FORNITORE'];
                 $flag = TRUE;
             }
-            
+
 
             $stmt = $conn->prepare("INSERT INTO messaggio (Testo, Data, Orario, ID_USER, ID_RISTORANTE, Titolo) VALUES (?, ?, ?, ?, ?, ?)");
             $stmt->bind_param("sssiis", $testo, $data, $orario, $id_user, $id_ristorante, $titolo);
-                    
+
             $testo = $_POST["testo"];
             $ristorante = $_POST["ristorante"];
             $titolo = $_POST["titolo"];
@@ -177,15 +201,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if(!$isInserted){
                 $insertError = $stmt->error;
             }
-               
-            if ($isInserted) {
-                $stmt->close();     
-                
-            }
-             
-        } 
 
-}    
+            if ($isInserted) {
+                $stmt->close();
+
+            }
+
+        }
+
+}
 ?>
 
     <div class="jumbotron" style="background-color:white;">
@@ -194,12 +218,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if($isInserted) {
 
-        ?>    
+        ?>
             <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
                 <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
                 <span class="swal2-success-line-tip"></span>
                 <span class="swal2-success-line-long"></span>
-                <div class="swal2-success-ring"></div> 
+                <div class="swal2-success-ring"></div>
                 <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
                 <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
             </div>
@@ -223,7 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <form>
                 <input type="button" class="btn btn-danger btn-lg btn3d" value="INDIETRO" onclick="history.back()">
             </form>
-        <?php    
+        <?php
         }
         ?>
 
@@ -293,7 +317,7 @@ if($auth) {
 ?>
 
     <script>
-    
+
     $(document).ready(function() {
         var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
         var hello = "Ciao, ";
@@ -305,7 +329,7 @@ if($auth) {
         document.getElementById('navOrd').style.display = "block";
         document.getElementById('navExit').style.display = "block";
     });
-    
+
     </script>
 <?php
 } else {
@@ -320,12 +344,8 @@ if($auth) {
 
 
 }
-?>    
+?>
 
 </body>
 
 </html>
-
-
-
-

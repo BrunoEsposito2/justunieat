@@ -86,7 +86,31 @@ if(!controllo_cookie()){
         </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
         <a href="checkout.php">
-            <i class="material-icons md-36 carts">shopping_cart</i>
+					<?php
+					$servername = "localhost";
+					$username = "root";
+					$password = "";
+					$dbname = "just_database";
+
+					$conn = new mysqli($servername, $username, $password, $dbname);
+					if ($conn->connect_error) {
+							die("Connection failed: " . $conn->connect_error);
+					}
+
+					$idUs = $_SESSION['id'];
+					$checkCart = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$idUs' AND ORDINE_INVIATO=0";
+					$execControl = mysqli_query($conn, $checkCart);
+					$n_rows = mysqli_num_rows($execControl);
+
+					if($n_rows === 0) {
+					 ?>
+						<i class="material-icons md-36 carts">remove_shopping_cart</i>
+						<?php
+					} else if($n_rows > 0) {
+						?>
+						<i class="material-icons md-36 carts">shopping_cart</i>
+						<?php
+					}	 ?>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav float-left text-left pr-3">

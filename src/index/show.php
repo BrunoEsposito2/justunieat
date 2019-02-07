@@ -11,12 +11,12 @@ function controllo_cookie(){
         $username = "root";
         $password = "";
         $dbname = "just_database";
-        
+
         $conn = new mysqli($servername, $username, $password, $dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        
+
         $q="SELECT * from utente where Email='".$tmp."'";
 		//confronto username e password del cookie con il database
         $query=mysqli_query($conn, $q);
@@ -29,12 +29,12 @@ function controllo_cookie(){
 		} else {
             return false;
         }
-			
+
 
 	}else {
         return false;
     }
-		
+
 
 }
 
@@ -73,7 +73,31 @@ if(!controllo_cookie()){
         </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
         <a href="checkout.html">
-            <i class="material-icons md-36 carts">shopping_cart</i>
+					<?php
+					$servername = "localhost";
+					$username = "root";
+					$password = "";
+					$dbname = "just_database";
+
+					$conn = new mysqli($servername, $username, $password, $dbname);
+					if ($conn->connect_error) {
+							die("Connection failed: " . $conn->connect_error);
+					}
+
+					$idUs = $_SESSION['id'];
+					$checkCart = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$idUs' AND ORDINE_INVIATO=0";
+					$execControl = mysqli_query($conn, $checkCart);
+					$n_rows = mysqli_num_rows($execControl);
+
+					if($n_rows === 0) {
+					 ?>
+						<i class="material-icons md-36 carts">remove_shopping_cart</i>
+						<?php
+					} else if($n_rows > 0) {
+						?>
+						<i class="material-icons md-36 carts">shopping_cart</i>
+						<?php
+					}	 ?>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav float-left text-left pr-3">
@@ -180,10 +204,10 @@ if(!controllo_cookie()){
                                     </div>
                                 </div>
                             </div>
-                        </form>    
+                        </form>
                     </div>
-                
-                    
+
+
                 <div class="col-md-9">
 
                     <?php
@@ -204,9 +228,9 @@ if(!controllo_cookie()){
 
                         if(isset($_GET['category'])) {
                             $categorys = $_GET['category'];
-                        } 
+                        }
                         if(isset($_GET['category'])) {
-                            foreach ($categorys as $category){ 
+                            foreach ($categorys as $category){
                                 $rows = array();
                                 ?>
                                 <?php echo "<h4 class='catHr'>$category</h4>" ?>
@@ -221,7 +245,7 @@ if(!controllo_cookie()){
                                 }
                                 foreach($rows as $row) {
                                         ?>
-                                            
+
                                             <div class="row mb-3">
                                                 <div class="col-md-12">
                                                     <form action='resturant.php' method="GET">
@@ -236,7 +260,7 @@ if(!controllo_cookie()){
                                                                         <a href=<?php echo "resturant.php?id=".$row['ID_FORNITORE']?>><h5><?php echo $row["Ristorante"]?></h5></a>
                                                                         <small><?php echo $row["Nome"]?></small>
                                                                         <p><small><?php echo $row["Cellulare"]?></small></p>
-                                                                        <?php 
+                                                                        <?php
                                                                         $fiveStar = 5;
                                                                         $blackStar = 5;
                                                                         $blackStar -= (int)$row["Valutazione"];
@@ -246,7 +270,7 @@ if(!controllo_cookie()){
                                                                         if($blackStar > 0) {
                                                                             for($i = 0; $i < $blackStar; $i++){
                                                                                 echo "<span class='fa fa-star'></span>";
-                                                                            } 
+                                                                            }
                                                                         }
                                                                         ?>
                                                                     </div>
@@ -260,9 +284,9 @@ if(!controllo_cookie()){
                                                 </div>
                                             </div>
 
-                                        <?php    
+                                        <?php
                                 }
-                            }   
+                            }
                         } else {
 
                                 ?>
@@ -272,7 +296,7 @@ if(!controllo_cookie()){
                                 $q="SELECT cef.Nome, f.ID_FORNITORE, f.Ristorante, f.Cellulare, f.Valutazione, m.ID_MENU
                                 FROM categorie as cat, categoria_ristorante as cef, fornitore as f, menu as m
                                 WHERE cat.ID_FORNITORE = f.ID_FORNITORE AND cef.ID_CAT = cat.ID_CAT and m.ID_MENU = f.ID_FORNITORE";
-                                
+
                                 $rows = array();
                                 $result = $mysqli->query($q);
                                 while($row = $result->fetch_array()) {
@@ -294,7 +318,7 @@ if(!controllo_cookie()){
                                                                         <a href=<?php echo "resturant.php?id=".$row['ID_FORNITORE']?>><h5><?php echo $row["Ristorante"]?></h5></a>
                                                                         <small><?php echo $row["Nome"]?></small>
                                                                         <p><small><?php echo $row["Cellulare"]?></small></p>
-                                                                        <?php 
+                                                                        <?php
                                                                         $fiveStar = 5;
                                                                         $blackStar = 5;
                                                                         $blackStar -= (int)$row["Valutazione"];
@@ -304,7 +328,7 @@ if(!controllo_cookie()){
                                                                         if($blackStar > 0) {
                                                                             for($i = 0; $i < $blackStar; $i++){
                                                                                 echo "<span class='fa fa-star'></span>";
-                                                                            } 
+                                                                            }
                                                                         }
                                                                         ?>
                                                                     </div>
@@ -318,13 +342,13 @@ if(!controllo_cookie()){
                                                 </div>
                                             </div>
 
-                                        <?php    
+                                        <?php
                                 }
                         }
                     ?>
 
 
-                    
+
 
 
                 </div>
@@ -398,7 +422,7 @@ if(!controllo_cookie()){
             ?>
 
                 <script>
-                
+
                 $(document).ready(function() {
                     var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
                     var hello = "Ciao, ";
@@ -410,7 +434,7 @@ if(!controllo_cookie()){
                     document.getElementById('navOrd').style.display = "block";
                     document.getElementById('navExit').style.display = "block";
                 });
-                
+
                 </script>
             <?php
             } else {

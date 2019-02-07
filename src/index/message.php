@@ -81,7 +81,31 @@ if(!controllo_cookie()){
         </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
         <a href="#">
-            <i class="material-icons md-36 carts">shopping_cart</i>
+					<?php
+					$servername = "localhost";
+					$username = "root";
+					$password = "";
+					$dbname = "just_database";
+
+					$conn = new mysqli($servername, $username, $password, $dbname);
+					if ($conn->connect_error) {
+							die("Connection failed: " . $conn->connect_error);
+					}
+
+					$idUs = $_SESSION['id'];
+					$checkCart = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$idUs' AND ORDINE_INVIATO=0";
+					$execControl = mysqli_query($conn, $checkCart);
+					$n_rows = mysqli_num_rows($execControl);
+
+					if($n_rows === 0) {
+					 ?>
+						<i class="material-icons md-36 carts">remove_shopping_cart</i>
+						<?php
+					} else if($n_rows > 0) {
+						?>
+						<i class="material-icons md-36 carts">shopping_cart</i>
+						<?php
+					}	 ?>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav float-left text-left pr-3">
@@ -158,12 +182,7 @@ if(!controllo_cookie()){
                                     $rows[] = $row;
                                     }
                                     foreach($rows as $row) {
-<<<<<<< HEAD
 
-
-=======
-                                    
->>>>>>> 44b4ec31346bdcb803e68757f6a72ee8000548a1
                                     ?>
 
                                     <div class="list-group msgList" style="display: none;">
@@ -263,18 +282,12 @@ if(!controllo_cookie()){
                                     $rows[] = $row;
                                     }
                                     foreach($rows as $row) {
-<<<<<<< HEAD
 
-
-=======
-                                    
->>>>>>> 44b4ec31346bdcb803e68757f6a72ee8000548a1
                                     ?>
 
                                     <div class="list-group msgListRec" style="display: none;">
                                     <li>
 
-<<<<<<< HEAD
                                     <div class="list-group msgListRec" style="display: none;">
                                         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="d-flex w-100 justify-content-between">
@@ -285,7 +298,6 @@ if(!controllo_cookie()){
                                             <small>Inviato da: <?php echo $row["Ristorante"];?></small>
                                         </a>
                                     </div>
-=======
                                         <div class="list-group msgListRec" style="display: none;">
                                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                                 <div class="d-flex w-100 justify-content-between">
@@ -295,8 +307,8 @@ if(!controllo_cookie()){
                                                 <p class="mb-1"><?php printf ("%s", $row["Testo"]);?></p>
                                                 <small>Inviato da: <?php echo $row["Ristorante"];?></small>
                                             </a>
-                                        </div> 
->>>>>>> 44b4ec31346bdcb803e68757f6a72ee8000548a1
+                                        </div>
+
                                     </li>
                                     <?php
                                     }
@@ -404,7 +416,7 @@ if(!controllo_cookie()){
             });
 
     </script>
-    
+
     <?php
 
         if($auth) {
@@ -429,21 +441,11 @@ if(!controllo_cookie()){
         $query=mysqli_query($conn, $q);
         $result = mysqli_fetch_array($query);
         ?>
-            
+
         <script>
         document.getElementById("messUnRead").innerHTML = <?php echo $result['COUNT(*)']?>;
         </script>
-<<<<<<< HEAD
 
-        <?php
-=======
-    
-    <?php
-    }
-
->>>>>>> 44b4ec31346bdcb803e68757f6a72ee8000548a1
-
-    ?>
 
         <script>
 
@@ -460,7 +462,7 @@ if(!controllo_cookie()){
         });
 
         </script>
-<<<<<<< HEAD
+
     <?php
     } else {
     ?>
@@ -475,9 +477,6 @@ if(!controllo_cookie()){
 
     }
     ?>
-=======
-    
->>>>>>> 44b4ec31346bdcb803e68757f6a72ee8000548a1
 
 </body>
 
