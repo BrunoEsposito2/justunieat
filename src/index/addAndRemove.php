@@ -77,8 +77,11 @@
         /* PART_1 INSERIMENTO: INSERISCO PRIMA NELLA TABELLA ORDINE */
         $user_id = $_SESSION['id'];
 
-        $doOrder = "INSERT INTO ordine(Orario_richiesto, Stato, ID_USER, ID_RESTURANT, ORDINE_INVIATO) VALUES ('12:00', 0, '$user_id, '$id_r', 0) ";
+        $doOrder = "INSERT INTO ordine(Orario_richiesto, Stato, ID_USER, ID_RESTURANT, ORDINE_INVIATO) VALUES ('12:00', 0, '$user_id', '$id_r', 0)";
         $okOrd = mysqli_query($conn, $doOrder);
+        if(!$okOrd) {
+          echo "ERROR -> ".$conn->error;
+        }
         $takeID_O = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$user_id'";
         $doID_O = mysqli_query($conn, $takeID_O);
         while($idO = $doID_O->fetch_array()) {                //RICAVO L'ARRAY ID_ORDINE
@@ -103,8 +106,8 @@
       $user_id = $_SESSION['id'];
       while($get = mysqli_fetch_array($doCount)) {      //INIZIO LA CONTA
           print_r($get);
-          if($get['ID_PIETANZA'] === $id_piet && checkID()) {                   //SE LA PIETANZA E' GIA' PRESENTE (E L'ID_USER IN ORDINE CORRISPONDE ALL'ID_USER CHE STA LAVORANDO)...
-            echo "E' presente, aggiornare quantità";
+          if($get['ID_PIETANZA'] === $id_piet && checkID()) {        //SE LA PIETANZA E' GIA' PRESENTE (E SE L'ID_USER IN ORDINE CORRISPONDE ALL'ID_USER CHE E' LOGGATO). . .
+            //echo "E' presente, aggiornare quantità";
             $amount = $get['Quantita'];
             $amount++;
             $upd = "UPDATE pietanza_nel_ordine SET Quantita='$amount' WHERE ID_PIETANZA='$id_piet'";   // . . . AGGIORNO LA QUANTITA'
@@ -164,6 +167,7 @@
     }
 
 }
+
 
 function checkID() {
   $client = $_SESSION['id'];

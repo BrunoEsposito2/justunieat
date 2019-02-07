@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="circleok_ko.css">
     <title>Just Uni Eat | CheckStatus</title>
 </head>
 
@@ -55,29 +56,44 @@
         </div>
     </nav>
 
-    <div class="jumbotron text-center">
-        <div class="text-center"> 
-            <div class="row">  
-                    <div class="col-sm-12 ">
-                        <div class="card">
-                            <div class="card-body">
-                                <form class="form-signin">
-                                    <p>Complimenti! Il tuo ordine è giunto correttamente al fornitore. Presto ti verra' notificato il numero Whatapp del fattorino con cui accordarti e un orario indicativo di arrivo dell'ordine. Grazie di averci scelto.</p>
-                                        <div class="form-row text-center">
-                                            <div class="col-12">
-                                                <button type="button" class="btn btn-primary btn-lg btn3d reg_but">OK</button>
-                                            </div>
-                                        </div>
-                            </div>
-                        </div>
-                   
-        
-                            </form>
-                </div>
-             </div>
-        </div>
+    <div class="jumbotron" style="background-color:white;">
 
+<!--<div class="jumbotron" style="background-color:white;">-->
+    <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
+        <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+        <span class="swal2-success-line-tip"></span>
+        <span class="swal2-success-line-long"></span>
+        <div class="swal2-success-ring"></div>
+        <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+        <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
     </div>
+
+    <h3 class="text-center">Ordine Effettuato!</h3>
+
+    <div class="text-center">
+        <div class="row">
+                <div class="col-sm-12 ">
+                    <div class="card">
+                        <div class="card-body">
+                            <form class="form-signin">
+                                <b><p>Complimenti! Il tuo ordine è giunto correttamente al fornitore.
+                                  Presto ti verra' notificato il numero Whatapp del fattorino
+                                  con cui accordarti e un orario indicativo di arrivo dell'ordine.
+                                  Grazie di averci scelto.</p></b>
+                        </div>
+                    </div>
+
+
+                        </form>
+            </div>
+         </div>
+    </div>
+
+    <form name="continua" class="text-center" action="index.php">
+        <input type="submit" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
+    </form>
+<!--  </div> -->
+</div>
 
 
     <div class="content">

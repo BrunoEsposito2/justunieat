@@ -97,13 +97,14 @@ if(isset($_POST['saveOrder'])) {
 	}
 
 	mysqli_close($conn);
-	$_POST['success_order'] = true;
+	header("Location: CheckStatus.html");
 
 }
 
-/*
+
 if(isset($_POST['place'])) {
-	$place = $_POST['place'];
+	$luogo = $_POST['place'];
+
 
 	$servername = "localhost";
 	$username = "root";
@@ -123,7 +124,7 @@ if(isset($_POST['place'])) {
 			$exUp = mysqli_query($conn, $up);
 		}
 	}
-}*/
+}
 
 ?>
 
@@ -142,7 +143,6 @@ if(isset($_POST['place'])) {
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href='https://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet'>
-		<link rel="stylesheet" href="circleok_ko.css">
     <title>Just Uni Eat | Checkout</title>
 </head>
 
@@ -189,28 +189,6 @@ if(isset($_POST['place'])) {
                 </div>
     </nav>
 
-		<?php
-		if(isset($_POST['success_order'])) { ?>
-			<div class="jumbotron" style="background-color:white;">
-			<div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
-					<div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
-					<span class="swal2-success-line-tip"></span>
-					<span class="swal2-success-line-long"></span>
-					<div class="swal2-success-ring"></div>
-					<div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
-					<div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
-			</div>
-
-			<h3 class="text-center">Ordine Effettuato!</h3>
-
-			<form name="continua" class="text-center" action="index.php">
-					<input type="submit" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
-			</form>
-		</div>
-		<?php
-	} else {
-		?>
-
 
     <div class="jumbotron">
         <div class="row">
@@ -235,6 +213,8 @@ if(isset($_POST['place'])) {
 					$totale = 0;
 					$sel = "SELECT * FROM pietanza_nel_ordine";
 			    $ex = mysqli_query($conn, $sel);
+					$numEl = mysqli_num_rows($ex);
+					if($numEl > 0) {
 			    if($ex) {
 			      //echo "Query eseguita";
 			    	while($riga = mysqli_fetch_array($ex)) {
@@ -364,9 +344,18 @@ if(isset($_POST['place'])) {
 	} else {
 		echo "Query non eseguita";
 	}
-					}
+} else {	/* INSERIRE CODICE CHE DICE CHE IL CARRELLO E' VUOTO */
 					?>
+					<div class="jumbotron">
 
+			    <h2 class="text-center">Carrello Vuoto</h2>
+
+			    <form name="continua" class="text-center" action="index.php">
+			        <input type="submit" id="go_after_acc" class="btn btn-danger btn-lg btn3d" value="CONTINUA">
+			    </form>
+			</div>
+
+		<?php } ?>
 
     <div class="content">
     </div>

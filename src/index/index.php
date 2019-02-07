@@ -11,7 +11,7 @@ function controllo_cookie(){
         $username = "root";
         $password = "";
         $dbname = "just_database";
-        
+
         $conn = new mysqli($servername, $username, $password, $dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -28,8 +28,8 @@ function controllo_cookie(){
             $_SESSION["id"]=$row["ID_USER"];
 
             echo $row["ID_USER"];
-            
-            
+
+
             $q= "SELECT COUNT(*) FROM utente AS U, messaggio AS M WHERE U.ID_USER='".$row["ID_USER"]."' AND U.ID_USER = M.ID_USER AND M.Letto='0'";
             $query=mysqli_query($conn, $q);
             $result = mysqli_fetch_array($query);
@@ -41,12 +41,12 @@ function controllo_cookie(){
 		} else {
             return false;
         }
-			
+
 
 	}else {
         return false;
     }
-		
+
 
 }
 
@@ -140,7 +140,7 @@ if(!controllo_cookie()){
             <label class="check">
                 <input type="checkbox" name="category[]" value="Italiana">
             </label>Italiana<br>
-        
+
 
          <!--POTREI MODIFICARE L'INVIO DEL SHOW.PHP INNESTANDOGLI LE SCELTE FATTE DELLE CATEGORIE!" COME SI VEDE IN STACK OVERFLOW!"-->
 
@@ -209,7 +209,7 @@ if(!controllo_cookie()){
     ?>
 
         <script>
-        
+
         $(document).ready(function() {
             var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
             var hello = "Ciao, ";
@@ -221,17 +221,17 @@ if(!controllo_cookie()){
             document.getElementById('navOrd').style.display = "block";
             document.getElementById('navExit').style.display = "block";
         });
-        
+
         </script>
     <?php
     } else {
     ?>
 
     <script>
-    
-    
+
+
     </script>
-    
+
     <?php
 
 
