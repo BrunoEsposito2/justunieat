@@ -13,11 +13,10 @@ if ($mysqli->connect_error) {
 
 if(isset($_POST["NomePiatto"]) &&
    isset($_POST["DescrizionePiatto"]) &&
-   isset($_POST["TipoCucina"]) &&
    isset($_POST["TipoPiatto"]) &&
    isset($_POST["PrezzoPiatto"])
  ){
-   echo $_POST["NomePiatto"] . "<br>" . $_POST["DescrizionePiatto"] . "<br>" . $_POST["TipoCucina"] . "<br>" . $_POST["TipoPiatto"] . "<br>" . $_POST["PrezzoPiatto"];
+   echo $_POST["NomePiatto"] . "<br>" . $_POST["DescrizionePiatto"] . "<br>" . $_POST["TipoPiatto"] . "<br>" . $_POST["PrezzoPiatto"];
 
    if(isset($_POST["PicP"])){
      $Piccante = 1;
@@ -46,9 +45,9 @@ if(isset($_POST["NomePiatto"]) &&
 
    if($piatto==NULL){
 
-     $queryRegP = $mysqli->prepare("INSERT INTO pietanza(Nome, Descrizione, Prezzo, Vegetariano, Piccante, Tipologia,TipoPiatto, ID_MENU) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+     $queryRegP = $mysqli->prepare("INSERT INTO pietanza(Nome, Descrizione, Prezzo, Vegetariano, Piccante, Tipologia, ID_MENU) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-     $queryRegP->bind_param("sssiissi", $_POST["NomePiatto"], $_POST["DescrizionePiatto"], $_POST["PrezzoPiatto"], $Veg, $Piccante, $_POST["TipoCucina"], $_POST["TipoPiatto"], $_SESSION["ID_FORNITORE"]);
+     $queryRegP->bind_param("ssdiisi", $_POST["NomePiatto"], $_POST["DescrizionePiatto"], $_POST["PrezzoPiatto"], $Veg, $Piccante, $_POST["TipoPiatto"], $_SESSION["ID_FORNITORE"]);
 
      $queryRegP->execute();
 

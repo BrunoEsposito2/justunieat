@@ -20,6 +20,10 @@ if(isset($_GET["e"])){
   echo "Errore: Il piatto " . $_SESSION["piatto"] . " esiste già.";
 }
 
+if(isset($_GET["del"])){
+  echo "Il piatto " . $_SESSION["piatto"] . " è stato eliminato.";
+}
+
 $queryListF = $mysqli->prepare("SELECT * FROM pietanza WHERE ID_MENU = ?");
 $queryListF->bind_param("i", $_SESSION["ID_FORNITORE"]);
 
@@ -117,11 +121,10 @@ $rows = $result->num_rows;
         </div>
 
         <div class="classTipoPiatto col-sm-4 col-lg-4">
-          <label for="TipoCucina">Cucina:</label>
+          <label for="TipoCucina">Tipologia:</label>
           <h6 name="TipoCucina">'.$ris["Tipologia"].'</h6>
 
-          <label for="TipoPiatto">Piatto:</label>
-          <h6 name="TipoPiatto">'.$ris["TipoPiatto"].'</h6>
+
 
         </div>
 
@@ -146,7 +149,7 @@ $rows = $result->num_rows;
 
           <button class="btn btn-default"  name="'.$ris["ID_PIETANZA"].'">Modifica</button>
           <form action="deletePiatto.php" method="post">
-          <button class="btn btn-default"  name="eliminare" value="'.$ris["ID_PIETANZA"].'">Elimina</button>
+          <button class="btn btn-default" onclick="jsDelete(this.id)" name="eliminare" id="'.$ris["Nome"].'" value="'.$ris["ID_PIETANZA"].'">Elimina</button>
           </form>
         </div>
       </div>
@@ -155,6 +158,17 @@ $rows = $result->num_rows;
     }
   }
   ?>
+
+  <script type="text/javascript" >
+  function jsDelete(clicked_id) {
+    var x = confirm("Sicuro di voler eliminare la pietanza " + clicked_id + " ?");
+    if(x){
+
+    } else {
+      this.event.preventDefault();
+    }
+  }
+  </script>
 
   <div class="card">
         <button id="headingThree" class="card-header btn btn-default collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -177,11 +191,6 @@ $rows = $result->num_rows;
         </div>
 
         <div class="classTipoPiatto col-sm-12 col-lg-4">
-          <label for="TipoCucina">Cucina:</label>
-          <select class="form-control" name="TipoCucina">
-            <option>Romagnolo</option>
-            <option>Giapponese</option>
-          </select>
 
           <label for="TipoPiatto">Piatto:</label>
           <select class="form-control" name="TipoPiatto">
