@@ -41,7 +41,7 @@
         if($updated === 0) {
           $del = "DELETE FROM pietanza_nel_ordine WHERE ID_PIETANZA='$id_pietanza'";
           mysqli_query($conn, $del);
-          $delFromOrd = "DELETE FROM ordine WHERE ID_ORDINE='$id_ordine'";
+          $delFromOrd = "DELETE FROM ordine WHERE ID_ORDINE='$id_ordine' AND ORDINE_INVIATO=0";
           mysqli_query($conn, $delFromOrd);
         } else {
           $ok = "UPDATE pietanza_nel_ordine SET Quantita='$updated' WHERE ID_PIETANZA='$id_pietanza'";
