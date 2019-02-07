@@ -11,7 +11,7 @@ function controllo_cookie(){
         $username = "root";
         $password = "";
         $dbname = "just_database";
-        
+
         $conn = new mysqli($servername, $username, $password, $dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -35,12 +35,12 @@ function controllo_cookie(){
 		} else {
             return false;
         }
-			
+
 
 	}else {
         return false;
     }
-		
+
 
 }
 
@@ -128,13 +128,13 @@ if(!controllo_cookie()){
             <div class="row inbox">
                 <div class="col-md-3">
                     <div class="panel panel-default">
-                    
+
                             <ul>
-                                
+
                                 <li>
                                      <button id="inBoxMsg" class="btn btn-primary btn3d">Messaggi Inviati</button>
                                 </li>
-                                
+
                                 <?php
 
                                     $servername = "localhost";
@@ -146,10 +146,10 @@ if(!controllo_cookie()){
                                     if ($mysqli->connect_error) {
                                         die("Connection failed: " . $conn->connect_error);
                                     }
-                                                                        
+
                                         /*  PER MOSTRARE TUTTI I MESSAGGI DELL'UTENTE"  */
-                                    $query="SELECT Orario, Data, Ristorante, Testo, Titolo, Ricevuto_Dal_Utente from messaggio, 
-                                    fornitore where ID_USER='".$_SESSION['id']."' AND ID_RISTORANTE = ID_FORNITORE AND 
+                                    $query="SELECT Orario, Data, Ristorante, Testo, Titolo, Ricevuto_Dal_Utente from messaggio,
+                                    fornitore where ID_USER='".$_SESSION['id']."' AND ID_RISTORANTE = ID_FORNITORE AND
                                     Ricevuto_Dal_Utente='0' ORDER BY Data DESC";
 
                                     $result = $mysqli->query($query);
@@ -159,8 +159,8 @@ if(!controllo_cookie()){
                                     $rows[] = $row;
                                     }
                                     foreach($rows as $row) {
-                                    
-                                    
+
+
                                     ?>
 
                                     <div class="list-group msgList" style="display: none;">
@@ -175,7 +175,7 @@ if(!controllo_cookie()){
                                             <p class="mb-1"><?php printf ("%s", $row["Testo"]);?></p>
                                             <small>Inviato a: <?php echo $row["Ristorante"];?></small>
                                         </a>
-                                    </div> 
+                                    </div>
                                     </li>
                                     <?php
                                     }
@@ -187,7 +187,7 @@ if(!controllo_cookie()){
                     </div>
 
                 </div>
-                
+
 
                 <div class="col-md-6">
                     <div class="panel panel-default">
@@ -207,7 +207,7 @@ if(!controllo_cookie()){
                                             placeholder="Titolo" tabindex="-1">
                                     </div>
                                 </div>
-                            
+
 
                                 <div class="col-sm-11 col-sm-offset-1">
 
@@ -229,13 +229,13 @@ if(!controllo_cookie()){
 
                 <div class="col-md-3">
                     <div class="panel panel-default">
-                    
+
                             <ul>
-                                
+
                                 <li>
                                      <button id="recMsg" class="btn btn-info btn3d">Messaggi Ricevuti</button>
                                 </li>
-                                
+
                                 <?php
 
                                     $servername = "localhost";
@@ -247,12 +247,12 @@ if(!controllo_cookie()){
                                     if ($mysqli->connect_error) {
                                         die("Connection failed: " . $conn->connect_error);
                                     }
-                                                                        
+
                                         /*  PER MOSTRARE TUTTI I MESSAGGI DELL'UTENTE"  */
-                                    $query="SELECT Orario, Data, Ristorante, Testo, Titolo, Ricevuto_Dal_Utente from messaggio, 
-                                    fornitore where ID_USER='".$_SESSION['id']."' AND ID_RISTORANTE = ID_FORNITORE AND 
+                                    $query="SELECT Orario, Data, Ristorante, Testo, Titolo, Ricevuto_Dal_Utente from messaggio,
+                                    fornitore where ID_USER='".$_SESSION['id']."' AND ID_RISTORANTE = ID_FORNITORE AND
                                     Ricevuto_Dal_Utente='1' ORDER BY Data DESC";
-                                    
+
                                     $result = $mysqli->query($query);
 
                                     while($row = $result->fetch_array())
@@ -260,8 +260,8 @@ if(!controllo_cookie()){
                                     $rows[] = $row;
                                     }
                                     foreach($rows as $row) {
-                                    
-                                    
+
+
                                     ?>
 
                                     <div class="list-group msgListRec" style="display: none;">
@@ -276,7 +276,7 @@ if(!controllo_cookie()){
                                             <p class="mb-1"><?php printf ("%s", $row["Testo"]);?></p>
                                             <small>Inviato da: <?php echo $row["Ristorante"];?></small>
                                         </a>
-                                    </div> 
+                                    </div>
                                     </li>
                                     <?php
                                     }
@@ -292,7 +292,7 @@ if(!controllo_cookie()){
 
 
 
-                
+
                 <!--/.col-->
             </div>
         </div>
@@ -370,14 +370,14 @@ if(!controllo_cookie()){
             });
         });
         </script>
-    
+
         <?php
 
     if($auth) {
     ?>
 
         <script>
-        
+
         $(document).ready(function() {
             var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
             var hello = "Ciao, ";
@@ -389,17 +389,17 @@ if(!controllo_cookie()){
             document.getElementById('navOrd').style.display = "block";
             document.getElementById('navExit').style.display = "block";
         });
-        
+
         </script>
     <?php
     } else {
     ?>
 
     <script>
-    
-    
+
+
     </script>
-    
+
     <?php
 
 
