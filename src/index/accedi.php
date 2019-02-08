@@ -4,13 +4,6 @@ $error = false;
 
 if (isset($_POST['btnLogin'])) {
 
-//<<<<<<< HEAD
-//||||||| merged common ancestors
-
-
-//=======
-
-//>>>>>>> 571dbf650162f68ae07d5d487cad7fd2baa6eb92
         $servername = "localhost";
         $username = "root";
         $password = "";
