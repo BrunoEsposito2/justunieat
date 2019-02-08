@@ -68,7 +68,7 @@ if(isset($_POST['ship_date']) && isset($_POST['ship_time'])) {
 		if($rec['ID_USER'] === $id_user) {
 			$orario = $hours.":".$minutes;
 			//echo "ORARIO -> ".$orario;
-			$up = "UPDATE ordine SET Orario_richiesto='$orario'";
+			$up = "UPDATE ordine SET Orario_richiesto='$orario' WHERE ORDINE_INVIATO=0";
 			$exUp = mysqli_query($conn, $up);
 		}
 	}
@@ -93,8 +93,26 @@ if(isset($_POST['saveOrder'])) {
 		if(!$row['ORDINE_INVIATO']) {
 			$upOrd = "UPDATE ordine SET ORDINE_INVIATO=1";
 			$exUpOrd = mysqli_query($conn, $upOrd);
+			$ord = $row['ID_ORDINE'];
+			$ordine_ID = "UPDATE pietanza_nel_ordine SET PIETANZA_ORDINATA=1 WHERE ID_ORDINE='$ord'";
+			$okUp = mysqli_query($conn, $ordine_ID);
 		}
 	}
+
+	/*ELIMINO LE COSE NEL CARRELLO QUANDO L'ORDINE VIENE INVIATO
+	 1) Prendo innanzitutto gli ID_ORDINE con ORDINE_INVIATO=1 dell'USER LOGGATO
+	$takeID_ORDINE = "SELECT ID_ORDINE FROM ordine WHERE ORDINE_INVIATO=1 AND ID_USER='$user_ID'";
+	$okOrd = mysqli_query($conn, $takeID_ORDINE);
+	$selectP = "SELECT ID_ORDINE FROM pietanza_nel_ordine";
+	$exSelect = mysqli_query($conn, $selectP);
+	while($record = mysqli_fetch_array($okOrd)) {
+		while($piet = mysqli_fetch_array($exSelect)) {
+			if($piet['ID_ORDINE'] === $record['ID_ORDINE']) {
+				$ordineID = $piet['ID_ORDINE'];
+				$delete = "DELETE FROM pietanza_nel_ordine WHERE ID_ORDINE='$ordineID'";
+			}
+		}
+	}*/
 
 	mysqli_close($conn);
 	header("Location: CheckStatus.html");
@@ -235,7 +253,7 @@ if(isset($_POST['place'])) {
 
 					$sommaPrezzi = 0;
 					$totale = 0;
-					$sel = "SELECT * FROM pietanza_nel_ordine";
+					$sel = "SELECT * FROM pietanza_nel_ordine WHERE PIETANZA_ORDINATA=0";
 			    $ex = mysqli_query($conn, $sel);
 					$numEl = mysqli_num_rows($ex);
 					if($numEl > 0) {

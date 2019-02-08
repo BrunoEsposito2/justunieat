@@ -35,7 +35,7 @@
 
 
     //Conteggio di tutti gli elementi nella tabella 'pietanza_nel_ordine'
-    $count = "SELECT * FROM pietanza_nel_ordine";
+    $count = "SELECT * FROM pietanza_nel_ordine WHERE PIETANZA_ORDINATA=0";
     $doCount = mysqli_query($conn, $count);
     $rows = mysqli_num_rows($doCount);
     /* DEBUGGING PURPOSE
@@ -110,7 +110,7 @@
             //echo "E' presente, aggiornare quantità";
             $amount = $get['Quantita'];
             $amount++;
-            $upd = "UPDATE pietanza_nel_ordine SET Quantita='$amount' WHERE ID_PIETANZA='$id_piet'";   // . . . AGGIORNO LA QUANTITA'
+            $upd = "UPDATE pietanza_nel_ordine SET Quantita='$amount' WHERE ID_PIETANZA='$id_piet' AND PIETANZA_ORDINATA=0";   // . . . AGGIORNO LA QUANTITA'
             $exUp = mysqli_query($conn, $upd);
           }
           if($countR === $rows - 1) {           //SE ARRIVO ALL'ULTIMA RIGA DELLA TABELLA 'pietanza_nel_ordine' SIGNIFICA CHE LA PIETANZA NON C'E' QUINDI VIENE AGGIUNTA
