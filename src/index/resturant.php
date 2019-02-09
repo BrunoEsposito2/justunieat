@@ -289,8 +289,8 @@ if(!controllo_cookie()){
                                             <div class="col-md-12">
                                                 <div class="d-flex flex-row-reverse">
                                                     <div class="p-2">
-																											<button type="button" onclick="link('<?php echo $pietanze['Nome'] ?>')" class="btn btn-default btn-sm btn3d"><i
-                                                            class="material-icons md-36">add_shopping_cart</i></button>
+                                                            <button type="button" onclick="link('<?php echo $pietanze['Nome'] ?>')" class="btn btn-default btn-sm btn3d">
+                                                            <i class="material-icons md-36">add_shopping_cart</i></button>
                                                     </div>
                                                 </div>
                                             </div>

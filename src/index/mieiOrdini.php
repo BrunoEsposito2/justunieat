@@ -65,7 +65,7 @@ if(!controllo_cookie()){
     <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
-    <title>Just Uni Eat | Ordini</title>
+    <title>Just Uni Eat | Miei Ordini</title>
 </head>
 
 <body>
@@ -136,13 +136,13 @@ if(!controllo_cookie()){
     </nav>
 
     <div class="jumbotron text-center">
-        <h2>Miei Ordini</h2>
+        <h2 class="numbOrder">Miei Ordini</h2>
             <div class="row">
                 <div class="col-md-12">
                     <?php
                     $count = 0;    
                     $m="SELECT * FROM pietanza_nel_ordine AS P, pietanza as C, ordine AS O WHERE C.ID_PIETANZA = 
-                    P.ID_PIETANZA AND P.ID_ORDINE = O.ID_ORDINE AND O.ID_USER = ". $idUs;
+                    P.ID_PIETANZA AND P.ID_ORDINE = O.ID_ORDINE AND O.ID_USER = ". $idUs . " ORDER BY P.ID_ORDINE DESC";
                     $query=mysqli_query($conn, $m);
                     while($ordine = $query->fetch_array()) {
                         $ordines[] = $ordine;
@@ -155,7 +155,32 @@ if(!controllo_cookie()){
                             <div class="col-sm-12 col-sm-offset-2">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="text-left">Ordine: <?php echo $count ?></h4>
+                                        <div class="row">
+                                            <div class="col-sm-1">
+                                                <h4 class="text-left numbOrder"># <?php echo $count ?></h4>
+                                            </div>
+                                            <div class="col-sm-11 text-right">
+                                                <?php 
+                                                if($ordine["Stato"] == 1) {
+                                                ?>    
+                                                    <i title="Ordine Concluso" class="material-icons">check_circle_outline</i>
+                                                <?php    
+                                                } else if ($ordine["Stato"] == 0) {
+                                                ?>    
+                                                    <i title="Ordine in Consegna" class="material-icons">directions_run</i>
+                                                <?php    
+                                                } else if ($ordine["Stato"] == -1) {
+                                                ?>
+                                                    <i title="Ordine Annulato" class="material-icons">cancel</i>
+                                                <?php    
+                                                }
+                                                ?>
+                                                
+                                            </div>
+
+                                        </div>
+                                        
+                                        
                                         <div class="row ing ">
                                             <div class="col-xs-3">
                                                 <div class="d-flex justify-content-between">
@@ -172,37 +197,77 @@ if(!controllo_cookie()){
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="d-flex flex-row-reverse">
-                                                    
+                                                    <?php
+                                                    if($ordine['valutazione'] === null) {
+                                                    ?>
+                                                        <form method="POST">
+                                                            <fieldset class="rating">
+                                                                <input type="radio" id="star5" name="rating" value="5<?php echo $ordine["ID_ORDINE"]?>" /><label class = "full" for="star5" title="Eccellente"></label>
+                                                                
+                                                                <input type="radio" id="star4" name="rating" value="4<?php echo $ordine["ID_ORDINE"]?>" /><label class = "full" for="star4" title="Molto buono"></label>
+                                                                
+                                                                <input type="radio" id="star3" name="rating" value="3<?php echo $ordine["ID_ORDINE"]?>" /><label class = "full" for="star3" title="Nella media"></label>
+                                                                
+                                                                <input type="radio" id="star2" name="rating" value="2<?php echo $ordine["ID_ORDINE"]?>" /><label class = "full" for="star2" title="Discreto"></label>
+                                                                
+                                                                <input type="radio" id="star1" name="rating" value="1<?php echo $ordine["ID_ORDINE"]?>" /><label class = "full" for="star1" title="Molto scarso"></label>
+                                                                
+                                                            </fieldset>
+                                                        </form>   
+                                                    <?php
+                                                    } else {
+                                                    ?>    
+                                                        <div class="ratings">
+                                                            <ul class="list-inline">
+                                                            <?php
+                                                                $fiveStar = 5;
+                                                                $blackStar = 5;
+                                                                $blackStar -= (int)$ordine["valutazione"];
+                                                                for($i = 0; $i < (int)$ordine["valutazione"]; $i++){
+                                                                    echo "<span class='fa fa-star checked'></span>";
+                                                                }
+                                                                if($blackStar > 0) {
+                                                                    for($i = 0; $i < $blackStar; $i++){
+                                                                        echo "<span class='fa fa-star'></span>";
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </ul>
+                            
+                                                        </div>
+                                                    <?php    
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row ing">
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-6">
                                                 <div class="d-flex justify-content-between">
                                                     <div class="p-2">
-                                                        <p><?php echo $ordine["valutazione"]?></p>
+                                                        <p><?php echo "Luogo Consegna: " . $ordine['Luogo']?></p>
                                                     </div>
-                                        
+
                                                 </div>
                                             </div>
 
                                         </div>
                                     
                                 
-                            
-                        
-
                     
+                                        <hr>
+                                                    <!--PIETANZE-->
                                         
-                                            <hr>
-
-                                        <h5 class="text-center">Pietanze nell'Ordine</h5>
-                                        <div class="row ing ">
-                                            <div class="col-xs-3">
+                                        <div class="row ing">
+                                            <div class="col-xs-6">
                                                 <div class="d-flex justify-content-between">
                                                     <div class="p-2">
                                                         <h5><?php echo $ordine["Nome"]?></h5>
+                                                    </div>
+                                                    <br>
+                                                    <div class="p-2">
+                                                     <p><?php echo $ordine['Tipologia']?></p> 
                                                     </div>
                                                     <div class="p-2">
                                                         <p><?php echo $ordine['Prezzo'] . " €"?></p>
@@ -211,13 +276,7 @@ if(!controllo_cookie()){
                                             </div>
                                         </div>
 
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="d-flex flex-row-reverse">
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <br>
 
                                         <div class="row ing">
                                             <div class="col-xs-3">
@@ -364,6 +423,55 @@ if(!controllo_cookie()){
    			}
  			});
 		}
+
+
+        
+        $(document).ready(function() {
+
+        
+            $(".rating").on('change', function(e){
+        
+                var value = $('input[name=rating]:checked').val();
+                var VALUE = value.substring(0,1);
+                
+                var ID_ORDINE = value.substring(1, value.length);
+                
+                
+                
+
+                $.ajax({
+
+                    url : 'ajaxRating.php',
+                    method : 'post',
+                    data : {VALUE : VALUE, ID_ORDINE : ID_ORDINE},
+
+                    success : function(response) {
+                    
+                        $("#ajax-alert").addClass("alert alert-danger").text("Success");
+                            $("#ajax-alert").alert();
+                            $("#ajax-alert").fadeTo(5000, 5000).slideUp(5000, function(){
+                        });
+
+                    }
+
+
+
+
+                });
+
+            });
+
+
+            
+
+
+
+
+
+
+
+        });
+         
 
 		</script>
 

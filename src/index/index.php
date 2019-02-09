@@ -1,5 +1,6 @@
 <?php
 session_start();
+$nMess = 0;
 function controllo_cookie(){
 
 	if(isset($_COOKIE['session'])){
@@ -26,11 +27,7 @@ function controllo_cookie(){
 			//immagazzinano le informazioni dell'utente in un array
             $_SESSION["id"]=$row["ID_USER"];
 
-            $q= "SELECT COUNT(*) FROM utente AS U, messaggio AS M WHERE U.ID_USER='".$row["ID_USER"]."' AND U.ID_USER = M.ID_USER AND M.Letto='0'";
-            $query=mysqli_query($conn, $q);
-            $result = mysqli_fetch_array($query);
-            echo $result['COUNT(*)'];
-
+           
 
 
 			return true;
@@ -122,10 +119,20 @@ if(!controllo_cookie()){
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="navMes" href="message.php">
-                          <i class="fa fa-envelope-o">
-                            <span class="badge badge-danger">1</span>
-                          </i>
-                          Messaggi
+                            <i class="fa fa-envelope-o">
+                                <span class="badge badge-danger">
+                                    
+                                    <?php 
+                                    if($auth) {
+                                        $q= "SELECT COUNT(*) FROM utente AS U, messaggio AS M WHERE 
+                                        U.ID_USER='".$_SESSION["id"]."' AND U.ID_USER = M.ID_USER AND M.Letto='0'";
+                                        $query=mysqli_query($conn, $q);
+                                        $result = mysqli_fetch_array($query);
+                                        echo $result['COUNT(*)']; 
+                                    } else echo "0";?>
+                                </span>
+                            </i>
+                            Messaggi
                         </a>
                     </li>
                     <li class="nav-item">

@@ -1014,3 +1014,11 @@ body{ margin: 0px; }
     .a_cookie:hover {
         background-color: rgb(57, 99, 215);
     }
+
+    .numbOrder {
+        color: red;
+    }
+
+    .pietOrder {
+        color: #0056B3;
+    }
