@@ -68,10 +68,33 @@ if(isset($_POST['ship_date']) && isset($_POST['ship_time'])) {
 		if($rec['ID_USER'] === $id_user) {
 			$orario = $hours.":".$minutes;
 			//echo "ORARIO -> ".$orario;
-			$up = "UPDATE ordine SET Orario_richiesto='$orario' WHERE ORDINE_INVIATO=0";
+			$myDate = new DateTime();
+			$date = $myDate->format('d m Y');
+			$oraData = $orario;
+			$oraData .=  " - " . $date;
+			$up = "UPDATE ordine SET Orario_Richiesto=" . '"' . $oraData .  '"' . "WHERE ORDINE_INVIATO=0";
 			$exUp = mysqli_query($conn, $up);
 		}
 	}
+}
+
+if(isset($_POST['place'])) {
+	$luogo = $_POST['place'];
+
+
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "just_database";
+
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
+
+	$takeOrders = "UPDATE ordine SET Luogo = " . "'$luogo'" . "WHERE ID_USER = " . $id_user . " AND ORDINE_INVIATO = 0" ;
+	$exec = mysqli_query($conn, $takeOrders);
+	
 }
 
 if(isset($_POST['saveOrder'])) {
@@ -120,29 +143,7 @@ if(isset($_POST['saveOrder'])) {
 }
 
 
-if(isset($_POST['place'])) {
-	$luogo = $_POST['place'];
 
-
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "just_database";
-
-	$conn = new mysqli($servername, $username, $password, $dbname);
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
-
-	$takeOrders = "SELECT * FROM ordine";
-	$exec = mysqli_query($conn, $takeOrders);
-	while($rec = mysqli_fetch_array($exec)) {
-		if($rec['ID_USER'] === $id_user) {
-			$up = "UPDATE ordine SET Luogo='$luogo'";
-			$exUp = mysqli_query($conn, $up);
-		}
-	}
-}
 
 ?>
 
@@ -368,7 +369,7 @@ if(isset($_POST['place'])) {
 					                    <label for="" class="col-sm-3 col-form-label"><i class="material-icons">edit_location</i>Luogo di
 					                        consegna:</label>
 					                    <div class="col-sm-4">
-					                        <input type="text" name="place" class="form-control" id="consegna" placeholder="Sala Ristoro">
+					                        <input type="text" name="place" class="form-control" id="consegna" placeholder="Sala Ristoro, Aula 3.10, ...">
 					                    </div>
 					                </div>
 
@@ -384,18 +385,20 @@ if(isset($_POST['place'])) {
     </div>
 		<?php
 	} else {
-		echo "Query non eseguita";
 	}
 } else {	/* INSERIRE CODICE CHE DICE CHE IL CARRELLO E' VUOTO */
 					?>
 					<div class="jumbotron">
 
-			    <h2 class="text-center">Carrello Vuoto</h2>
+					<div class="alert alert-danger" role="alert">
+					<h2 class="text-center"><i class="material-icons">remove_shopping_cart</i> Carrello Vuoto </h2>
+					</div>
+			    		
 
-			    <form name="continua" class="text-center" action="index.php">
-			        <input type="submit" id="go_after_acc" class="btn btn-danger btn-lg btn3d" value="CONTINUA">
-			    </form>
-			</div>
+			    		<form name="continua" class="text-center" onclick="history.back()">
+			       			 <input type="button" id="go_after_acc" class="btn btn-danger btn-lg btn3d" value="CONTINUA">
+			   			 </form>
+					</div>
 
 		<?php } ?>
 
@@ -455,7 +458,6 @@ if(isset($_POST['place'])) {
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-		/* For ajax compact ($.ajax ...) */
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
     <script>
