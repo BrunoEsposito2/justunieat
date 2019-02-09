@@ -69,7 +69,7 @@ if(isset($_POST['ship_date']) && isset($_POST['ship_time'])) {
 			$orario = $hours.":".$minutes;
 			//echo "ORARIO -> ".$orario;
 			$myDate = new DateTime();
-			$date = $myDate->format('d m Y');
+			$date = $myDate->format('d/m/Y');
 			$oraData = $orario;
 			$oraData .=  " - " . $date;
 			$up = "UPDATE ordine SET Orario_Richiesto=" . '"' . $oraData .  '"' . "WHERE ORDINE_INVIATO=0";
