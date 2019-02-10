@@ -82,7 +82,7 @@
         if(!$okOrd) {
           echo "ERROR -> ".$conn->error;
         }
-        $takeID_O = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$user_id'";
+        $takeID_O = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$user_id' AND ORDINE_INVIATO=0";
         $doID_O = mysqli_query($conn, $takeID_O);
         while($idO = $doID_O->fetch_array()) {                //RICAVO L'ARRAY ID_ORDINE
           $ID_O = $idO;
@@ -136,8 +136,8 @@
                 //echo "Real ID_R -> ".$id_r;
               }
               /*Inserire codice per prendere ID_USER e salvare l'id in una variabile*/
-              $doOrder = "INSERT INTO ordine(Orario_richiesto, Stato, ID_USER, ID_RESTURANT, ORDINE_INVIATO) VALUES ('12:00', 0, '$user_id', '$id_r', 0) ";
-              $okOrd = mysqli_query($conn, $doOrder);
+              //$doOrder = "INSERT INTO ordine(Orario_richiesto, Stato, ID_USER, ID_RESTURANT, ORDINE_INVIATO) VALUES ('12:00', 0, '$user_id', '$id_r', 0) ";
+              //$okOrd = mysqli_query($conn, $doOrder);
               $takeID_O = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$user_id' AND ORDINE_INVIATO=0";
               $doID_O = mysqli_query($conn, $takeID_O);
               while($idO = $doID_O->fetch_array()) {
