@@ -114,7 +114,6 @@ $rows = $result->num_rows;
     echo '<div id="'.$ris["Nome"].'" class="collapse container-fluid" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body row">
 
-        <!-- ADD PHP -->
         <div class="classDescrPiatto col-sm-4 col-lg-4">
           <label for="DescrizionePiatto">Descrizione:</label>
           <p name="DescrizionePiatto">'.$ris["Descrizione"].'</p>
@@ -123,20 +122,17 @@ $rows = $result->num_rows;
         <div class="classTipoPiatto col-sm-4 col-lg-4">
           <label for="TipoCucina">Tipologia:</label>
           <h6 name="TipoCucina">'.$ris["Tipologia"].'</h6>
-
-
-
         </div>
 
         <div class="classButtonsPiatto col-sm-4 col-lg-4">';
 
-        //Inserire if
+
         if($ris["Vegetariano"]){
         echo '<div class="col-sm-12">
           Vegetariano
         </div>';
         }
-        //Inserire if
+
         if($ris["Piccante"]){
         echo '<div class="col-sm-12">
           Piccante
@@ -147,17 +143,100 @@ $rows = $result->num_rows;
 
           <!-- ADD JS OR PHP-->
 
-          <button class="btn btn-default"  name="'.$ris["ID_PIETANZA"].'">Modifica</button>
+            <button class="btn btn-default" data-toggle="modal" data-target="#Modify'.$ris["Nome"].'" name="modificare" value="'.$ris["ID_PIETANZA"].'">Modifica</button>
+
           <form action="deletePiatto.php" method="post">
-          <button class="btn btn-default" onclick="jsDelete(this.id)" name="eliminare" id="'.$ris["Nome"].'" value="'.$ris["ID_PIETANZA"].'">Elimina</button>
+            <button class="btn btn-default" onclick="jsDelete(this.parentElement.parentElement.parentElement.parentElement.id)" name="eliminare" id="'.$ris["Nome"].'" value="'.$ris["ID_PIETANZA"].'">Elimina</button>
           </form>
         </div>
       </div>
     </div>';
 
+    echo '<div class="modal fade" id="Modify'.$ris["Nome"].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <form action="modifyP.php" method="post">
+                <div class="modal-body row">
+                    <div class="classDescrPiatto col-sm-12 col-lg-4">
+                      <label for="NomePiatto">Nome:</label>
+                      <textarea class="form-control " name="NomePiatto" placeholder="Nome del piatto">'.$ris["Nome"].'</textarea>
+
+
+                      <label for="DescrizionePiatto">Descrizione:</label>
+                      <textarea class="form-control " name="DescrizionePiatto" placeholder="Descrizione del piatto">'.$ris["Descrizione"].'</textarea>
+                    </div>
+
+                    <div class="classTipoPiatto col-sm-12 col-lg-4">';
+
+
+                      echo '<label for="TipoPiatto">Piatto:</label>
+                      <select class="form-control" name="TipoPiatto">
+                        <option value="Primo" ';
+                        if ($ris["Tipologia"] == 'Primo') echo 'selected';
+                        echo'>Primo</option>
+
+                        <option value="Secondo" ';
+                        if ($ris["Tipologia"] == 'Secondo') echo 'selected';
+                        echo'>Secondo</option>
+
+                        <option value="Contorno" ';
+                        if ($ris["Tipologia"] == 'Contorno') echo 'selected';
+                        echo'>Contorno</option>
+
+                        <option value="Dolce" ';
+                        if ($ris["Tipologia"] == 'Dolce') echo 'selected';
+                        echo'>Dolce</option>
+
+                        <option value="Bevanda" ';
+                        if ($ris["Tipologia"] == 'Bevanda') echo 'selected';
+                        echo'>Bevanda</option>
+
+                      </select>
+                    </div>
+
+                    <div class="classButtonsPiatto col-sm-12 col-lg-4">
+                      <div class="classCheckboxes">
+                        <div class="col-sm-12">
+                          <label for="VegP">Vegetariano</label>
+                          <input type="checkbox" name="VegP"';
+                          if($ris["Vegetariano"]==1) echo 'checked';
+                          echo'>
+                        </div>
+                        <div class="col-sm-12">
+                          <label for="PicP">Piccante</label>
+                          <input type="checkbox" name="PicP"';
+                          if($ris["Piccante"]==1) echo 'checked';
+                          echo'>
+                        </div>
+
+                        <label for="PrezzoPiatto">Prezzo: </label>
+                        <textarea class="form-control" name="PrezzoPiatto" placeholder="Prezzo">'.$ris["Prezzo"].'</textarea>
+                      </div>
+
+                      <!-- ADD JS AND/OR PHP-->
+                      <button class="btn btn-default row" name="ModificaPiattoF" style="margin-top:1em;">Conferma</button>
+                    </div>
+                  </div>
+                  </form>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  </div>
+              </div>
+            </div>
+          </div>';
     }
   }
   ?>
+
+
+
 
   <script type="text/javascript" >
   function jsDelete(clicked_id) {
@@ -167,6 +246,13 @@ $rows = $result->num_rows;
     } else {
       this.event.preventDefault();
     }
+  }
+
+  function jsModify(clicked_id) {
+    var x = confirm("Modifica pietanza " + clicked_id + " .");
+    var y = document.getElementById("Modify" + clicked_id);
+    y.style.visibility = "visible";
+    this.event.preventDefault();
   }
   </script>
 

@@ -146,24 +146,10 @@ if (!controllo_cookie()) {
 
         <div class="tab-content col-sm-12" id="myTabContent">
             <div class="tab-pane fade show active col-sm-12" id="AccCli" role="tabpanel" aria-labelledby="home-tab">
-
                 <div class="row">
-                    <div class="col-xl-2">
-                        <button type="submit" value="orderSurname" class="btn btn-primary btn3d">ORDINA PER COGNOME</button>
+                    <div class="col-xl-4 offset-xl-4">
+                        <h2 class="text-center">Dashboard Utenti</h2>
                     </div>
-                    <div class="col-xl-2">
-                        <button type="submit" value="orderID" class="btn btn-primary btn3d">ORDINA PER ID</button>
-                    </div>
-                    <div class="col-xl-4">
-                        <h3 class="text-center">Dashboard Utenti</h3>
-                    </div>
-                    <div class="col-xl-2">
-                        <button type="submit" value="orderName" class="btn btn-primary btn3d">ORDINA PER NOME</button>
-                    </div>
-                    <div class="col-xl-2">
-                        <button type="submit" value="orderBlock" class="btn btn-primary btn3d">VISUALIZZA NON ABILITATI</button>
-                    </div>
-
                 </div>
 
                 <?php
@@ -191,122 +177,105 @@ if (!controllo_cookie()) {
                             <div class="card usr_block">
                                 <div class="card-body usr_body">
                                     <div class="row">
-                                            <div class="p-2 col-md-4">
-                                                <h5 id='ngU<?php echo $utente["ID_USER"] ?>'><?php echo $utente["Nome"] . " " . $utente["Cognome"] ?></h5>
-                                            </div>
-                                            <div class="p-2 col-md-4">
-                                                <p id='cellU<?php echo $utente["ID_USER"] ?>'><?php echo "Cellulare: " . $utente["Cellulare"] ?></p>
-                                            </div>
-                                            <div class="p-2 col-md-4">
-                                                <p><?php echo "ID: " . $utente["ID_USER"] ?></p>
-                                            </div>
+                                        <div class="p-2 col-md-4">
+                                            <h5 id='ngU<?php echo $utente["ID_USER"] ?>'><?php echo $utente["Nome"] . " " . $utente["Cognome"] ?></h5>
                                         </div>
-
-
-                                        <div class="row">
-                                            <div class="p-2 col-md-6">
-                                                <p id='emU<?php echo $utente["ID_USER"] ?>'><?php echo "Email: " . $utente["Email"] ?></p>
-                                            </div>
-                                            <div class="p-2 col-md-6">
-                                                <p id='abU<?php echo $utente["ID_USER"] ?>'><?php echo "Abilitato: " . $utente["abilitato"] ?></p>
-                                            </div>
+                                        <div class="p-2 col-md-4">
+                                            <p id='cellU<?php echo $utente["ID_USER"] ?>'><?php echo "Cellulare: " . $utente["Cellulare"] ?></p>
                                         </div>
+                                        <div class="p-2 col-md-4">
+                                            <p><?php echo "ID: " . $utente["ID_USER"] ?></p>
+                                        </div>
+                                    </div>
 
-                                        <div class="row">
-                                            <div class="p-2 col-md-12">
-                                                <a class="btn btn-warning btn3d Usave" data-toggle="collapse" href="#collapseExample<?php echo $utente['ID_USER'] ?>"
+
+                                    <div class="row">
+                                        <div class="p-2 col-md-6">
+                                            <p id='emU<?php echo $utente["ID_USER"] ?>'><?php echo "Email: " . $utente["Email"] ?></p>
+                                        </div>
+                                        <div class="p-2 col-md-6">
+                                            <p id='abU<?php echo $utente["ID_USER"] ?>'><?php echo "Abilitato: " . $utente["abilitato"] ?></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="p-2 col-md-12">
+                                            <a class="btn btn-warning btn3d Usave" data-toggle="collapse" href="#collapseExample<?php echo $utente['ID_USER'] ?>"
                                                 role="button" aria-expanded="false" aria-controls="collapseExample<?php echo $utente['ID_USER'] ?>">EDIT</a>
                                                     <div class="collapse" id="collapseExample<?php echo $utente['ID_USER'] ?>">
                                                         <div class="card card-body">
                                                             <div id="collapse1" class="collapse show">
-                                                                    <div class="card-body">
-                                                                        <div class="row">
-                                                                            <div class="col-md-2 col-lg-4">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">Nome</label>
-                                                                                    <input id='nomeU<?php echo $utente["ID_USER"] ?>' value='<?php echo $utente["Nome"] ?>' name="nome" type="text" class="form-control" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-1 col-lg-4">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">Cognome</label>
-                                                                                    <input id='cognomeU<?php echo $utente["ID_USER"] ?>' name="cognome"  value='<?php echo $utente["Cognome"] ?>' type="text" class="form-control" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-2 col-lg-4 text-center">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">ID</label>
-                                                                                    <input disabled value="<?php echo $utente['ID_USER'] ?>" class="form-control" type="text" />
-                                                                                </div>
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-2 col-lg-4">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Nome</label>
+                                                                                <input id='nomeU<?php echo $utente["ID_USER"] ?>' value='<?php echo $utente["Nome"] ?>' name="nome" type="text" class="form-control" />
                                                                             </div>
                                                                         </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-4 col-lg-4">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">Email</label>
-                                                                                    <input id='emailU<?php echo $utente["ID_USER"] ?>' value='<?php echo $utente["Email"] ?>' name="email" type="text" class="form-control" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-2 col-lg-3">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">Cellulare</label>
-                                                                                    <input id='cellU<?php echo $utente["ID_USER"] ?>' value='<?php echo $utente["Cellulare"] ?>' name="cell" type="text" class="form-control" />
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-3 col-lg-3">
-                                                                                <div class="form-group">
-                                                                                    <label class="control-label">Abilitato</label>
-                                                                                    <input id='abilitatoU<?php echo $utente["ID_USER"] ?>'  value='<?php echo $utente["abilitato"] ?>' name="abilitato" type="text" class="form-control" />
-                                                                                </div>
+                                                                        <div class="col-md-1 col-lg-4">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Cognome</label>
+                                                                                <input id='cognomeU<?php echo $utente["ID_USER"] ?>' name="cognome"  value='<?php echo $utente["Cognome"] ?>' type="text" class="form-control" />
                                                                             </div>
                                                                         </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-md-3 col-lg-12">
-                                                                                <div class="form-group">
-                                                                                    <button type="button" name="userUpdate" class="btn-sm btn-success btn3d updateU">AGGIORNA</button>
-                                                                                </div>
+                                                                        <div class="col-md-2 col-lg-4 text-center">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">ID</label>
+                                                                                <input disabled value="<?php echo $utente['ID_USER'] ?>" class="form-control" type="text" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
 
+                                                                    <div class="row">
+                                                                        <div class="col-md-4 col-lg-4">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Email</label>
+                                                                                <input id='emailU<?php echo $utente["ID_USER"] ?>' value='<?php echo $utente["Email"] ?>' name="email" type="text" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2 col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Cellulare</label>
+                                                                                <input id='cellU<?php echo $utente["ID_USER"] ?>' value='<?php echo $utente["Cellulare"] ?>' name="cell" type="text" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-3 col-lg-3">
+                                                                            <div class="form-group">
+                                                                                <label class="control-label">Abilitato</label>
+                                                                                <input id='abilitatoU<?php echo $utente["ID_USER"] ?>'  value='<?php echo $utente["abilitato"] ?>' name="abilitato" type="text" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-3 col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <button type="button" name="userUpdate" class="btn-sm btn-success btn3d updateU">AGGIORNA</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-
-
-                <?php
-                }
-                ?>
+                            
+                        
+                    <?php
+                    }
+                     ?>
             </div>
 
             <div class="tab-pane fade show col-sm-12" id="AccForn" role="tabpanel" aria-labelledby="home-tab">
-
-
                 <div class="row">
-                    <div class="col-xl-2">
-                        <button type="submit" value="orderSurnameR" class="btn btn-primary btn3d">ORDINA PER COGNOME</button>
+                    <div class="col-xl-4 offset-xl-4">
+                        <h2 class="text-center">Dashboard Fornitori</h2>
                     </div>
-                    <div class="col-xl-2">
-                        <button type="submit" value="orderRID" class="btn btn-primary btn3d">ORDINA PER ID</button>
-                    </div>
-                    <div class="col-xl-4">
-                        <h3 class="text-center">Dashboard Fornitori</h3>
-                    </div>
-                    <div class="col-xl-2">
-                        <button type="submit" value="orderRist" class="btn btn-primary btn3d">ORDINA PER RISTORANTE</button>
-                    </div>
-                    <div class="col-xl-2">
-                        <button type="submit" value="topOrders" class="btn btn-primary btn3d">CON PIU' ORDINI</button>
-                    </div>
-
                 </div>
 
                 <?php
@@ -328,121 +297,118 @@ if (!controllo_cookie()) {
                     $fornitores[] = $fornitore;
                 }
                 foreach ($fornitores as $fornitore) {
-                    ?>
-                        <div class="container item">
-                            <div class="card usr_block">
-                                <div class="card-body ">
-                                    <div class="row ">
-                                        <div class=" col-md-3">
-                                            <h5 id="ng<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="nameTarget"><?php echo $fornitore["Nome"] . " " . $fornitore["Cognome"] ?></h5>
-                                        </div>
-                                        <div class=" col-md-3">
-                                            <p id="cel<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="cellTarget"><?php echo "Cellulare: " . $fornitore["Cellulare"] ?></p>
-                                        </div>
-                                        <div class=" col-md-3">
-                                            <p data-target="idTarget"><?php echo "ID: " . $fornitore["ID_FORNITORE"] ?></p>
-                                        </div>
-                                        <div class=" col-md-3">
-                                            <p id="pa<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="P_ivaTarget"><?php echo "Partita_IVA: " . $fornitore["Partita_IVA"] ?></p>
-                                        </div>
-
+                ?>
+                    <div class="container item">
+                        <div class="card usr_block">
+                            <div class="card-body ">
+                                <div class="row ">
+                                    <div class=" col-md-3">
+                                        <h5 id="ng<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="nameTarget"><?php echo $fornitore["Nome"] . " " . $fornitore["Cognome"] ?></h5>
+                                    </div>
+                                    <div class=" col-md-3">
+                                        <p id="cel<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="cellTarget"><?php echo "Cellulare: " . $fornitore["Cellulare"] ?></p>
+                                    </div>
+                                    <div class=" col-md-3">
+                                        <p data-target="idTarget"><?php echo "ID: " . $fornitore["ID_FORNITORE"] ?></p>
+                                    </div>
+                                    <div class=" col-md-3">
+                                        <p id="pa<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="P_ivaTarget"><?php echo "Partita_IVA: " . $fornitore["Partita_IVA"] ?></p>
                                     </div>
 
-                                    <div class="row">
-                                        <div class=" col-md-4">
-                                            <p id="em<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="emailTarget"><?php echo "Email: " . $fornitore["Email"] ?></p>
-                                        </div>
-                                        <div class=" col-md-4">
-                                            <p id="rist<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="ristoranteTarget"><?php echo "Ristorante: " . $fornitore["Ristorante"] ?></p>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <p id="civinu<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="cittaTarget"><?php echo "Location: " . $fornitore["Città"] . ' - ' . $fornitore["Via_e_Num"] ?></p>
-                                        </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class=" col-md-4">
+                                        <p id="em<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="emailTarget"><?php echo "Email: " . $fornitore["Email"] ?></p>
                                     </div>
+                                    <div class=" col-md-4">
+                                        <p id="rist<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="ristoranteTarget"><?php echo "Ristorante: " . $fornitore["Ristorante"] ?></p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p id="civinu<?php echo $fornitore['ID_FORNITORE'] ?>" data-target="cittaTarget"><?php echo "Location: " . $fornitore["Città"] . ' - ' . $fornitore["Via_e_Num"] ?></p>
+                                    </div>
+                                </div>
 
 
-                                    <div class="row">
-                                        <div class="p-2 col-md-12">
-                                            <a class="btn btn-warning btn3d Fsave" data-toggle="collapse" href="#FcollapseExample<?php echo $fornitore['ID_FORNITORE'] ?>"
-                                            role="button" aria-expanded="false" aria-controls="collapseExample">EDIT</a>
-                                                 <div class="collapse" id="FcollapseExample<?php echo $fornitore['ID_FORNITORE'] ?>">
-                                                    <div class="card card-body" id="<?php echo $fornitore['ID_FORNITORE'] ?>">
-                                                        <div id="collapse1" class="collapse show">
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="col-md-2 col-lg-3">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Nome</label>
-                                                                                <input name="nomeF" id="nomeF<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Nome'] ?>" type="text" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-1 col-lg-4">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Cognome</label>
-                                                                                <input value="<?php echo $fornitore['Cognome'] ?>" id="cognomeF<?php echo $fornitore['ID_FORNITORE'] ?>" name="cognomeF" type="text" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2 col-lg-2 text-center">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">ID</label>
-                                                                                <input disabled placeholder="<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['ID_FORNITORE'] ?>" class="form-control" type="text" />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2 col-lg-3">
-                                                                            <div class="form-group">
-                                                                               <label class="control-label">Partita_IVA</label>
-                                                                                <div class="input-group">
-                                                                                    <input value="<?php echo $fornitore['Partita_IVA'] ?>" id="partita_iva<?php echo $fornitore['ID_FORNITORE'] ?>" name="partita_iva" class="form-control" type="text" />
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-4 col-lg-4">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Email</label>
-                                                                                <input value="<?php echo $fornitore['Email'] ?>" id="emailF<?php echo $fornitore['ID_FORNITORE'] ?>" name="emailF" type="text" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2 col-lg-3">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Cellulare</label>
-                                                                                <input value="<?php echo $fornitore['Cellulare'] ?>" id="cellF<?php echo $fornitore['ID_FORNITORE'] ?>" name="cellF" type="text" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3 col-lg-3">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Città</label>
-                                                                                <input name="citta" id="cittaF<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Città'] ?>" type="text" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3 col-lg-2">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Via</label>
-                                                                                <input name="via" id="viaF<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Via_e_Num'] ?>" type="text" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-3 col-lg-12">
-                                                                            <div class="form-group">
-                                                                                <label class="control-label">Ristorante</label>
-                                                                                <input name="ristorante" id="ristorante<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Ristorante'] ?>" type="text" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        <div class="col-md-3 col-lg-12">
-                                                                            <div class="form-group">
-                                                                                <a type="button" class="btn-sm btn-success btn3d updateF">AGGIORNA</a>
-                                                                            </div>
-                                                                        </div>
+                                <div class="row">
+                                    <div class="p-2 col-md-12">
+                                        <a class="btn btn-warning btn3d Fsave" data-toggle="collapse" href="#FcollapseExample<?php echo $fornitore['ID_FORNITORE'] ?>"
+                                        role="button" aria-expanded="false" aria-controls="collapseExample">EDIT</a>
+                                        <div class="collapse" id="FcollapseExample<?php echo $fornitore['ID_FORNITORE'] ?>">
+                                            <div class="card card-body" id="<?php echo $fornitore['ID_FORNITORE'] ?>">
+                                                <div id="collapse1" class="collapse show">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-2 col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Nome</label>
+                                                                    <input name="nomeF" id="nomeF<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Nome'] ?>" type="text" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-1 col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Cognome</label>
+                                                                    <input value="<?php echo $fornitore['Cognome'] ?>" id="cognomeF<?php echo $fornitore['ID_FORNITORE'] ?>" name="cognomeF" type="text" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 col-lg-2 text-center">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">ID</label>
+                                                                    <input disabled placeholder="<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['ID_FORNITORE'] ?>" class="form-control" type="text" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Partita_IVA</label>
+                                                                    <div class="input-group">
+                                                                        <input value="<?php echo $fornitore['Partita_IVA'] ?>" id="partita_iva<?php echo $fornitore['ID_FORNITORE'] ?>" name="partita_iva" class="form-control" type="text" />
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="row">
+                                                            <div class="col-md-4 col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Email</label>
+                                                                    <input value="<?php echo $fornitore['Email'] ?>" id="emailF<?php echo $fornitore['ID_FORNITORE'] ?>" name="emailF" type="text" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2 col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Cellulare</label>
+                                                                    <input value="<?php echo $fornitore['Cellulare'] ?>" id="cellF<?php echo $fornitore['ID_FORNITORE'] ?>" name="cellF" type="text" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Città</label>
+                                                                    <input name="citta" id="cittaF<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Città'] ?>" type="text" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3 col-lg-2">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Via</label>
+                                                                    <input name="via" id="viaF<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Via_e_Num'] ?>" type="text" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-3 col-lg-12">
+                                                                <div class="form-group">
+                                                                    <label class="control-label">Ristorante</label>
+                                                                    <input name="ristorante" id="ristorante<?php echo $fornitore['ID_FORNITORE'] ?>" value="<?php echo $fornitore['Ristorante'] ?>" type="text" class="form-control" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-3 col-lg-12">
+                                                                <div class="form-group">
+                                                                    <a type="button" class="btn-sm btn-success btn3d updateF">AGGIORNA</a>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -452,12 +418,12 @@ if (!controllo_cookie()) {
                                 </div>
                             </div>
                         </div>
-                    <?php
-                    }
-                    ?>
+                    </div>
+                <?php
+                }
+                ?>
             </div>
         </div>
-
     </div>
 
     <div class="content">

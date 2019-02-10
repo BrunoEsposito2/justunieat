@@ -289,8 +289,8 @@ if(!controllo_cookie()){
                                             <div class="col-md-12">
                                                 <div class="d-flex flex-row-reverse">
                                                     <div class="p-2">
-																											<button type="button" onclick="link('<?php echo $pietanze['Nome'] ?>')" class="btn btn-default btn-sm btn3d"><i
-                                                            class="material-icons md-36">add_shopping_cart</i></button>
+                                                            <button type="button" onclick="link('<?php echo $pietanze['Nome'] ?>')" class="btn btn-default btn-sm btn3d">
+                                                            <i class="material-icons md-36">add_shopping_cart</i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -392,7 +392,10 @@ if(!controllo_cookie()){
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+<<<<<<< HEAD
 		<!-- For ajax compact ($.ajax ...) -->
+=======
+>>>>>>> b29be260e9a71cb1a643c9795e680803395a5e28
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
         <?php

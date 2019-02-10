@@ -1014,3 +1014,33 @@ body{ margin: 0px; }
     .a_cookie:hover {
         background-color: rgb(57, 99, 215);
     }
+
+    .numbOrder {
+        color: red;
+    }
+
+    .pietOrder {
+        color: #0056B3;
+    }
+
+    
+    .nav>li>a {
+        background-color:#E9ECEF !important;
+        color: red;
+        font-weight: 800;
+    }
+
+    .nav>li>a:active {
+        font-size: 17px;
+        font-weight: 800;
+        color:red !important;
+    }
+
+    .nav>li>a:hover {
+        background-color:rgb(223, 223, 223) !important;
+    }
+
+    .nav-link.active.show {
+        font-weight: 800;
+        color:red !important;
+    }
