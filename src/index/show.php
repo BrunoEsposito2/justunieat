@@ -236,9 +236,8 @@ if(!controllo_cookie()){
                                 <?php echo "<h4 class='catHr'>$category</h4>" ?>
                                 <hr id="Hr_cat"/>
                                 <?php
-                                $q="SELECT cef.Nome, f.ID_FORNITORE, f.Ristorante, f.Cellulare, f.Valutazione, m.ID_MENU, f.path_photo 
-                                FROM categorie as cat, categoria_ristorante as cef, fornitore as f, menu as m
-                                WHERE cat.ID_FORNITORE = f.ID_FORNITORE AND cef.ID_CAT = cat.ID_CAT and cef.Nome = '$category' and m.ID_MENU = f.ID_FORNITORE";
+                                $q="SELECT * FROM categorie as cat, categoria_ristorante as cef, fornitore as f, menu as m
+                                WHERE cef.Nome = '$category' AND cat.ID_FORNITORE = f.ID_FORNITORE AND cef.ID_CAT = cat.ID_CAT GROUP BY F.ID_FORNITORE";
                                 $result = $mysqli->query($q);
                                 while($row = $result->fetch_array()) {
                                     $rows[] = $row;
@@ -295,7 +294,7 @@ if(!controllo_cookie()){
                                 <?php
                                 $q="SELECT DISTINCT cef.Nome, f.ID_FORNITORE, f.Ristorante, f.Cellulare, f.Valutazione, m.ID_MENU, f.path_photo 
                                 FROM categorie as cat, categoria_ristorante as cef, fornitore as f, menu as m
-                                WHERE cat.ID_FORNITORE = f.ID_FORNITORE AND cef.ID_CAT = cat.ID_CAT and m.ID_FORNITORE = f.ID_FORNITORE GROUP BY f.Ristorante";
+                                WHERE cat.ID_FORNITORE = f.ID_FORNITORE AND cef.ID_CAT = cat.ID_CAT GROUP BY f.Ristorante";
 
                                 $rows = array();
                                 $result = $mysqli->query($q);
