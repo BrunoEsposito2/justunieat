@@ -395,19 +395,11 @@ if(isset($_POST['saveOrder'])) {
 					<h2 class="text-center"><i class="material-icons">remove_shopping_cart</i> Carrello Vuoto </h2>
 					</div>
 			    		
-
-<<<<<<< HEAD
-			    <form name="continua" class="text-center" action="index.php">
-			        <input type="submit" id="go_after_acc" class="btn btn-danger btn-lg btn3d" value="CONTINUA">
-			    </form>
-			</div>
-		</div>
-=======
+	
 			    		<form name="continua" class="text-center" onclick="history.back()">
 			       			 <input type="button" id="go_after_acc" class="btn btn-danger btn-lg btn3d" value="CONTINUA">
 			   			 </form>
 					</div>
->>>>>>> b29be260e9a71cb1a643c9795e680803395a5e28
 
 		<?php } ?>
 
@@ -467,10 +459,6 @@ if(isset($_POST['saveOrder'])) {
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-<<<<<<< HEAD
-		<!-- For ajax compact ($.ajax ...) -->
-=======
->>>>>>> b29be260e9a71cb1a643c9795e680803395a5e28
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 
     <script>

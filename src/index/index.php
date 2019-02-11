@@ -152,22 +152,22 @@ if(!controllo_cookie()){
         <h1 class="display-4 ">Basta studiare! Cosa vuoi mangiare?</h1>
 
         <form class="category" action="show.php" method="GET">
-            <label class="check">
-                <input type="checkbox" name="category[]" value="Pizza">
-            </label>Pizza<br>
-            <label class="check">
-                <input type="checkbox" name="category[]" value="Pasta">
-            </label>Pasta<br>
-            <label class="check">
-                <input type="checkbox" name="category[]" value="Cinese">
-            </label>Cinese<br>
-            <label class="check">
-                <input type="checkbox" name="category[]" value="Giapponese">
-            </label>Giapponese<br>
-            <label class="check">
-                <input type="checkbox" name="category[]" value="Italiana">
-            </label>Italiana<br>
-
+        
+        <?php
+        $m="SELECT * FROM categoria_ristorante ORDER BY RAND() LIMIT 10";
+        $query=mysqli_query($conn, $m);
+        while($cat = $query->fetch_array()) {
+            $cats[] = $cat;
+        }
+        foreach($cats as $cat) {
+        ?>
+                                
+        <label class="check">
+                <input type="checkbox" name="category[]" value="<?php echo $cat["Nome"]?>">
+        </label><?php echo $cat["Nome"]?><br>
+        <?php
+        }
+        ?>
 
          <!--POTREI MODIFICARE L'INVIO DEL SHOW.PHP INNESTANDOGLI LE SCELTE FATTE DELLE CATEGORIE!" COME SI VEDE IN STACK OVERFLOW!"-->
 

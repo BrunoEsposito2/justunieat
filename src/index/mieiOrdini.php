@@ -137,10 +137,14 @@ if(!controllo_cookie()){
 
     <div class="jumbotron text-center">
         <h2 class="numbOrder">Miei Ordini</h2>
+        <div class="fixed-top alert" id="ajax-alert" style="display:none">
+            <p>Ordine valutato correttamente!</p>
+        </div>
             <div class="row">
                 <div class="col-md-12">
                     <?php
-                    $count = 0;    
+                    $count = 0;  
+                    $id_ordine = 0;  
                     $m="SELECT * FROM pietanza_nel_ordine AS P, pietanza as C, ordine AS O WHERE C.ID_PIETANZA = 
                     P.ID_PIETANZA AND P.ID_ORDINE = O.ID_ORDINE AND O.ID_USER = ". $idUs . " ORDER BY P.ID_ORDINE DESC";
                     $query=mysqli_query($conn, $m);
@@ -148,13 +152,17 @@ if(!controllo_cookie()){
                         $ordines[] = $ordine;
                     }
                     foreach($ordines as $ordine) {
-                    $count++;
                     ?>
                     <div class="container item">
                         <div class="row">
                             <div class="col-sm-12 col-sm-offset-2">
                                 <div class="card">
                                     <div class="card-body">
+                                        <?php if($id_ordine == $ordine['ID_ORDINE']) {
+                                            goto samePietanza;
+                                        }
+                                            $count++;
+                                            $id_ordine = $ordine['ID_ORDINE'];?>
                                         <div class="row">
                                             <div class="col-sm-1">
                                                 <h4 class="text-left numbOrder"># <?php echo $count ?></h4>
@@ -198,7 +206,8 @@ if(!controllo_cookie()){
                                             <div class="col-md-12">
                                                 <div class="d-flex flex-row-reverse">
                                                     <?php
-                                                    if($ordine['valutazione'] === null) {
+                                                    echo $ordine["valutazione"];
+                                                    if($ordine['valutazione'] == null)  {
                                                     ?>
                                                         <form method="POST">
                                                             <fieldset class="rating">
@@ -220,15 +229,20 @@ if(!controllo_cookie()){
                                                         <div class="ratings">
                                                             <ul class="list-inline">
                                                             <?php
+                                                                
                                                                 $fiveStar = 5;
                                                                 $blackStar = 5;
                                                                 $blackStar -= (int)$ordine["valutazione"];
-                                                                for($i = 0; $i < (int)$ordine["valutazione"]; $i++){
-                                                                    echo "<span class='fa fa-star checked'></span>";
+                                                                if($fiveStar > 0) {
+                                                                    for($i = 0; $i < (int)$ordine["valutazione"]; $i++){
+                                                                        echo "<span class='fa fa-star checked'></span>";
+                                                                    }
                                                                 }
+                                                                
                                                                 if($blackStar > 0) {
-                                                                    for($i = 0; $i < $blackStar; $i++){
-                                                                        echo "<span class='fa fa-star'></span>";
+                                                                    
+                                                                    for($j = 0; $j < $blackStar; $j++){
+                                                                        echo "<span style='color:black;' class='fa fa-star'></span>";
                                                                     }
                                                                 }
                                                                 ?>
@@ -255,10 +269,10 @@ if(!controllo_cookie()){
                                         </div>
                                     
                                 
-                    
+                                        
                                         <hr>
                                                     <!--PIETANZE-->
-                                        
+                                        <?php samePietanza: ?>
                                         <div class="row ing">
                                             <div class="col-xs-6">
                                                 <div class="d-flex justify-content-between">
@@ -367,8 +381,7 @@ if(!controllo_cookie()){
     </footer>
     </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
@@ -447,10 +460,6 @@ if(!controllo_cookie()){
 
                     success : function(response) {
                     
-                        $("#ajax-alert").addClass("alert alert-danger").text("Success");
-                            $("#ajax-alert").alert();
-                            $("#ajax-alert").fadeTo(5000, 5000).slideUp(5000, function(){
-                        });
 
                     }
 
