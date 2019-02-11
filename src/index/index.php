@@ -109,7 +109,7 @@ if(!controllo_cookie()){
             <div class="navbar-nav float-left text-left pr-3">
                 <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                        <a class="nav-link" id="navUser" href="#"></a>
+                        <a class="nav-link" id="navUser" href="profile.php"></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>

@@ -236,7 +236,7 @@ if(!controllo_cookie()){
                                 <?php echo "<h4 class='catHr'>$category</h4>" ?>
                                 <hr id="Hr_cat"/>
                                 <?php
-                                $q="SELECT cef.Nome, f.ID_FORNITORE, f.Ristorante, f.Cellulare, f.Valutazione, m.ID_MENU
+                                $q="SELECT cef.Nome, f.ID_FORNITORE, f.Ristorante, f.Cellulare, f.Valutazione, m.ID_MENU, f.path_photo 
                                 FROM categorie as cat, categoria_ristorante as cef, fornitore as f, menu as m
                                 WHERE cat.ID_FORNITORE = f.ID_FORNITORE AND cef.ID_CAT = cat.ID_CAT and cef.Nome = '$category' and m.ID_MENU = f.ID_FORNITORE";
                                 $result = $mysqli->query($q);
@@ -253,7 +253,7 @@ if(!controllo_cookie()){
                                                             <div class="card-body">
                                                                 <div class="row">
                                                                     <div class="col-md-3">
-                                                                        <img alt="resturant_image" src="<?php $output="http://lorempixel.com/300/150/food/"; echo $output."?".rand(); ?>">
+                                                                        <img alt="resturant_image" src="<?php echo $row['path_photo']?>" width=300px; height="150px;" class="img-rounded" >
                                                                     </div>
                                                                     <div class="col-md-7">
                                                                         <input type="hidden" name="id" value="<?=$row['ID_FORNITORE'];?>" />
@@ -293,9 +293,9 @@ if(!controllo_cookie()){
 
                                 <h4 class="catHr">Tutte le Categorie<h4>
                                 <?php
-                                $q="SELECT cef.Nome, f.ID_FORNITORE, f.Ristorante, f.Cellulare, f.Valutazione, m.ID_MENU
+                                $q="SELECT DISTINCT cef.Nome, f.ID_FORNITORE, f.Ristorante, f.Cellulare, f.Valutazione, m.ID_MENU, f.path_photo 
                                 FROM categorie as cat, categoria_ristorante as cef, fornitore as f, menu as m
-                                WHERE cat.ID_FORNITORE = f.ID_FORNITORE AND cef.ID_CAT = cat.ID_CAT and m.ID_MENU = f.ID_FORNITORE";
+                                WHERE cat.ID_FORNITORE = f.ID_FORNITORE AND cef.ID_CAT = cat.ID_CAT and m.ID_FORNITORE = f.ID_FORNITORE GROUP BY f.Ristorante";
 
                                 $rows = array();
                                 $result = $mysqli->query($q);
@@ -311,7 +311,7 @@ if(!controllo_cookie()){
                                                             <div class="card-body">
                                                                 <div class="row">
                                                                     <div class="col-md-3">
-                                                                        <img alt="resturant_image" src="<?php $output="http://lorempixel.com/300/150/food/"; echo $output."?".rand(); ?>">
+                                                                        <img alt="resturant_image" width=300px; height="150px;" class="img-rounded" src="<?php echo $row['path_photo']?>">
                                                                     </div>
                                                                     <div class="col-md-7">
                                                                         <input type="hidden" name="id" value="<?=$row['ID_FORNITORE'];?>" />

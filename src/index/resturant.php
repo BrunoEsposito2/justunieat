@@ -171,8 +171,8 @@ if(!controllo_cookie()){
                     </div>
                     <div class="col-md-3">
 
-                        <img src="https://irp-cdn.multiscreensite.com/2c3ff369/import/base/dms3rep/multi/desktop/img.LTE0MDIwMTQ2NzM.jpeg"
-                            alt="mandarino_resturant" class="img-rounded img-responsive" />
+                        <img src="<?php echo $rist['path_photo'];?>"
+                            alt="resturant_logo" width=250px; height="250px;" class="img-rounded img-responsive"/>
                     </div>
                     <div class="col-md-3">
                         <div class="card">
