@@ -12,6 +12,10 @@ if ($mysqli->connect_error) {
 
 session_start();
 
+if(isset($_GET["mod"])){
+  echo "Il piatto" . $_SESSION["piatto"] . " è stato modificato";
+}
+
 if(isset($_GET["c"])){
   echo "Il piatto " . $_SESSION["piatto"] . " è stato inserito";
 }
@@ -221,7 +225,7 @@ $rows = $result->num_rows;
                       </div>
 
                       <!-- ADD JS AND/OR PHP-->
-                      <button class="btn btn-default row" name="ModificaPiattoF" style="margin-top:1em;">Conferma</button>
+                      <button class="btn btn-default row" name="ModificaPiattoF" value="'.$ris["ID_PIETANZA"].'" style="margin-top:1em;">Conferma</button>
                     </div>
                   </div>
                   </form>
