@@ -184,7 +184,7 @@ if(!controllo_cookie()){
     <footer id="myFooter">
         <div class="container text-center">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>Inizia</h5>
                     <ul>
                         <li><a href="index.php">Home</a></li>
@@ -192,7 +192,7 @@ if(!controllo_cookie()){
                         <li><a href="registrati.php">Registrati</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>Chi siamo</h5>
                     <ul>
                         <li><a href="storia.html">La Nostra Storia</a></li>
@@ -200,7 +200,7 @@ if(!controllo_cookie()){
                         <li><a href="dicono_di_noi.html">Dicono di noi</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>Info</h5>
                     <ul>
                         <li><a href="privacy.php">Privacy & Cookie</a></li>
