@@ -80,7 +80,7 @@ if(!controllo_cookie()){
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
         <a href="checkout.php">
 					<?php
-					$servername = "localhost";
+			$servername = "localhost";
 	        $username = "root";
 	        $password = "";
 	        $dbname = "just_database";
@@ -157,7 +157,7 @@ if(!controllo_cookie()){
                 $row = "";
                 $result = "";
 
-                $q="SELECT * from fornitore where ID_FORNITORE = '".$_GET['id']."'";
+                $q="SELECT * from fornitore where ID_FORNITORE =" . $_GET['id'] ;
                 $query=mysqli_query($conn, $q);
                 $conn->close();
                 if(mysqli_num_rows($query) > 0) {

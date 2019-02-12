@@ -236,12 +236,13 @@ if(!controllo_cookie()){
                                 <?php echo "<h4 class='catHr'>$category</h4>" ?>
                                 <hr id="Hr_cat"/>
                                 <?php
-                                $q="SELECT * FROM categorie as cat, categoria_ristorante as cef, fornitore as f, menu as m
-                                WHERE cef.Nome = '$category' AND cat.ID_FORNITORE = f.ID_FORNITORE AND cef.ID_CAT = cat.ID_CAT GROUP BY F.ID_FORNITORE";
+                                $q="SELECT * FROM categorie as c, categoria_ristorante as cr, fornitore as f
+                                WHERE cr.Nome = '$category' AND c.ID_FORNITORE = f.ID_FORNITORE AND cr.ID_CAT = c.ID_CAT GROUP BY f.ID_FORNITORE";
+                                
                                 $result = $mysqli->query($q);
                                 while($row = $result->fetch_array()) {
                                     $rows[] = $row;
-                                }
+                                }                                                                   /*MI MOSTRA SEMPRE LO STESSO RISTORANTE E STESSO ID*/
                                 foreach($rows as $row) {
                                         ?>
 
@@ -255,8 +256,8 @@ if(!controllo_cookie()){
                                                                         <img alt="resturant_image" src="<?php echo $row['path_photo']?>" width=300px; height="150px;" class="img-rounded" >
                                                                     </div>
                                                                     <div class="col-md-7">
-                                                                        <input type="hidden" name="id" value="<?=$row['ID_FORNITORE'];?>" />
-                                                                        <a href=<?php echo "resturant.php?id=".$row['ID_FORNITORE']?>><h5><?php echo $row["Ristorante"]?></h5></a>
+                                                                        <input type="hidden" name="id" value="<?php echo $row['ID_FORNITORE'];?>">
+                                                                        <a href='<?php echo "resturant.php?id=" .  $row['ID_FORNITORE']?>'><h5><?php echo $row["Ristorante"]?></h5></a>
                                                                         <small><?php echo $row["Nome"]?></small>
                                                                         <p><small><?php echo $row["Cellulare"]?></small></p>
                                                                         <?php
