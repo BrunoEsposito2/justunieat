@@ -3,7 +3,7 @@ session_start();
 $nMess = 0;
 function controllo_cookie(){
 
-	if(isset($_COOKIE['session'])){
+	if(isset($_COOKIE['session']) & isset($_SESSION['nome'])){
 
 		//prendo l'email presente nel cookie
 		$tmp=$_COOKIE['session'];
@@ -26,10 +26,6 @@ function controllo_cookie(){
             $row=mysqli_fetch_array($query);
 			//immagazzinano le informazioni dell'utente in un array
             $_SESSION["id"]=$row["ID_USER"];
-
-           
-
-
 			return true;
 		} else {
             return false;
@@ -79,31 +75,35 @@ if(!controllo_cookie()){
         </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
         <a href="checkout.php">
-					<?php
-					$servername = "localhost";
-					$username = "root";
-					$password = "";
-					$dbname = "just_database";
+            <?php
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "just_database";
 
-					$conn = new mysqli($servername, $username, $password, $dbname);
-					if ($conn->connect_error) {
-							die("Connection failed: " . $conn->connect_error);
-					}
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
 
-					$idUs = $_SESSION['id'];
-					$checkCart = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$idUs' AND ORDINE_INVIATO=0";
-					$execControl = mysqli_query($conn, $checkCart);
-					$n_rows = mysqli_num_rows($execControl);
-
-					if($n_rows === 0) {
-					 ?>
-						<i class="material-icons md-36 carts">remove_shopping_cart</i>
-						<?php
-					} else if($n_rows > 0) {
-						?>
-						<i class="material-icons md-36 carts">shopping_cart</i>
-						<?php
-					}	 ?>
+            if(isset($_SESSION['id'])) {
+                $idUs = $_SESSION['id'];
+                $checkCart = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$idUs' AND ORDINE_INVIATO=0";
+                $execControl = mysqli_query($conn, $checkCart);
+                $n_rows = mysqli_num_rows($execControl);
+    
+                if($n_rows === 0) {
+                ?>
+                <i class="material-icons md-36 carts">remove_shopping_cart</i>
+                <?php
+                } else if($n_rows > 0) {
+                ?>
+                <i class="material-icons md-36 carts">shopping_cart</i>
+                <?php
+                }
+                
+            }
+            ?>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class="navbar-nav float-left text-left pr-3">
@@ -136,7 +136,7 @@ if(!controllo_cookie()){
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="navOrd" href="#">Miei Ordini</a>
+                        <a class="nav-link" id="navOrd" href="mieiOrdini.php">Miei Ordini</a>
                         <!--da rendere hidden se non si ha fatto ancora l'accesso-->
                     </li>
                     <li class="nav-item">
@@ -169,7 +169,6 @@ if(!controllo_cookie()){
         }
         ?>
 
-         <!--POTREI MODIFICARE L'INVIO DEL SHOW.PHP INNESTANDOGLI LE SCELTE FATTE DELLE CATEGORIE!" COME SI VEDE IN STACK OVERFLOW!"-->
 
             <div class="form-row text-center">
                 <div class="col-8">
@@ -177,7 +176,10 @@ if(!controllo_cookie()){
                 </div>
             </div>
         </form>
+
     </div>
+
+    
 
     <div class="content">
     </div>

@@ -4,41 +4,6 @@ $error = false;
 
 if (isset($_POST['btnLogin'])) {
 
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "just_database";
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        if(isset($_POST['email'])) {
-            $q="SELECT * from utente where Email ='".($_POST['email'])."' and Password='".($_POST['pass'])."'";
-            $query=mysqli_query($conn, $q);
-        }
-
-
-        //se i dati inviati al form corrispondono a un utente, allora mi loggo, creo il cookie di sessione e vado a index.php
-        if (!is_null($row)) {
-
-            //setto la durata del cookies a una settimana
-            $time_cookie = 3600 * 24 * 7;
-            setcookie("session", $_POST['email'], time() + $time_cookie, "/");
-            session_start();
-            $_SESSION["email"] = $row['Email'];
-            $_SESSION["nome"] = $row["Nome"];
-
-            mysqli_close($conn);
-            header("Location: logAction.php");
-            exit;
-
-            //nessuna corrispondenza con gli utenti: non mi loggo e ritorno al form
-        } else {
-            $error = true;
-        }
-
     $servername = "localhost";
     $username = "root";
     $password = "";

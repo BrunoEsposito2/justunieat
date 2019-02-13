@@ -277,8 +277,7 @@ if(!controllo_cookie()){
 
                                     $result = $mysqli->query($query);
 
-                                    while($row = $result->fetch_array())
-                                    {
+                                    while($row = $result->fetch_array()) {
                                     $rows[] = $row;
                                     }
                                     foreach($rows as $row) {
@@ -288,16 +287,6 @@ if(!controllo_cookie()){
                                     <div class="list-group msgListRec" style="display: none;">
                                     <li>
 
-                                    <div class="list-group msgListRec" style="display: none;">
-                                        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <h5 class="mb-1"><?php printf ("%s", $row["Titolo"]);?></h5>
-                                                <small><?php printf ("%s", $row["Data"]); echo "-" . date("H:i:s", $row["Orario"]);?></small>
-                                            </div>
-                                            <p class="mb-1"><?php printf ("%s", $row["Testo"]);?></p>
-                                            <small>Inviato da: <?php echo $row["Ristorante"];?></small>
-                                        </a>
-                                    </div>
                                         <div class="list-group msgListRec" style="display: none;">
                                             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                                                 <div class="d-flex w-100 justify-content-between">
@@ -308,6 +297,7 @@ if(!controllo_cookie()){
                                                 <small>Inviato da: <?php echo $row["Ristorante"];?></small>
                                             </a>
                                         </div>
+                    
 
                                     </li>
                                     <?php

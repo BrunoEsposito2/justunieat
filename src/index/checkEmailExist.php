@@ -10,11 +10,14 @@
  }
 
 	
-
- $VALUE = $_POST["VALUE"];
-
- $ID_ORDINE = $_POST["ID_ORDINE"];
+	$email = $_POST['email'];
+	
      
-	$result  = mysqli_query($connection , "UPDATE ordine SET Valutazione='$VALUE' WHERE ID_ORDINE='$ID_ORDINE'");
+	$result  = mysqli_query($connection , "SELECT * utente WHERE Email='$email'");
+
+	if($result) {
+		echo "Email già presente";
+	}
+	
 
 ?>

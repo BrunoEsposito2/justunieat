@@ -253,7 +253,7 @@ if(!controllo_cookie()){
                                                             <div class="card-body">
                                                                 <div class="row">
                                                                     <div class="col-md-3">
-                                                                        <img alt="resturant_image" src="<?php echo $row['path_photo']?>" width=300px; height="150px;" class="img-rounded" >
+                                                                        <img alt="resturant_image" src="<?php echo $row['path_photo']?>" width=300px; height="150px;" class="rounded-circle" >
                                                                     </div>
                                                                     <div class="col-md-7">
                                                                         <input type="hidden" name="id" value="<?php echo $row['ID_FORNITORE'];?>">
@@ -311,7 +311,7 @@ if(!controllo_cookie()){
                                                             <div class="card-body">
                                                                 <div class="row">
                                                                     <div class="col-md-3">
-                                                                        <img alt="resturant_image" width=300px; height="150px;" class="img-rounded" src="<?php echo $row['path_photo']?>">
+                                                                        <img alt="resturant_image" width=300px; height="150px;" class="rounded-circle" src="<?php echo $row['path_photo']?>">
                                                                     </div>
                                                                     <div class="col-md-7">
                                                                         <input type="hidden" name="id" value="<?=$row['ID_FORNITORE'];?>" />
