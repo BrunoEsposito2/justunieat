@@ -120,7 +120,7 @@ if(!controllo_cookie()){
                     <li class="nav-item">
                         <a class="nav-link" id="navMes" href="message.php">
                             <i class="fa fa-envelope-o">
-                                <span class="badge badge-danger">
+                                <span id="countMess" class="badge badge-danger">
                                     
                                     <?php 
                                     if($auth) {
@@ -168,7 +168,6 @@ if(!controllo_cookie()){
         <?php
         }
         ?>
-
 
             <div class="form-row text-center">
                 <div class="col-8">
@@ -223,7 +222,7 @@ if(!controllo_cookie()){
     </footer>
     </div>
     </div>
-
+    <audio id="xyz" src="slow-spring-board.mp3" preload="auto"></audio>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
@@ -249,6 +248,34 @@ if(!controllo_cookie()){
             document.getElementById('navOrd').style.display = "block";
             document.getElementById('navExit').style.display = "block";
         });
+
+        var ajax_call = function() {
+        
+            var id_user = <?php echo $_SESSION['id'];?>
+
+            $.ajax({
+
+            url : 'checkMessageNew.php',
+            method : 'post',
+            data : {id_user : id_user},
+
+            success : function(response) {
+
+            if(response == "1") {
+                alert("Hai un nuovo messaggio!");
+                $('#countMess').text("1");
+                document.getElementById('xyz').play();
+            }    
+            
+            }
+
+            });
+
+        };
+
+        var interval = 10000; 
+
+        setInterval(ajax_call, interval);
 
         </script>
     <?php
