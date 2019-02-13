@@ -36,12 +36,12 @@
 
   if($doQuery) {
     while($riga = mysqli_fetch_array($doQuery)) {
-      if($riga['ID_PIETANZA'] === $id_pietanza) {
+      if($riga['ID_PIETANZA'] === $id_pietanza && !$riga['PIETANZA_ORDINATA']) {
         $updated = $riga['Quantita'];
         $updated--;
         $sum -= $price;
         if($updated === 0) {
-          $del = "DELETE FROM pietanza_nel_ordine WHERE ID_PIETANZA='$id_pietanza'";
+          $del = "DELETE FROM pietanza_nel_ordine WHERE ID_PIETANZA='$id_pietanza' AND PIETANZA_ORDINATA=0";
           mysqli_query($conn, $del);
           //Se in pietanza nel ordine non c'è più nessun id_ordine equivalente con quello in ordine allora elimino anche l'ORDINE
           // 1. Seleziono l'ordine con id user e ordine inviato = 0
@@ -54,7 +54,7 @@
             $getted = $value;
           }
           // 2. Controllo se in pietanza_nel_ordine c'è questo id ordine
-          $doControl = "SELECT * FROM pietanza_nel_ordine WHERE ID_ORDINE='$getted'";
+          $doControl = "SELECT * FROM pietanza_nel_ordine WHERE ID_ORDINE='$getted' AND PIETANZA_ORDINATA=0";
           $execControl = mysqli_query($conn, $doControl);
           $getCount = mysqli_num_rows($execControl);
           if($getCount === 0) {
@@ -62,7 +62,7 @@
             mysqli_query($conn, $delFromOrd);
           }
         } else {
-          $ok = "UPDATE pietanza_nel_ordine SET Quantita='$updated' WHERE ID_PIETANZA='$id_pietanza'";
+          $ok = "UPDATE pietanza_nel_ordine SET Quantita='$updated' WHERE ID_PIETANZA='$id_pietanza' AND PIETANZA_ORDINATA=0";
           mysqli_query($conn, $ok);
         }
       }

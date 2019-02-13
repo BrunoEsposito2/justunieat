@@ -114,7 +114,7 @@
             $exUp = mysqli_query($conn, $upd);
           }
           if($countR === $rows - 1) {           //SE ARRIVO ALL'ULTIMA RIGA DELLA TABELLA 'pietanza_nel_ordine' SIGNIFICA CHE LA PIETANZA NON C'E' QUINDI VIENE AGGIUNTA
-            if(checkAdd($id_piet, $nome)) {               //PRIMA DI ESSERE AGGIUNTA PERO' VERIFICO SE SI PUO' AGGIUNGERE
+          if(checkSameRest($nome)) {               //CONTROLLO SE IL RISTORANTE E' LO STESSO
               $ind = 0;
               $doP = mysqli_query($conn, $takeFromPietanza);
               while($i = mysqli_fetch_array($doP)) {
@@ -154,9 +154,43 @@
               }
               //  echo "Non è presente, inserire";
             } else if (!checkSameRest($nome)){
-              echo '<script type="text/javascript">
-              alert("' . "Impossibile effettuare un ordine con piatti di diversi ristoranti!! " . '");
-              </script>';
+              $ind = 0;
+              $doP = mysqli_query($conn, $takeFromPietanza);
+              while($i = mysqli_fetch_array($doP)) {
+                if($i['Nome'] === $nome) {
+                  $indice = $ind;
+                }
+                $ind++;
+              }
+              extract($pietanza[$indice]);
+              $ID_M = $ID_MENU;
+              $takeID_R = "SELECT ID_FORNITORE FROM menu WHERE ID_MENU='$ID_M'";
+              $doID_R = mysqli_query($conn, $takeID_R);
+              while($ID = $doID_R->fetch_array()) {
+                $ID_R = $ID;
+                //echo "ID_RESTURANT -> ".print_r($ID_R);
+              }
+              foreach ($ID_R as $key => $value) {
+                $id_r = $value;
+                //echo "Real ID_R -> ".$id_r;
+              }
+              /*Inserire codice per prendere ID_USER e salvare l'id in una variabile*/
+              $doOrder = "INSERT INTO ordine(Orario_richiesto, Stato, ID_USER, ID_RESTURANT, ORDINE_INVIATO) VALUES ('12:00', 0, '$user_id', '$id_r', 0) ";
+              $okOrd = mysqli_query($conn, $doOrder);
+              $takeID_O = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$user_id' AND ORDINE_INVIATO=0 AND ID_RESTURANT='$id_r'";
+              $doID_O = mysqli_query($conn, $takeID_O);
+              while($idO = $doID_O->fetch_array()) {
+                $ID_O = $idO;
+              }
+              foreach ($ID_O as $key => $value) {
+                $id_o = $value;
+                echo "ID_ORDINE -> ".$id_o;
+              }
+              $push = "INSERT INTO pietanza_nel_ordine(ID_PIETANZA, ID_ORDINE, Quantita) VALUES ('$id_piet', '$id_o', 1)";
+              $okPush = mysqli_query($conn, $push);
+              if(!$okPush) {
+                echo "Error ".$conn->error;
+              }
             }
           }
           $countR++;
@@ -210,7 +244,7 @@ function checkSameRest($nome) {
   $exOrd = mysqli_query($conn, $ord);
 
   while($i = mysqli_fetch_array($exOrd)) {
-    if($i['ID_USER'] === $client) {           //E' già presente un ordine del cliente loggato
+    if($i['ID_USER'] === $client && !$i['ORDINE_INVIATO']) {           //E' già presente un ordine del cliente loggato che ancora non viene inviato
       $takeMenuID = "SELECT ID_MENU FROM pietanza WHERE Nome='$nome'";
       $exTakeMID = mysqli_query($conn, $takeMenuID);
       while($menuID = $exTakeMID->fetch_array()) {
@@ -227,7 +261,7 @@ function checkSameRest($nome) {
       foreach ($id_rist as $key => $value) {
         $ID_RIST = $value;
       }
-      if($ID_RIST === $i['ID_RESTURANT']) {
+      if($i['ID_RESTURANT'] === $ID_RIST) {
         return true;
       } else {
         return false;
@@ -236,6 +270,7 @@ function checkSameRest($nome) {
   }
 }
 
+/*
 function checkAdd($id_pietanza, $nome) {
   if(checkSameRest($nome)) {
     $servername = "localhost";
@@ -259,5 +294,5 @@ function checkAdd($id_pietanza, $nome) {
   } else {
     return true;
   }
-}
+}*/
 ?>
