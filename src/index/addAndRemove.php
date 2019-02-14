@@ -34,10 +34,18 @@
     }
 
 
-    //Conteggio di tutti gli elementi nella tabella 'pietanza_nel_ordine'
+    //Conto tutte le pietanze nel carrello dell'utente loggato per aggiungere, o aggiornare la quantità
+    $u = $_SESSION['id'];
+    $getNum = "SELECT P.ID_ORDINE, O.ID_ORDINE FROM pietanza_nel_ordine AS P, ordine AS O WHERE P.ID_ORDINE=O.ID_ORDINE AND O.ID_USER='$u' AND P.PIETANZA_ORDINATA=0 AND O.ORDINE_INVIATO=0";
+    $exGet = mysqli_query($conn, $getNum);
+    $rows = mysqli_num_rows($exGet);
+    /*For debugging purpose
+    $res = mysqli_num_rows($doProva);
+    echo "TOTALE-> ".$res;
+    */
+
     $count = "SELECT * FROM pietanza_nel_ordine WHERE PIETANZA_ORDINATA=0";
     $doCount = mysqli_query($conn, $count);
-    $rows = mysqli_num_rows($doCount);
     /* DEBUGGING PURPOSE
     echo $rows;
     */
