@@ -48,7 +48,7 @@ session_start();
                  <a class="nav-link" href="#">Miei Ordini</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Esci</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+                <a class="nav-link" href="/Progetto2019/src/index/logout.php">Esci</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
              </li>
            </ul>
         </div>

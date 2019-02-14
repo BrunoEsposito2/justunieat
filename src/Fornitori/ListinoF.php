@@ -237,9 +237,9 @@ $rows = $result->num_rows;
           </div>';
     }
   }
+
+  $queryListF->close();
   ?>
-
-
 
 
   <script type="text/javascript" >
@@ -259,6 +259,8 @@ $rows = $result->num_rows;
     this.event.preventDefault();
   }
   </script>
+
+
 
   <div class="card">
         <button id="headingThree" class="card-header btn btn-default collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -320,6 +322,20 @@ $rows = $result->num_rows;
 
 </div>
 
+<?php
+
+  $QueryCatF = $mysqli->prepare("SELECT Nome FROM categoria_ristorante, categorie WHERE categoria_ristorante.ID_CAT = categorie.ID_CAT AND categorie.ID_FORNITORE = ?");
+  $QueryCatF->bind_param("i", $_SESSION["ID_FORNITORE"]);
+
+  $QueryCatF->execute();
+
+  $QueryCatF->bind_result($categoria);
+
+  $QueryCatF->fetch();
+
+  $QueryCatF->close();
+ ?>
+
   <!-- CATEGORIE -->
   <div class="container-fluid col-sm-12 col-md-8 col-lg-8">
   <h5 class="mb-0" style="text-align:center; margin-top:1em;"> LE TUE CATEGORIE</h5>
@@ -329,6 +345,7 @@ $rows = $result->num_rows;
     <div class="row container-fluid">
     <div name="ContainerCategorie" class="containerCategorie col-sm-6 col-lg-6" style="border:1px solid black;">
       <!-- ADD CHECKBOXES -->
+      <?php if($categoria == NULL) echo "Non hai scelto categorie." ?>
       <form action="" name="FormCucine">
         <input type="checkbox"> Ciccia</br>
         <input type="checkbox"> Romagnolo</br>
@@ -339,13 +356,62 @@ $rows = $result->num_rows;
 
     <div class="ButtonsCategorie col-sm-6 col-lg-6 ">
     <button class=" btn btn-default col-12" style="margin-top:5px;">ELIMINA</button>
-    <button class="btn btn-default col-12" style="margin-top:5px;">AGGIUNGI</button>
+    <button class="btn btn-default col-12" data-target="#AddCategorie" data-toggle="modal" style="margin-top:5px;">AGGIUNGI</button>
     </div>
   </div>
 </div>
 </div>
 
+<?php
+$QueryAddCat = $mysqli->prepare("SELECT Nome FROM categoria_ristorante, categorie WHERE categorie.ID_FORNITORE = ? AND categoria_ristorante.ID_CAT = categorie.ID_CAT");
+$QueryAddCat->bind_param("i", $_SESSION["ID_FORNITORE"]);
 
+$QueryAddCat->execute();
+
+$QueryAddCat->bind_result($cat);
+
+
+ ?>
+<!--MODAL CATEGORIE-->
+<div class="modal" id="AddCategorie" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Scegli le tue categorie</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <form action="addCategoria.php" method="POST" name="FormCucine">
+      <div class="modal-body">
+          <?php while($QueryAddCat->fetch()){ ?>
+          <input type="checkbox" name="Ciccia" <?php if($cat == "Ciccia") echo "checked"; ?>> Ciccia</br>
+          <input type="checkbox" name="Romagnolo" <?php if($cat == "Romagnolo") echo "checked"; ?>> Romagnolo</br>
+          <input type="checkbox" name="Giapponese" <?php if($cat == "Giapponese") echo "checked"; ?>> Giapponese</br>
+          <input type="checkbox" name="Americano" <?php if($cat == "Americano") echo "checked"; ?>> Americano</br>
+        <?php }
+          $QueryAddCat->close();
+        ?>
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary">Salva le modifiche</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+  function addCategorie(){
+    var x = document.getElementById("AddCategorie");
+    x.style.visibility = "visible";
+  }
+
+</script>
 
 
 
