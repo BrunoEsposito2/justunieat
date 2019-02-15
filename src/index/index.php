@@ -63,6 +63,7 @@ if(!controllo_cookie()){
     <link rel="icon" href="http://example.com/favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
+    <link href="Toasty.js-master/dist/toasty.min.css" rel="stylesheet">
     <title>Just Uni Eat</title>
 </head>
 
@@ -147,6 +148,7 @@ if(!controllo_cookie()){
             </div>
         </div>
     </nav>
+    
 
     <div class="jumbotron animated shake">
         <h1 class="display-4 ">Basta studiare! Cosa vuoi mangiare?</h1>
@@ -222,13 +224,13 @@ if(!controllo_cookie()){
     </footer>
     </div>
     </div>
-    <audio id="xyz" src="slow-spring-board.mp3" preload="auto"></audio>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
-
+    <script src="Toasty.js-master/dist/toasty.min.js"></script>
 
     <?php
 
@@ -259,21 +261,22 @@ if(!controllo_cookie()){
             method : 'post',
             data : {id_user : id_user},
 
-            success : function(response) {
+                success : function(response) {
 
-            if(response == "1") {
-                alert("Hai un nuovo messaggio!");
-                $('#countMess').text("1");
-                document.getElementById('xyz').play();
-            }    
-            
-            }
+                    if(response == "1") {
+                        var toast = new Toasty();
+                        //toast.progressBar("true");
+                        toast.success("Hai un nuovo messaggio!");
+                        $('#countMess').text("1");
+                    }    
+                
+                }
 
             });
 
         };
 
-        var interval = 10000; 
+        var interval = 30000; //30 secondi
 
         setInterval(ajax_call, interval);
 
