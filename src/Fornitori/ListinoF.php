@@ -28,6 +28,10 @@ if(isset($_GET["del"])){
   echo "Il piatto " . $_SESSION["piatto"] . " è stato eliminato.";
 }
 
+if(isset($_GET["cats"])){
+  echo "Le tue categorie sono state modificate.";
+}
+
 $queryListF = $mysqli->prepare("SELECT * FROM pietanza WHERE ID_MENU = ?");
 $queryListF->bind_param("i", $_SESSION["ID_FORNITORE"]);
 
@@ -333,7 +337,6 @@ $rows = $result->num_rows;
 
   $QueryCatF->fetch();
 
-  $QueryCatF->close();
  ?>
 
   <!-- CATEGORIE -->
@@ -345,31 +348,48 @@ $rows = $result->num_rows;
     <div class="row container-fluid">
     <div name="ContainerCategorie" class="containerCategorie col-sm-6 col-lg-6" style="border:1px solid black;">
       <!-- ADD CHECKBOXES -->
-      <?php if($categoria == NULL) echo "Non hai scelto categorie." ?>
-      <form action="" name="FormCucine">
-        <input type="checkbox"> Ciccia</br>
-        <input type="checkbox"> Romagnolo</br>
-        <input type="checkbox"> Giapponese</br>
-        <input type="checkbox"> Americano</br>
-      </form>
+      <?php if($categoria == NULL)
+              echo "Non hai scelto categorie.";
+            else { do{
+                      echo $categoria." <br>";
+                    } while($QueryCatF->fetch());
+            }
+
+            $QueryCatF->close();
+      ?>
+
     </div>
 
     <div class="ButtonsCategorie col-sm-6 col-lg-6 ">
-    <button class=" btn btn-default col-12" style="margin-top:5px;">ELIMINA</button>
-    <button class="btn btn-default col-12" data-target="#AddCategorie" data-toggle="modal" style="margin-top:5px;">AGGIUNGI</button>
+    <button class="btn btn-default col-12" data-target="#AddCategorie" data-toggle="modal" style="margin-top:5px;">MODIFICA</button>
     </div>
   </div>
 </div>
 </div>
 
 <?php
+$QueryCats = $mysqli->prepare("SELECT Nome FROM categoria_ristorante");
+$QueryCats->execute();
+$result = $QueryCats->get_result();
+$i=0;
+while($row[$i] = $result->fetch_array(MYSQLI_NUM)){
+  //var_dump($row[$i]);
+  $i++;
+}
+$QueryCats->close();
+
 $QueryAddCat = $mysqli->prepare("SELECT Nome FROM categoria_ristorante, categorie WHERE categorie.ID_FORNITORE = ? AND categoria_ristorante.ID_CAT = categorie.ID_CAT");
 $QueryAddCat->bind_param("i", $_SESSION["ID_FORNITORE"]);
 
 $QueryAddCat->execute();
 
-$QueryAddCat->bind_result($cat);
+$resCats = $QueryAddCat->get_result();
+$j = 0;
+while($rowC[$j] = $resCats->fetch_array(MYSQLI_NUM)){
+  $j++;
+}
 
+$QueryAddCat->close();
 
  ?>
 <!--MODAL CATEGORIE-->
@@ -385,15 +405,15 @@ $QueryAddCat->bind_result($cat);
 
       <form action="addCategoria.php" method="POST" name="FormCucine">
       <div class="modal-body">
-          <?php while($QueryAddCat->fetch()){ ?>
-          <input type="checkbox" name="Ciccia" <?php if($cat == "Ciccia") echo "checked"; ?>> Ciccia</br>
-          <input type="checkbox" name="Romagnolo" <?php if($cat == "Romagnolo") echo "checked"; ?>> Romagnolo</br>
-          <input type="checkbox" name="Giapponese" <?php if($cat == "Giapponese") echo "checked"; ?>> Giapponese</br>
-          <input type="checkbox" name="Americano" <?php if($cat == "Americano") echo "checked"; ?>> Americano</br>
-        <?php }
-          $QueryAddCat->close();
-        ?>
-
+          <?php for($cats=0; $cats < count($row)-1; $cats++){
+            echo '<input type="checkbox" name="'.$row[$cats][0].'" ';
+            //checks if already checked
+            for($checked = 0; $checked < count($rowC)-1; $checked++){
+              if($rowC[$checked][0] == $row[$cats][0])
+                echo 'checked';
+            }
+            echo '> '.$row[$cats][0].'</br>';
+          } ?>
       </div>
       <div class="modal-footer">
         <button class="btn btn-primary">Salva le modifiche</button>
