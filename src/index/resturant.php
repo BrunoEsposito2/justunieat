@@ -55,87 +55,101 @@ if(!controllo_cookie()){
 <html lang="it-IT">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--Bootstrap CSS-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<!-- FOR CART
-		<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
-	--><title>Just Uni Eat | Ristorante</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<!--Bootstrap CSS-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+			crossorigin="anonymous">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link rel="icon" href="http://example.com/favicon.png">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
+	<link href="Toasty.js-master/dist/toasty.min.css" rel="stylesheet">
+	<title>Just Uni Eat | Ristorante</title>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="index.php">Just Uni Eat</a>
-        <a href="checkout.php">
-					<?php
-			$servername = "localhost";
-	        $username = "root";
-	        $password = "";
-	        $dbname = "just_database";
+	<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+	            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	            <span class="navbar-toggler-icon"></span>
+	        </button>
+	        <a class="navbar-brand" href="index.php">Just Uni Eat</a>
+	        <a href="checkout.php">
+	            <?php
+	            $servername = "localhost";
+	            $username = "root";
+	            $password = "";
+	            $dbname = "just_database";
 
-	        $conn = new mysqli($servername, $username, $password, $dbname);
-	        if ($conn->connect_error) {
-	            die("Connection failed: " . $conn->connect_error);
-	        }
-					$idUs = $_SESSION['id'];
-					$checkCart = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$idUs' AND ORDINE_INVIATO=0";
-					$execControl = mysqli_query($conn, $checkCart);
-					$n_rows = mysqli_num_rows($execControl);
+	            $conn = new mysqli($servername, $username, $password, $dbname);
+	            if ($conn->connect_error) {
+	                die("Connection failed: " . $conn->connect_error);
+	            }
 
-					if($n_rows === 0) {
-					 ?>
-            <i class="material-icons md-36 carts">remove_shopping_cart</i>
-						<?php
-					} else if($n_rows > 0) {
-						?>
-						<i class="material-icons md-36 carts">shopping_cart</i>
-						<?php
-					}	 ?>
-        </a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="navbar-nav float-left text-left pr-3">
-                <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                        <a class="nav-link" id="navUser" href="#"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navMes" href="message.php">
-                          <i class="fa fa-envelope-o">
-                            <span class="badge badge-danger">1</span>
-                          </i>
-                          Messaggi
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navOrd" href="#">Miei Ordini</a>
-                        <!--da rendere hidden se non si ha fatto ancora l'accesso-->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navExit" href="logout.php">Esci</a>
-                        <!--da rendere hidden se non si ha fatto ancora l'accesso-->
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+	            if(isset($_SESSION['id'])) {
+	                $idUs = $_SESSION['id'];
+	                $checkCart = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$idUs' AND ORDINE_INVIATO=0";
+	                $execControl = mysqli_query($conn, $checkCart);
+	                $n_rows = mysqli_num_rows($execControl);
+
+	                if($n_rows === 0) {
+	                ?>
+	                <i class="material-icons md-36 carts">remove_shopping_cart</i>
+	                <?php
+	                } else if($n_rows > 0) {
+	                ?>
+	                <i class="material-icons md-36 carts">shopping_cart</i>
+	                <?php
+	                }
+
+	            }
+	            ?>
+	        </a>
+	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	            <div class="navbar-nav float-left text-left pr-3">
+	                <ul class="navbar-nav mr-auto">
+	                <li class="nav-item">
+	                        <a class="nav-link" id="navUser" href="profile.php"></a>
+	                    </li>
+	                    <li class="nav-item">
+	                        <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
+	                    </li>
+	                    <li class="nav-item">
+	                        <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
+	                    </li>
+	                    <li class="nav-item">
+	                        <a class="nav-link" id="navMes" href="message.php">
+	                            <i class="fa fa-envelope-o">
+	                                <span id="countMess" class="badge badge-danger">
+
+	                                    <?php
+	                                    if($auth) {
+	                                        $q= "SELECT COUNT(*) FROM utente AS U, messaggio AS M WHERE
+	                                        U.ID_USER='".$_SESSION["id"]."' AND U.ID_USER = M.ID_USER AND M.Letto='0'";
+	                                        $query=mysqli_query($conn, $q);
+	                                        $result = mysqli_fetch_array($query);
+	                                        echo $result['COUNT(*)'];
+	                                    } else echo "0";?>
+	                                </span>
+	                            </i>
+	                            Messaggi
+	                        </a>
+	                    </li>
+	                    <li class="nav-item">
+	                        <a class="nav-link" id="navOrd" href="mieiOrdini.php">Miei Ordini</a>
+	                        <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+	                    </li>
+	                    <li class="nav-item">
+	                        <a class="nav-link" id="navExit" href="logout.php">Esci</a>
+	                        <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </nav>
 
     <div class="jumbotron text-center">
         <div class="row">
@@ -338,47 +352,39 @@ if(!controllo_cookie()){
 
     <div class="content">
     </div>
-    <footer id="myFooter">
-        <div class="container">
+		<footer id="myFooter">
+        <div class="container text-center">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>Inizia</h5>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Accedi</a></li>
-                        <li><a href="#">Registrati</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="accedi.php">Accedi</a></li>
+                        <li><a href="registrati.php">Registrati</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>Chi siamo</h5>
                     <ul>
-                        <li><a href="#">La Nostra Storia</a></li>
-                        <li><a href="#">Contattaci</a></li>
-                        <li><a href="#">Dicono di noi</a></li>
+                        <li><a href="storia.html">La Nostra Storia</a></li>
+                        <li><a href="contattaci.html">Contattaci</a></li>
+                        <li><a href="dicono_di_noi.html">Dicono di noi</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
-                    <h5>Fornitori</h5>
+                <div class="col-sm-4">
+                    <h5>Info</h5>
                     <ul>
-                        <li><a href="#">Elenco completo</a></li>
-                        <li><a href="#">Diventa affiliato</a></li>
-                        <li><a href="#">Diventa fattorino</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <h5>Termini</h5>
-                    <ul>
-                        <li><a href="#">Termini del servizio</a></li>
-                        <li><a href="#">Termini di utilizzo</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="privacy.php">Privacy & Cookie</a></li>
+                        <li><a href="registrati.php">Diventa affiliato</a></li>
+                        <li><a href="diventa_fattorino.php">Diventa fattorino</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="social-networks">
-            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+            <a target="_blank" href="https://twitter.com/JustUniEat1" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.facebook.com/justuni.eat.5" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" href="https://plus.google.com/u/0/114848465565497583176" class="google"><i class="fa fa-google-plus"></i></a>
         </div>
         <div class="footer-copyright">
             <p>© 2018 Copyright Just Uni Eat</p>

@@ -94,7 +94,7 @@ if(isset($_POST['place'])) {
 
 	$takeOrders = "UPDATE ordine SET Luogo = " . "'$luogo'" . "WHERE ID_USER = " . $id_user . " AND ORDINE_INVIATO = 0" ;
 	$exec = mysqli_query($conn, $takeOrders);
-	
+
 }
 
 if(isset($_POST['saveOrder'])) {
@@ -394,13 +394,13 @@ if(isset($_POST['saveOrder'])) {
 					<div class="alert alert-danger" role="alert">
 					<h2 class="text-center"><i class="material-icons">remove_shopping_cart</i> Carrello Vuoto </h2>
 					</div>
-			    		
-	
+
+
 			    		<form name="continua" class="text-center" onclick="history.back()">
 			       			 <input type="button" id="go_after_acc" class="btn btn-danger btn-lg btn3d" value="CONTINUA">
 			   			 </form>
 					</div>
-
+				</div>
 		<?php } ?>
 
     <div class="content">

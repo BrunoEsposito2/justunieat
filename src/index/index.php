@@ -92,7 +92,7 @@ if(!controllo_cookie()){
                 $checkCart = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$idUs' AND ORDINE_INVIATO=0";
                 $execControl = mysqli_query($conn, $checkCart);
                 $n_rows = mysqli_num_rows($execControl);
-    
+
                 if($n_rows === 0) {
                 ?>
                 <i class="material-icons md-36 carts">remove_shopping_cart</i>
@@ -102,7 +102,7 @@ if(!controllo_cookie()){
                 <i class="material-icons md-36 carts">shopping_cart</i>
                 <?php
                 }
-                
+
             }
             ?>
         </a>
@@ -122,14 +122,14 @@ if(!controllo_cookie()){
                         <a class="nav-link" id="navMes" href="message.php">
                             <i class="fa fa-envelope-o">
                                 <span id="countMess" class="badge badge-danger">
-                                    
-                                    <?php 
+
+                                    <?php
                                     if($auth) {
-                                        $q= "SELECT COUNT(*) FROM utente AS U, messaggio AS M WHERE 
+                                        $q= "SELECT COUNT(*) FROM utente AS U, messaggio AS M WHERE
                                         U.ID_USER='".$_SESSION["id"]."' AND U.ID_USER = M.ID_USER AND M.Letto='0'";
                                         $query=mysqli_query($conn, $q);
                                         $result = mysqli_fetch_array($query);
-                                        echo $result['COUNT(*)']; 
+                                        echo $result['COUNT(*)'];
                                     } else echo "0";?>
                                 </span>
                             </i>
@@ -148,13 +148,13 @@ if(!controllo_cookie()){
             </div>
         </div>
     </nav>
-    
+
 
     <div class="jumbotron animated shake">
         <h1 class="display-4 ">Basta studiare! Cosa vuoi mangiare?</h1>
 
         <form class="category" action="show.php" method="GET">
-        
+
         <?php
         $m="SELECT * FROM categoria_ristorante ORDER BY RAND() LIMIT 10";
         $query=mysqli_query($conn, $m);
@@ -163,7 +163,7 @@ if(!controllo_cookie()){
         }
         foreach($cats as $cat) {
         ?>
-                                
+
         <label class="check">
                 <input type="checkbox" name="category[]" value="<?php echo $cat["Nome"]?>">
         </label><?php echo $cat["Nome"]?><br>
@@ -180,7 +180,7 @@ if(!controllo_cookie()){
 
     </div>
 
-    
+
 
     <div class="content">
     </div>
@@ -224,7 +224,7 @@ if(!controllo_cookie()){
     </footer>
     </div>
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
@@ -252,7 +252,7 @@ if(!controllo_cookie()){
         });
 
         var ajax_call = function() {
-        
+
             var id_user = <?php echo $_SESSION['id'];?>
 
             $.ajax({
@@ -268,8 +268,8 @@ if(!controllo_cookie()){
                         //toast.progressBar("true");
                         toast.success("Hai un nuovo messaggio!");
                         $('#countMess').text("1");
-                    }    
-                
+                    }
+
                 }
 
             });
