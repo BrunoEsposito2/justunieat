@@ -12,30 +12,36 @@ function controllo_cookie(){
         $username = "root";
         $password = "";
         $dbname = "just_database";
-
+        
         $conn = new mysqli($servername, $username, $password, $dbname);
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $q="SELECT * from utente where Email='".$tmp."'";
+
+        $q="SELECT * from utente where Email='".$_SESSION['email']."'";
 		//confronto username e password del cookie con il database
         $query=mysqli_query($conn, $q);
 
+
 		if($query){
-            $row=mysqli_fetch_array($query);
+            $row=mysqli_fetch_array($query, MYSQLI_ASSOC);
 			//immagazzinano le informazioni dell'utente in un array
             $_SESSION["id"]=$row["ID_USER"];
+                /*  PER MOSTRARE TUTTI I MESSAGGI DELL'UTENTE"  */
+            $q="SELECT * from messaggio where ID_USER='".$_SESSION['id']."'";
+            $query=mysqli_query($conn, $q);
+            $conn->close();
 			return true;
 		} else {
             return false;
         }
-
+			
 
 	}else {
         return false;
     }
-
+		
 
 }
 
@@ -55,17 +61,18 @@ if(!controllo_cookie()){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="keywords" content="Cibo, food, Just Eat, Just Uni Eat, just uni eat, asporto, università, fame, veloce, eat"/>
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-    <link rel="icon" href="http://example.com/favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://select2.github.io/dist/css/select2.min.css" rel="stylesheet">
+    <script src="https://select2.github.io/dist/js/select2.full.js"></script>
     <link href="Toasty.js-master/dist/toasty.min.css" rel="stylesheet">
-    <title>Just Uni Eat</title>
+    <title>Just Uni Eat | Info</title>
 </head>
 
 <body>
@@ -124,10 +131,10 @@ if(!controllo_cookie()){
                             <i class="fa fa-envelope-o">
                                 <span id="countMess" class="badge badge-danger">
                                     
-                                <?php 
-                                      if($auth) {
+                                    <?php 
+                                    if($auth) {
                                         $q= "SELECT COUNT(*) FROM utente AS U, messaggio AS M WHERE 
-                                        U.ID_USER='".$_SESSION["id"]."' AND U.ID_USER = M.ID_USER AND M.Letto='0' AND M.Ricevuto_Dal_Utente='1'";
+                                        U.ID_USER='".$_SESSION["id"]."' AND U.ID_USER = M.ID_USER AND M.Letto='0'";
                                         $query=mysqli_query($conn, $q);
                                         $result = mysqli_fetch_array($query);
                                         echo $result['COUNT(*)']; 
@@ -149,39 +156,39 @@ if(!controllo_cookie()){
             </div>
         </div>
     </nav>
-    
 
-    <div class="jumbotron animated shake">
-        <h1 class="display-4 ">Basta studiare! Cosa vuoi mangiare?</h1>
-
-        <form class="category" action="show.php" method="GET">
-        
-        <?php
-        $m="SELECT * FROM categoria_ristorante ORDER BY RAND() LIMIT 10";
-        $query=mysqli_query($conn, $m);
-        while($cat = $query->fetch_array()) {
-            $cats[] = $cat;
-        }
-        foreach($cats as $cat) {
-        ?>
-                                
-        <label class="check">
-                <input type="checkbox" name="category[]" value="<?php echo $cat["Nome"]?>">
-        </label><?php echo $cat["Nome"]?><br>
-        <?php
-        }
-        ?>
-
-            <div class="form-row text-center">
-                <div class="col-8">
-                    <button type="submit" value="submit" class="btn btn-default btn-lg btn3d">ORDINA!</button>
+    <div class="jumbotron">
+       <?php if($_GET['error'] == "loginYet") {
+        ?>   
+            <div class="row">
+                <div class="col-sm-4 offset-sm-4">
+                    <div class="alert alert-danger"><h2 class="text-center">Sei già loggato!</h2></div>
+                    <form name="continua" class="text-center" onclick="history.back()">
+                        <input type="button" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
+                    </form>
                 </div>
+                
             </div>
-        </form>
-
+           
+        <?php
+        } else if ($_GET['error'] == "404") {
+            ?>
+            <div class="row">
+                <div class="col-sm-4 offset-sm-4">
+                    <div class="alert alert-danger"><h2 class="text-center"><i class="material-icons md-36">sentiment_very_dissatisfied
+                    </i> Ops! Non hai i permessi per accedere.</h2></div>
+                    <form name="continua" class="text-center" action="index.php">
+                        <input type="submit" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
+                    </form>
+                </div>
+                
+            </div>
+            <?php
+        }
+        ?>
     </div>
 
-    
+
 
     <div class="content">
     </div>
@@ -233,13 +240,28 @@ if(!controllo_cookie()){
         crossorigin="anonymous"></script>
     <script src="Toasty.js-master/dist/toasty.min.js"></script>
 
-    <?php
+        <script>
+        $('#inBoxMsg').click(function() {
+            $('.msgList').toggle('slow', function() {
+            // Animation complete.
+            });
+        });
+
+        $('#recMsg').click(function() {
+            document.getElementById('top_rec_arr').style.display = "block";
+            $('.msgListRec').toggle('fadeOut', function() {
+            //Aniamtion
+            });
+        });
+        </script>
+    
+        <?php
 
     if($auth) {
     ?>
 
         <script>
-
+        
         $(document).ready(function() {
             var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['nome']); ?>");
             var hello = "Ciao, ";
@@ -251,35 +273,35 @@ if(!controllo_cookie()){
             document.getElementById('navOrd').style.display = "block";
             document.getElementById('navExit').style.display = "block";
         });
-
+        
         var ajax_call = function() {
         
-            var id_user = <?php echo $_SESSION['id'];?>
+        var id_user = <?php echo $_SESSION['id'];?>
 
-            $.ajax({
+        $.ajax({
 
-            url : 'checkMessageNew.php',
-            method : 'post',
-            data : {id_user : id_user},
+        url : 'checkMessageNew.php',
+        method : 'post',
+        data : {id_user : id_user},
 
-                success : function(response) {
+            success : function(response) {
 
-                    if(response == "1") {
-                        var toast = new Toasty();
-                        //toast.progressBar("true");
-                        toast.success("Hai un nuovo messaggio!");
-                        $('#countMess').text("1");
-                    }    
-                
-                }
+                if(response == "1") {
+                    var toast = new Toasty();
+                    //toast.progressBar("true");
+                    toast.success("Hai un nuovo messaggio!");
+                    $('#countMess').text("1");
+                }    
+            
+            }
 
-            });
+        });
 
-        };
+    };
 
-        var interval = 30000; //30 secondi
+    var interval = 30000; //30 secondi
 
-        setInterval(ajax_call, interval);
+    setInterval(ajax_call, interval);
 
         </script>
     <?php
@@ -287,15 +309,16 @@ if(!controllo_cookie()){
     ?>
 
     <script>
-
-
+    
+    
     </script>
-
+    
     <?php
 
 
     }
     ?>
+
 </body>
 
 </html>

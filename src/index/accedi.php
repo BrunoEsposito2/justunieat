@@ -1,6 +1,12 @@
 <?php
 
 $error = false;
+$nMess = 0;
+session_start();
+if(isset($_SESSION['nome'])) {
+    header("location: infoPage.php?error=loginYet");
+    exit();
+}
 
 if (isset($_POST['btnLogin'])) {
 
@@ -55,9 +61,11 @@ if (isset($_POST['btnLogin'])) {
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="icon" href="http://example.com/favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
-    <title>Just Uni Eat | Accedi</title>
+    <link href="Toasty.js-master/dist/toasty.min.css" rel="stylesheet">
+    <title>Just Uni Eat</title>
 </head>
 
 <body>
@@ -68,7 +76,7 @@ if (isset($_POST['btnLogin'])) {
             <span class="navbar-toggler-icon"></span>
         </button>
         <a class="navbar-brand" href="index.php">Just Uni Eat</a>
-        <a href="checkout.php">
+        <a id="cartIcon" href="checkout.php">
             <i class="material-icons md-36 carts">shopping_cart</i>
         </a>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -188,9 +196,9 @@ if (isset($_POST['btnLogin'])) {
     <div class="content">
     </div>
     <footer id="myFooter">
-        <div class="container">
+        <div class="container text-center">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>Inizia</h5>
                     <ul>
                         <li><a href="index.php">Home</a></li>
@@ -198,28 +206,20 @@ if (isset($_POST['btnLogin'])) {
                         <li><a href="registrati.php">Registrati</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>Chi siamo</h5>
                     <ul>
                         <li><a href="storia.html">La Nostra Storia</a></li>
-                        <li><a href="contacci.html">Contattaci</a></li>
-                        <li><a href="dicono_di_noi">Dicono di noi</a></li>
+                        <li><a href="contattaci.html">Contattaci</a></li>
+                        <li><a href="dicono_di_noi.html">Dicono di noi</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
-                    <h5>Fornitori</h5>
+                <div class="col-sm-4">
+                    <h5>Info</h5>
                     <ul>
-                        <li><a href="#">Elenco completo</a></li>
+                        <li><a href="privacy.php">Privacy & Cookie</a></li>
                         <li><a href="registrati.php">Diventa affiliato</a></li>
                         <li><a href="diventa_fattorino.php">Diventa fattorino</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <h5>Termini</h5>
-                    <ul>
-                        <li><a href="#">Termini del servizio</a></li>
-                        <li><a href="#">Termini di utilizzo</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
                     </ul>
                 </div>
             </div>
@@ -235,12 +235,14 @@ if (isset($_POST['btnLogin'])) {
     </footer>
     </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+    <script src="Toasty.js-master/dist/toasty.min.js"></script>
+
         <?php
 
 if ($error) {

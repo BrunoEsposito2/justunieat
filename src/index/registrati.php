@@ -20,16 +20,19 @@ if(isset($_GET["pass"])){
 <html lang="it-IT">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="Cibo, food, Just Eat, Just Uni Eat, just uni eat, asporto, università, fame, veloce, eat"/>
     <!--Bootstrap CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="icon" href="http://example.com/favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
+    <link href="Toasty.js-master/dist/toasty.min.css" rel="stylesheet">
     <title>Just Uni Eat | Registrati</title>
 </head>
 
@@ -155,10 +158,10 @@ if(isset($_GET["pass"])){
       </div>
       <!--FINE REGISTRAZIONE CLIENTE-->
 
-    <div class="cookie-accept d-block position-fixed mw-25 bg-primary text-white rounded-top pt-2 pr-3 pl-3 pb-2">
+    <div id="myDIV" class="cookie-accept d-block position-fixed mw-25 bg-primary text-white rounded-top pt-2 pr-3 pl-3 pb-2">
         <h5>Uso dei Cookie e dei dati personali</h5>
         <p>Noi - <em>e i nostri partern</em> - usano i cookie per offrire un servizio migliore e inerente ai tui gusti. Ulteriori informazioni le troverai nel sezione: Privacy Policy. Usando il nostro sito, sei d'accordo all'utilizzo dei cookie.</p>
-    <a target="_blank" href="" class="btn btn-outline-light btn-block">Accetto</a>
+     <button onclick="myFunction()" class="btn btn-outline-light btn-block">Accetto</button>
     </div>
 
       <!--REGISTRAZIONE RISTORANTE-->
@@ -220,9 +223,9 @@ if(isset($_GET["pass"])){
     <div class="content">
     </div>
     <footer id="myFooter">
-        <div class="container">
+        <div class="container text-center">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>Inizia</h5>
                     <ul>
                         <li><a href="index.php">Home</a></li>
@@ -230,36 +233,28 @@ if(isset($_GET["pass"])){
                         <li><a href="registrati.php">Registrati</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <h5>Chi siamo</h5>
                     <ul>
                         <li><a href="storia.html">La Nostra Storia</a></li>
-                        <li><a href="contacci.html">Contattaci</a></li>
-                        <li><a href="dicono_di_noi">Dicono di noi</a></li>
+                        <li><a href="contattaci.html">Contattaci</a></li>
+                        <li><a href="dicono_di_noi.html">Dicono di noi</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-3">
-                    <h5>Fornitori</h5>
+                <div class="col-sm-4">
+                    <h5>Info</h5>
                     <ul>
-                        <li><a href="#">Elenco completo</a></li>
-                        <li><a href="#">Diventa affiliato</a></li>
-                        <li><a href="#">Diventa fattorino</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-3">
-                    <h5>Termini</h5>
-                    <ul>
-                        <li><a href="#">Termini del servizio</a></li>
-                        <li><a href="#">Termini di utilizzo</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="privacy.php">Privacy & Cookie</a></li>
+                        <li><a href="registrati.php">Diventa affiliato</a></li>
+                        <li><a href="diventa_fattorino.php">Diventa fattorino</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="social-networks">
-            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-            <a href="#" class="google"><i class="fa fa-google-plus"></i></a>
+            <a target="_blank" href="https://twitter.com/JustUniEat1" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.facebook.com/justuni.eat.5" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" href="https://plus.google.com/u/0/114848465565497583176" class="google"><i class="fa fa-google-plus"></i></a>
         </div>
         <div class="footer-copyright">
             <p>© 2018 Copyright Just Uni Eat</p>
@@ -273,7 +268,13 @@ if(isset($_GET["pass"])){
         crossorigin="anonymous"></script>
     
         <script>
-        
+
+        function myFunction() {
+        var x = document.getElementById("myDIV");
+        x.remove();
+        } 
+
+    
         $(document).ready(function(){
             $('input[name=email]').change(function() {
 
@@ -287,7 +288,8 @@ if(isset($_GET["pass"])){
 
                 success : function(response) {
                 
-                alert("Errore! Email già presente a sistema.");
+                    if(response == 1)
+                    alert("Errore! Email già presente a sistema.");
 
                 }
 

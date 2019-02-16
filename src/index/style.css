@@ -716,7 +716,7 @@ body{ margin: 0px; }
     margin-top: 10px;
 }
 
-#navUser, #navMes, #navOrd, #navExit {
+#navUser, #navMes, #navOrd, #navExit, #cartIcon {
     display: none;
 }
 

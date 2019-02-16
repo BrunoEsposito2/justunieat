@@ -2,7 +2,7 @@
 session_start();
 function controllo_cookie(){
 
-	if(isset($_COOKIE['session'])){
+	if(isset($_COOKIE['session']) & isset($_SESSION['nome'])){
 
 		//prendo l'email presente nel cookie
 		$tmp=$_SESSION["email"];
@@ -442,6 +442,35 @@ if(!controllo_cookie()){
                     document.getElementById('navExit').style.display = "block";
                 });
 
+
+                var ajax_call = function() {
+                
+                var id_user = <?php echo $_SESSION['id'];?>
+
+                $.ajax({
+
+                url : 'checkMessageNew.php',
+                method : 'post',
+                data : {id_user : id_user},
+
+                    success : function(response) {
+
+                        if(response == "1") {
+                            var toast = new Toasty();
+                            //toast.progressBar("true");
+                            toast.success("Hai un nuovo messaggio!");
+                            $('#countMess').text("1");
+                        }    
+                    
+                    }
+
+                });
+
+            };
+
+    var interval = 30000; //30 secondi
+
+    setInterval(ajax_call, interval);
                 </script>
             <?php
             } else {

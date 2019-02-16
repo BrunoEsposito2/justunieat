@@ -3,7 +3,7 @@ session_start();
 $nMess = 0;
 function controllo_cookie(){
 
-	if(isset($_COOKIE['session'])){
+	if(isset($_COOKIE['session']) & isset($_SESSION['nome'])){
 
 		//prendo l'email presente nel cookie
 		$tmp=$_COOKIE['session'];
@@ -56,18 +56,19 @@ if(!controllo_cookie()){
 <html lang="it-IT">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<!--Bootstrap CSS-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-			crossorigin="anonymous">
-	<link rel="stylesheet" href="style.css">
-	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-	<link rel="icon" href="http://example.com/favicon.png">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
-	<link href="Toasty.js-master/dist/toasty.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="Cibo, food, Just Eat, Just Uni Eat, just uni eat, asporto, università, fame, veloce, eat"/>
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="icon" href="http://example.com/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
+    <link href="Toasty.js-master/dist/toasty.min.css" rel="stylesheet">
     <title>Just Uni Eat | Profilo</title>
 </head>
 
@@ -322,6 +323,7 @@ if(!controllo_cookie()){
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
+    <script src="Toasty.js-master/dist/toasty.min.js"></script>
 
 
     <?php
@@ -341,6 +343,36 @@ if(!controllo_cookie()){
             document.getElementById('navMes').style.display = "block";
             document.getElementById('navOrd').style.display = "block";
             document.getElementById('navExit').style.display = "block";
+
+            var ajax_call = function() {
+        
+            var id_user = <?php echo $_SESSION['id'];?>
+
+            $.ajax({
+
+            url : 'checkMessageNew.php',
+            method : 'post',
+            data : {id_user : id_user},
+
+                success : function(response) {
+
+                    if(response == "1") {
+                        var toast = new Toasty();
+                        //toast.progressBar("true");
+                        toast.success("Hai un nuovo messaggio!");
+                        $('#countMess').text("1");
+                    }    
+                
+                }
+
+            });
+
+        };
+
+    var interval = 30000; //30 secondi
+
+    setInterval(ajax_call, interval);
+
 
 
             $('.updateU').click(function(){

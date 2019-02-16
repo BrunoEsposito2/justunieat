@@ -143,10 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $insertError = "";
         $isInserted = false;
 
-        if(!isset($_POST["ristorante"]) || strlen($_POST["ristorante"]) < 2){
-        $errors .= "Il nome del Ristorante è obbligatorio e deve avere almeno 2 caratteri <br/>";
-        }
-
         if(!isset($_POST["titolo"]) || strlen($_POST["titolo"]) < 2){
         $errors .= "Il Titolo è obbligatorio e deve avere almeno 2 caratteri";
         }
@@ -243,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </span>
          </div>
 
-            <h3 class="text-center">Errore! Messaggio non corretto!<br><?php echo $errors?>.</h3>
+            <h3 class="text-center">Errore! Messaggio non corretto!<br><?php echo $errors?></h3>
             <form>
                 <input type="button" class="btn btn-danger btn-lg btn3d" value="INDIETRO" onclick="history.back()">
             </form>
