@@ -338,7 +338,7 @@ if(isset($_POST['saveOrder'])) {
 						</div>
 					</div>
 				</div>
-			</div>	
+			
 				<?php
 							$totale += $sommaPrezzi;
 						}
@@ -402,7 +402,7 @@ if(isset($_POST['saveOrder'])) {
 					</form>		
 				</div>			
       		</div>
-    
+		</div>
 		<?php
 	} else {
 	}

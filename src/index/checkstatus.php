@@ -181,7 +181,7 @@ if(!controllo_cookie()){
                 </div>
             </div>
 
-            <form name="continua" class="text-center" action="accedi.php">
+            <form name="continua" class="text-center" action="index.php">
                 <input type="submit" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
             </form>
         </div>

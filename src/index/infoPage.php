@@ -163,8 +163,8 @@ if(!controllo_cookie()){
             <div class="row">
                 <div class="col-sm-4 offset-sm-4">
                     <div class="alert alert-danger"><h2 class="text-center">Sei già loggato!</h2></div>
-                    <form name="continua" class="text-center" onclick="history.back()">
-                        <input type="button" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
+                    <form name="continua" class="text-center" action="index.php">
+                        <input type="submit" id="go_after_acc" class="btn btn-success btn-lg btn3d" value="CONTINUA">
                     </form>
                 </div>
                 
