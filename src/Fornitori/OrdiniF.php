@@ -31,7 +31,7 @@ while($row = $result->fetch_assoc()){
   //echo '<br>'.$ord[$i].' '.$time[$i].' '.$state[$i].' '.$user[$i].' '.$rest[$i].' '.$loc[$i].' '.$val[$i].' '.$sent[$i]."<br>";
   $i++;
 }
-var_dump(count($ord));
+//var_dump(count($ord));
  ?>
 
  <!DOCTYPE html>
@@ -86,15 +86,17 @@ var_dump(count($ord));
 <div id="accordion" class="container col-sm-12 col-md-8">
   <h2 style="text-align:center">I TUOI ORDINI</h2>
   <div class="card">
-    <div class="card-header" id="headingTitle">
+    <table class="card-header table" id="headingTitle">
+      <thead>
       <h5 class="mb-0">
-        <tr class="row">
-          <td class="col-lg-3">ORDINE</td>
-          <td class="col-lg-3">TEMPO</td>
-          <td class="col-lg-3">PREZZO</td>
-          <td class="col-lg-3">STATO</td>
+        <tr class="">
+          <th>ORDINE</th>
+          <th>TEMPO</th>
+          <th>STATO</th>
+          <th></th>
         </tr>
-    </div>
+      </thead>
+    </table>
   </div>
 <?php
 for($i=0; $i< count($ord); $i++){
@@ -104,15 +106,16 @@ for($i=0; $i< count($ord); $i++){
         </button>
 
     <div id="collapse'.$ord[$i].'" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-        <tr>
-          <td>'.$ord[$i].'</td>
-          <td>'.$time[$i].'</td>
-          <td>'.$loc[$i].'</td>
-          <td>'.$state[$i].'</td>
+      <table class="card-body table">
+      <tbody>
+        <tr class="row">
+          <td class="col-lg-3" style="text-align:center">'.$ord[$i].'</td>
+          <td class="col-lg-3" style="text-align:center">'.$time[$i].'</td>
+          <td class="col-lg-3" style="text-align:center">'.$state[$i].'</td>
+          <td class="col-lg-3" style="text-align:center"><button onclick="window.location.href=\'OrdineCompleto.php?n='.$ord[$i].'\'">Dettagli</button></td>
         </tr>
-        <button onclick="window.location.href=\'OrdineCompleto.php?n='.$ord[$i].'\'">Dettagli</button>
-      </div>
+        </tbody>
+      </table>
     </div>
   </div>';
 }

@@ -1,9 +1,54 @@
 <?php
+define("HOST", "localhost"); // E' il server a cui ti vuoi connettere
+define("USER", "admin_user"); // E' l'utente con cui ti collegherai al DB.
+define("PASSWORD", "Justunieat2019"); // Password di accesso al DB.
+define("DATABASE", "just_database"); // Nome del database.
+$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
+
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
 
 session_start();
 //echo $_SESSION["Nome"] . "<br>" . $_SESSION["Cognome"];
 
+$QueryOrdiniF = $mysqli->prepare("SELECT * FROM ordine WHERE ID_RESTURANT = ? AND ORDINE_INVIATO = 1 AND Stato != -1");
+$QueryOrdiniF->bind_param("i", $_SESSION["ID_FORNITORE"]);
 
+$QueryOrdiniF->execute();
+
+$result = $QueryOrdiniF->get_result();
+
+$i=0;
+while($row = $result->fetch_assoc()){
+  $ord[$i] = $row["ID_ORDINE"];
+  $ora[$i] = $row["Orario_Richiesto"];
+  $state[$i] = $row["Stato"];
+  $user[$i] = $row["ID_USER"];
+  $rist[$i] = $row["ID_RESTURANT"];
+  $loc[$i] = $row["Luogo"];
+  $val[$i] = $row["valutazione"];
+  $sent[$i] = $row["ORDINE_INVIATO"];
+  //echo $ord[$i];
+  $i++;
+}
+
+$QueryOrdiniF->close();
+
+$queryPiattiF = $mysqli->prepare("SELECT Nome, Prezzo, Tipologia, Valutazione FROM pietanza WHERE ID_MENU = ?");
+$queryPiattiF->bind_param("i", $_SESSION["ID_FORNITORE"]);
+
+$queryPiattiF->execute();
+
+$resultp = $queryPiattiF->get_result();
+
+$y=0;
+while($ress = $resultp->fetch_assoc()){
+  $name[$y] = $ress["Nome"];
+  $prezzo[$y] = $ress["Prezzo"];
+  $tipo[$y] = $ress["Tipologia"];
+  $valp[$y] = $ress["Valutazione"];
+}
  ?>
 
  <!DOCTYPE html>
@@ -82,19 +127,23 @@ session_start();
     <thead>
       <tr>
         <th>ORDINE</th>
-        <th>TEMPO</th>
-        <th>PREZZO</th>
+        <th>ORARIO</th>
+        <th>LUOGO</th>
         <th>STATO</th>
       </tr>
     </thead>
     <tbody>
-      <!--TODO PHP -->
-      <tr>
-        <td>Ordine 1</td>
-        <td>Tempo 1</td>
-        <td>Prezzo 1</td>
-        <td>Stato 1</td>
-      </tr>
+      <?php
+      for($x=0; $x < count($ord); $x++){
+       echo '<tr>
+              <td>'.$ord[$x].'</td>
+              <td>'.$ora[$x].'</td>
+              <td>'.$loc[$x].'</td>
+              <td>'.$state[$x].'</td>
+            </tr>';
+      }
+      ?>
+
 
     </tbody>
   </table>
@@ -113,18 +162,22 @@ session_start();
       <tr>
         <th>PIATTO</th>
         <th>TIPOLOGIA</th>
-        <th>CUCINA</th>
         <th>PREZZO</th>
+        <th>VALUTAZIONE</th>
       </tr>
     </thead>
     <tbody>
-      <!--TODO PHP -->
-      <tr>
-        <td>Piatto 1</td>
-        <td>Tipologia 1</td>
-        <td>Cucina 1</td>
-        <td>Prezzo 1</td>
-      </tr>
+
+      <?php
+        for($h=0; $h < count($name); $h++){
+          echo '<tr>
+            <td>'.$name[$h].'</td>
+            <td>'.$tipo[$h].'</td>
+            <td>'.$prezzo[$h].'</td>
+            <td>'.$valp[$h].'</td>
+          </tr>';
+        }
+      ?>
 
     </tbody>
   </table>
