@@ -1,4 +1,67 @@
 <?php
+define("HOST", "localhost"); // E' il server a cui ti vuoi connettere
+define("USER", "admin_user"); // E' l'utente con cui ti collegherai al DB.
+define("PASSWORD", "Justunieat2019"); // Password di accesso al DB.
+define("DATABASE", "just_database"); // Nome del database.
+$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
+
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+
+session_start();
+
+$QueryOrdine = $mysqli->prepare("SELECT ordine.ID_ORDINE, ordine.Orario_Richiesto, ordine.Stato, ordine.ID_USER, ordine.Luogo, ordine.valutazione, pietanza.Nome, pietanza.Prezzo, pietanza_nel_ordine.Quantita, utente.Nome as UName, utente.Cellulare
+                                 FROM ordine, pietanza_nel_ordine, pietanza, utente
+                                 WHERE ordine.ID_ORDINE=pietanza_nel_ordine.ID_ORDINE
+                                 AND pietanza_nel_ordine.ID_PIETANZA = pietanza.ID_PIETANZA
+                                 AND ordine.ID_USER = utente.ID_USER
+                                 AND ordine.ID_RESTURANT = ?
+                                 AND ordine.ID_ORDINE = ?
+                                 AND ordine.ORDINE_INVIATO = 1");
+$QueryOrdine->bind_param("ii", $_SESSION["ID_FORNITORE"], $_GET["n"]);
+$QueryOrdine->execute();
+
+$result = $QueryOrdine->get_result();
+$i=0;
+while($row = $result->fetch_assoc()){
+  $ord[$i] = $row["ID_ORDINE"];
+  $time[$i] = $row["Orario_Richiesto"];
+  $state[$i] = $row["Stato"];
+  $user[$i] = $row["ID_USER"];
+  $loc[$i] = $row["Luogo"];
+  $val[$i] = $row["valutazione"];
+  $nome[$i] = $row["Nome"];
+  $prezzo[$i] = $row["Prezzo"];
+  $qta[$i] = $row["Quantita"];
+  $UName[$i] = $row["UName"];
+  $cell[$i] = $row["Cellulare"];
+  $i++;
+}
+//echo $ord[0]." ".$time[0]." ".$state[0]." ".$user[0]." ".$loc[0]." ".$val[0]." ".$nome[0]." ".$prezzo[0]." ".$qta[0]." ".$UName[0]." ".$cell[0];
+
+$QueryOrdine->close();
+
+$QueryPietanzeOrdine = $mysqli->prepare("SELECT pietanza_nel_ordine.Quantita, pietanza.Nome, pietanza.Prezzo FROM pietanza_nel_ordine, pietanza WHERE ID_ORDINE= ?
+                                         AND pietanza_nel_ordine.ID_PIETANZA = pietanza.ID_PIETANZA");
+$QueryPietanzeOrdine->bind_param("i", $ord[0]);
+
+
+$QueryPietanzeOrdine->execute();
+
+$resp = $QueryPietanzeOrdine->get_result();
+
+
+$x=0;
+while($res = $resp->fetch_assoc()){
+  $pname[$x] = $res["Nome"];
+  $pqta[$x] = $res["Quantita"];
+  $pprice[$x] = $res["Prezzo"];
+
+  //echo "<br>".$pname[$x]." ".$pqta[$x]."</br>";
+  $x++;
+}
+
  ?>
 
  <!DOCTYPE html>
@@ -54,28 +117,41 @@
 </div>
 
 <div class="container-fluid col-lg-8 col-sm-12 ">
-  <h5 class="mb-0 " style="text-align:center;">ORDINE #ADDWITHPHPORJS</h5>
+  <h5 class="mb-0 " style="text-align:center;">ORDINE #<?php echo $ord[0];?></h5>
 
   <div class="container-fluid row">
     <div class="col-sm-6 col" style="">
-      Piatti:</br>
-      Creato:</br>
-      data</br>
-      Fattorino:</br>
-      NomeFattorino</br>
+      Orario Richiesto: <?php echo $time[0];?></br>
+      <?php for ($x=0; $x < count($pname); $x++){
+        echo 'Piatto: '.$pname[$x].'</br>';
+        echo 'Quantità: '.$pqta[$x].'</br>';
+        echo 'Prezzo: '.$pprice[$x].'</br>';
+      } ?>
+      Luogo: <?php echo $loc[0];?></br>
+
+      <?php if($state[0]==1)
+              echo 'Stato: concluso.</br>';
+            else if ($state[0]==0)
+              echo 'Stato: In consegna.</br>';
+            else if ($state[0]==-1)
+              echo 'Stato: Annullato.</br>';
+      ?>
     </div>
 
     <div class="col-sm-6 col">
-      Prezzo</br>
-      Consegnato:</br>
-      data</br>
-      Tel:</br>
-      Telefono</br>
+      ID_Utente: <?php echo $user[0];?></br>
+      Nome: <?php echo $UName[0];?></br>
+      Telefono:<?php echo $cell[0];?></br>
     </div>
 </div>
 
   <h5 class="mb-0" style="text-align:center">Valutazione</h5>
-
+  <?php if($val[0] == NULL){
+    echo '<h6 class="mb-0" style="text-align:center">L\'ordine non è ancora stato valutato.</h6>';
+  } else {
+    
+  }
+  ?>
   <button class="btn btn-default col" style="margin-top:1em" onclick="window.location.href='OrdiniF.php'">INDIETRO</button>
 </div>
 

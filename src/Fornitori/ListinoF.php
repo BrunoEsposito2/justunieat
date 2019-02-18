@@ -151,7 +151,7 @@ $rows = $result->num_rows;
 
           <!-- ADD JS OR PHP-->
 
-            <button class="btn btn-default" data-toggle="modal" data-target="#Modify'.$ris["Nome"].'" name="modificare" value="'.$ris["ID_PIETANZA"].'">Modifica</button>
+            <button class="btn btn-default" style="margin-bottom:2px" data-toggle="modal" data-target="#Modify'.$ris["Nome"].'" name="modificare" value="'.$ris["ID_PIETANZA"].'">Modifica</button>
 
           <form action="deletePiatto.php" method="post">
             <button class="btn btn-default" onclick="jsDelete(this.parentElement.parentElement.parentElement.parentElement.id)" name="eliminare" id="'.$ris["Nome"].'" value="'.$ris["ID_PIETANZA"].'">Elimina</button>

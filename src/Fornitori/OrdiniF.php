@@ -1,4 +1,37 @@
 <?php
+define("HOST", "localhost"); // E' il server a cui ti vuoi connettere
+define("USER", "admin_user"); // E' l'utente con cui ti collegherai al DB.
+define("PASSWORD", "Justunieat2019"); // Password di accesso al DB.
+define("DATABASE", "just_database"); // Nome del database.
+$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
+
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+
+session_start();
+
+$QueryOrdF= $mysqli->prepare("SELECT * FROM ordine WHERE ID_RESTURANT = ? AND ORDINE_INVIATO = 1 ORDER BY Orario_richiesto DESC");
+$QueryOrdF->bind_param("i", $_SESSION["ID_FORNITORE"]);
+
+$QueryOrdF->execute();
+
+$result = $QueryOrdF->get_result();
+$i=0;
+while($row = $result->fetch_assoc()){
+  $ord[$i] = $row["ID_ORDINE"];
+  $time[$i] = $row["Orario_Richiesto"];
+  $state[$i] = $row["Stato"];
+  $user[$i] = $row["ID_USER"];
+  $rest[$i] = $row["ID_RESTURANT"];
+  $loc[$i] = $row["Luogo"];
+  $val[$i] = $row["valutazione"];
+  $sent[$i] = $row["ORDINE_INVIATO"];
+
+  //echo '<br>'.$ord[$i].' '.$time[$i].' '.$state[$i].' '.$user[$i].' '.$rest[$i].' '.$loc[$i].' '.$val[$i].' '.$sent[$i]."<br>";
+  $i++;
+}
+var_dump(count($ord));
  ?>
 
  <!DOCTYPE html>
@@ -55,70 +88,35 @@
   <div class="card">
     <div class="card-header" id="headingTitle">
       <h5 class="mb-0">
-        <tr>
-          <td>ORDINE</td>
-          <td>TEMPO</td>
-          <td>PREZZO</td>
-          <td>STATO</td>
+        <tr class="row">
+          <td class="col-lg-3">ORDINE</td>
+          <td class="col-lg-3">TEMPO</td>
+          <td class="col-lg-3">PREZZO</td>
+          <td class="col-lg-3">STATO</td>
         </tr>
     </div>
   </div>
-  <div class="card">
-
-        <button class="btn btn-default card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Ordine #1
+<?php
+for($i=0; $i< count($ord); $i++){
+  echo '<div class="card">
+        <button class="btn btn-default card-header" id="headingOne" data-toggle="collapse" data-target="#collapse'.$ord[$i].'" aria-expanded="true" aria-controls="collapseOne">
+          '.$ord[$i].'
         </button>
 
-
-
-    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+    <div id="collapse'.$ord[$i].'" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
         <tr>
-          <td>ORDINE 1</td>
-          <td>TEMPO 1</td>
-          <td>PREZZO 1</td>
-          <td>STATO 1</td>
+          <td>'.$ord[$i].'</td>
+          <td>'.$time[$i].'</td>
+          <td>'.$loc[$i].'</td>
+          <td>'.$state[$i].'</td>
         </tr>
+        <button onclick="window.location.href=\'OrdineCompleto.php?n='.$ord[$i].'\'">Dettagli</button>
       </div>
     </div>
-  </div>
-
-  <div class="card">
-
-        <button class="btn btn-default collapsed card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-          Ordine #2
-        </button>
-
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-      <div class="card-body">
-        <tr>
-          <td>ORDINE 2</td>
-          <td>TEMPO 2</td>
-          <td>PREZZO 2</td>
-          <td>STATO 2</td>
-        </tr>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-
-        <button class="btn btn-default collapsed card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Ordine #3
-        </button>
-
-    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-      <div class="card-body">
-        <tr>
-          <td>ORDINE 3</td>
-          <td>TEMPO 3</td>
-          <td>PREZZO 3</td>
-          <td>STATO 3</td>
-        </tr>
-        <button onclick="window.location.href='OrdineCompleto.php'">Dettagli</button>
-      </div>
-    </div>
-  </div>
-
+  </div>';
+}
+ ?>
 
   <button class="btn btn-default col" style="margin-top:1em" onclick="window.location.href='HomeF.php'">INDIETRO</button>
 </div>
