@@ -111,7 +111,17 @@ for($i=0; $i< count($ord); $i++){
         <tr class="row">
           <td class="col-lg-3" style="text-align:center">'.$ord[$i].'</td>
           <td class="col-lg-3" style="text-align:center">'.$time[$i].'</td>
-          <td class="col-lg-3" style="text-align:center">'.$state[$i].'</td>
+          <td class="col-lg-3" style="text-align:center">';
+
+          if($state[$i]==1)
+                  echo 'Concluso</br>';
+                else if ($state[$i]==0)
+                  echo 'In consegna</br>';
+                else if ($state[$i]==-1)
+                  echo 'Annullato</br>';
+
+
+          echo'</td>
           <td class="col-lg-3" style="text-align:center"><button onclick="window.location.href=\'OrdineCompleto.php?n='.$ord[$i].'\'">Dettagli</button></td>
         </tr>
         </tbody>

@@ -134,7 +134,12 @@ while($ress = $resultp->fetch_assoc()){
     </thead>
     <tbody>
       <?php
-      for($x=0; $x < count($ord); $x++){
+      if(count($ord) < 5){
+          $maxx = count($ord);
+      } else {
+      $maxx = 4;
+      }
+      for($x=0; $x < $maxx; $x++){
        echo '<tr>
               <td>'.$ord[$x].'</td>
               <td>'.$ora[$x].'</td>
@@ -169,7 +174,12 @@ while($ress = $resultp->fetch_assoc()){
     <tbody>
 
       <?php
-        for($h=0; $h < count($name); $h++){
+        if(count($name) < 5){
+          $maxp = count($name);
+        } else {
+          $maxp = 4;
+        }
+        for($h=0; $h < $maxp; $h++){
           echo '<tr>
             <td>'.$name[$h].'</td>
             <td>'.$tipo[$h].'</td>
