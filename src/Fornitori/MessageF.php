@@ -348,48 +348,21 @@ while($risto = $query->fetch_array()) {
 
 
 
-    <div class="content">
-    </div>
-    <footer id="myFooter">
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-sm-4">
-                    <h5>Inizia</h5>
-                    <ul>
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="accedi.php">Accedi</a></li>
-                        <li><a href="registrati.php">Registrati</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4">
-                    <h5>Chi siamo</h5>
-                    <ul>
-                        <li><a href="storia.html">La Nostra Storia</a></li>
-                        <li><a href="contattaci.html">Contattaci</a></li>
-                        <li><a href="dicono_di_noi.html">Dicono di noi</a></li>
-                    </ul>
-                </div>
-                <div class="col-sm-4">
-                    <h5>Info</h5>
-                    <ul>
-                        <li><a href="privacy.php">Privacy & Cookie</a></li>
-                        <li><a href="registrati.php">Diventa affiliato</a></li>
-                        <li><a href="diventa_fattorino.php">Diventa fattorino</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="social-networks">
-            <a target="_blank" href="https://twitter.com/JustUniEat1" class="twitter"><i class="fa fa-twitter"></i></a>
-            <a target="_blank" href="https://www.facebook.com/justuni.eat.5" class="facebook"><i class="fa fa-facebook"></i></a>
-            <a target="_blank" href="https://plus.google.com/u/0/114848465565497583176" class="google"><i class="fa fa-google-plus"></i></a>
-        </div>
-        <div class="footer-copyright">
-            <p>© 2018 Copyright Just Uni Eat</p>
-        </div>
-    </footer>
-    </div>
-    </div>
+		<div class="content">
+		    </div>
+		    <footer id="myFooter">
+
+		        <div class="social-networks">
+		            <a target="_blank" href="https://twitter.com/JustUniEat1" class="twitter"><i class="fa fa-twitter"></i></a>
+		            <a target="_blank" href="https://www.facebook.com/justuni.eat.5" class="facebook"><i class="fa fa-facebook"></i></a>
+		            <a target="_blank" href="https://plus.google.com/u/0/114848465565497583176" class="google"><i class="fa fa-google-plus"></i></a>
+		        </div>
+		        <div class="footer-copyright">
+		            <p>© 2018 Copyright Just Uni Eat</p>
+		        </div>
+		    </footer>
+		    </div>
+		    </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
