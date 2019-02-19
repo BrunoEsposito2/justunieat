@@ -49,7 +49,9 @@ while($ress = $resultp->fetch_assoc()){
   $tipo[$y] = $ress["Tipologia"];
   $valp[$y] = $ress["Valutazione"];
   $desc[$y] = $ress["Descrizione"];
+  $y++;
 }
+
  ?>
 
  <!DOCTYPE html>
@@ -146,7 +148,7 @@ while($ress = $resultp->fetch_assoc()){
   <hr class="onBoard-hr">
   <h3 class="text-center onBoard onBoard-space">I TUOI ORDINI</h3>
   <hr class="onBoard-hr homeSectionSpace">
-  
+
   <?php if(count($ord) > 0) {?>
     <table class="table table-hover">
       <thead>
@@ -159,14 +161,15 @@ while($ress = $resultp->fetch_assoc()){
       </thead>
       <tbody>
         <?php
+        $maxx;
         if(count($ord) < 5){
             $maxx = count($ord);
         } else {
         $maxx = 4;
         }
-        
 
-        
+
+
           for($x=0; $x < $maxx; $x++){
           echo '<tr>
                   <td class="text-center onBoard">'.$ord[$x].'</td>

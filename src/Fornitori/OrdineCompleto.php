@@ -79,6 +79,8 @@ while($res = $resp->fetch_assoc()){
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
      <title>Just Uni Eat Fornitori - Ordine #ADDNUMBERWITHPHPORJS</title>
  </head>
 
@@ -173,9 +175,32 @@ while($res = $resp->fetch_assoc()){
   <?php if($val[0] == NULL){
     echo '<h6 class="mb-0 text-center onBoard">L\'ordine non è ancora stato valutato.</h6>';
   } else {
+        echo '<div class="text-center">';
+
+        $fiveStar = 5;
+        $blackStar = 5;
+        $blackStar -= (int)$val[0];
+        if($fiveStar > 0) {
+            for($i = 0; $i < (int)$val[0]; $i++){
+                echo "<span style='color:yellow; ' class='fa fa-star '></span>";
+            }
+        }
+
+        if($blackStar > 0) {
+
+            for($j = 0; $j < $blackStar; $j++){
+                echo "<span class='fa fa-star '></span>";
+            }
+        }
+        echo '</div>';
 
   }
   ?>
+  <form action="OrdineSpedito.php" method="post">
+
+    <button class="btn btn-primary" name="ORDINE" value="<?php echo $ord[0]; ?>"  style="margin-top:1em">ORDINE SPEDITO</button>
+  </form>
+
   <hr class="onBoard-hr onBoard-space-md">
   <button class="btn btn-warning onBoard-space-md col btn3d" style="margin-top:1em" onclick="window.location.href='OrdiniF.php'">INDIETRO</button>
 </div>

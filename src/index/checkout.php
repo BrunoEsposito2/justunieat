@@ -26,7 +26,7 @@ function controllo_cookie(){
 
 		if($query){
 			$row=mysqli_fetch_array($query);
-			
+
 			//immagazzinano le informazioni dell'utente in un array
 			$_SESSION["id"]=$row["ID_USER"];
 			return true;
@@ -96,7 +96,7 @@ if(isset($_POST['place'])) {
 
 	$takeOrders = "UPDATE ordine SET Luogo = " . "'$luogo'" . "WHERE ID_USER = " . $id_user . " AND ORDINE_INVIATO = 0" ;
 	$exec = mysqli_query($conn, $takeOrders);
-	
+
 }
 
 if(isset($_POST['saveOrder'])) {
@@ -121,6 +121,18 @@ if(isset($_POST['saveOrder'])) {
 			$ord = $row['ID_ORDINE'];
 			$ordine_ID = "UPDATE pietanza_nel_ordine SET PIETANZA_ORDINATA=1 WHERE ID_ORDINE='$ord'";
 			$okUp = mysqli_query($conn, $ordine_ID);
+
+			$testo = "Hai un nuovo ordine dal utente ".$user_ID;
+	    $orario=time();
+	    $data=date('d-m-y');
+	    $titolo ="Nuovo ordine";
+	    $id_user = $user_ID;
+	    $id_ristorante = $row["ID_RESTURANT"];
+	    $ricev_utente = 0;
+	    $queryMessage = "INSERT INTO messaggio ( Testo ,  Data ,  Titolo ,  Orario ,  ID_USER ,  ID_RISTORANTE)
+	                                    VALUES ('".$testo."', '".$data."', '".$titolo."', '".$orario."', '".$id_user."', '".$id_ristorante."')";
+			mysqli_query($conn, $queryMessage);
+
 		}
 	}
 
@@ -194,7 +206,7 @@ if(isset($_POST['saveOrder'])) {
                 $checkCart = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$idUs' AND ORDINE_INVIATO=0";
                 $execControl = mysqli_query($conn, $checkCart);
                 $n_rows = mysqli_num_rows($execControl);
-    
+
                 if($n_rows === 0) {
                 ?>
                 <i class="material-icons md-36 carts">remove_shopping_cart</i>
@@ -204,7 +216,7 @@ if(isset($_POST['saveOrder'])) {
                 <i class="material-icons md-36 carts">shopping_cart</i>
                 <?php
                 }
-                
+
             }
             ?>
         </a>
@@ -224,14 +236,14 @@ if(isset($_POST['saveOrder'])) {
                         <a class="nav-link" id="navMes" href="message.php">
                             <i class="fa fa-envelope-o">
                                 <span id="countMess" class="badge badge-danger">
-                                    
-                                    <?php 
+
+                                    <?php
                                       if($auth) {
-                                        $q= "SELECT COUNT(*) FROM utente AS U, messaggio AS M WHERE 
+                                        $q= "SELECT COUNT(*) FROM utente AS U, messaggio AS M WHERE
                                         U.ID_USER='".$_SESSION["id"]."' AND U.ID_USER = M.ID_USER AND M.Letto='0' AND M.Ricevuto_Dal_Utente='1'";
                                         $query=mysqli_query($conn, $q);
                                         $result = mysqli_fetch_array($query);
-                                        echo $result['COUNT(*)']; 
+                                        echo $result['COUNT(*)'];
                                     } else echo "0";?>
                                 </span>
                             </i>
@@ -338,7 +350,7 @@ if(isset($_POST['saveOrder'])) {
 						</div>
 					</div>
 				</div>
-			
+
 				<?php
 							$totale += $sommaPrezzi;
 						}
@@ -399,8 +411,8 @@ if(isset($_POST['saveOrder'])) {
 								<button type="submit" name="saveOrder" class="btn btn-success btn-lg btn3d reg_but">INVIA ORDINE!</button>
 							</div>
 						</div>
-					</form>		
-				</div>			
+					</form>
+				</div>
       		</div>
 		</div>
 		<?php
@@ -417,8 +429,8 @@ if(isset($_POST['saveOrder'])) {
 					</div>
 				</div>
 			</div>
-			
-			
+
+
 
 			<form name="continua" class="text-center" onclick="history.back()">
 					<input type="button" id="go_after_acc" class="btn btn-danger btn-lg btn3d" value="CONTINUA">
@@ -469,7 +481,7 @@ if(isset($_POST['saveOrder'])) {
     </footer>
     </div>
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
@@ -516,9 +528,9 @@ if(isset($_POST['saveOrder'])) {
             document.getElementById('navOrd').style.display = "block";
             document.getElementById('navExit').style.display = "block";
 		});
-		
+
 		var ajax_call = function() {
-        
+
 		var id_user = <?php echo $_SESSION['id'];?>
 
 		$.ajax({
@@ -534,8 +546,8 @@ if(isset($_POST['saveOrder'])) {
 					//toast.progressBar("true");
 					toast.success("Hai un nuovo messaggio!");
 					$('#countMess').text("1");
-				}    
-			
+				}
+
 			}
 
 		});
