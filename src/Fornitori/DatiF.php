@@ -102,11 +102,12 @@ while($res = $result->fetch_assoc()){
   </div>
   <div class="col-lg-6 col-sm-12">
     <?php if($Foto!=NULL){
-    echo '<h6 class="mb-0">La tua immagine:</h6>
-    <img src="../index/resturant_photo/<?php echo $Foto; ?>" style="height:200px; width:200px;">
+    ?>
+    <h6 class="mb-0">La tua immagine:</h6>
+    <img alt="resturant_photo" src="../index/<?php echo $Foto?>" style="height:200px; width:200px;">
     <h6 class="mb-0">Carica una nuova immagine:</h6>
     <input class="btn btn-primary" type="file" name="myfile">';
-
+  <?php
   } else {
     echo '<h6 class="mb-0">Non hai ancora caricato una tua immagine!</h6>
       <img src="../index/resturant_photo/sad.jpg" style="height:200px; width:200px;">
