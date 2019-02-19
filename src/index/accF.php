@@ -36,11 +36,11 @@ if(isset($_POST["emailF"])){
       $_SESSION["Partita_IVA"] = $row["Partita_IVA"];
       $_SESSION["Email"] =  $row["Email"];
       $_SESSION["ID_FORNITORE"] = $row["ID_FORNITORE"];
-      header("location: /Progetto2019/src/Fornitori/HomeF.php");
+      header("location: ../Fornitori/HomeF.php");
     }
   } else {
     //Ritorno alla pagina di login
     echo "Nessuna corrispondenza trovata";
-    header("location: accediV2.php?errF=1");
+    header("location: accedi.php?errF=1");
   }
 }
