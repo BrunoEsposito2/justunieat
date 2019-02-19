@@ -120,7 +120,7 @@ if(isset($_GET["cats"])){
   <h2 class="text-center onBoard onBoard-space-md">IL TUO LISTINO</h2>
   <div class="card">
     <div class="card-header" id="headingTitle">
-      <h5 class="mb-0 text-center"> I TUOI PIATTI</h5>
+      <h4 class="mb-0 text-center"> I TUOI PIATTI</h4>
 
     </div>
   </div>
@@ -141,7 +141,7 @@ if(isset($_GET["cats"])){
     //Prints Accordion header
     echo '<div class="card">
       <button class="btn btn-default card-header" id="headingOne" data-toggle="collapse" data-target="#'.$ris["Nome"].'" aria-expanded="true" aria-controls="collapseOne">
-            '.$ris["Nome"].'
+            '.'<strong>'.$ris["Nome"].'</strong>'.'
           </button>
       </div>';
 
@@ -149,32 +149,32 @@ if(isset($_GET["cats"])){
     echo '<div id="'.$ris["Nome"].'" class="collapse container-fluid" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body row">
 
-        <div class="classDescrPiatto onBoard col-sm-4 col-lg-4">
-          <label for="DescrizionePiatto">Descrizione:</label>
-          <p name="DescrizionePiatto">'.$ris["Descrizione"].'</p>
+        <div class="classDescrPiatto onBoard col-sm-4">
+          <label class="text-center" for="DescrizionePiatto"><strong>Descrizione:</strong></label>
+          <p class="right" name="DescrizionePiatto">'.$ris["Descrizione"].'</p>
         </div>
 
-        <div class="classTipoPiatto onBoard col-sm-4 col-lg-4">
-          <label for="TipoCucina">Tipologia:</label>
-          <h6 name="TipoCucina">'.$ris["Tipologia"].'</h6>
+        <div class="classTipoPiatto onBoard col-sm-4">
+          <label for="TipoCucina"><strong>Tipologia:</strong></label>
+          <p class="right" name="TipoCucina">'.$ris["Tipologia"].'</p>
         </div>
 
-        <div class="">';
+        <div class="col-sm-4">';
 
 
           if($ris["Vegetariano"]){
-          echo '<div class="onBoard col-sm-12">
+          echo '<div class="onBoard">
             Vegetariano
           </div>';
           }
 
           if($ris["Piccante"]){
-          echo '<div class="onBoard col-sm-12">
-            Piccante
+          echo '<div class="onBoard">
+          <a title="Piccante"><i id="picIcon" class="material-icons">whatshot</i></a>
           </div>';
           }
-          echo  '<label class="onBoard" for="PrezzoPiatto">Prezzo: </label>
-            <h6 class="mb-0 onBoard" name="PrezzoPiatto">'.$ris["Prezzo"].'</h6>
+          echo  '<label class="onBoard" for="PrezzoPiatto"><strong>Prezzo: </strong></label>
+            <p class="mb-0 onBoard right" " name="PrezzoPiatto">'.$ris["Prezzo"]. ' €' . '</p>
 
 
 
@@ -301,7 +301,7 @@ if(isset($_GET["cats"])){
 
   <div class="card">
         <button id="headingThree" class="card-header btn btn-default collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-          Aggiungi piatto
+        <strong> Aggiungi piatto</strong>
         </button>
     </div>
 
@@ -311,17 +311,17 @@ if(isset($_GET["cats"])){
         <form action="addPiattoF.php" method="POST" class="container-fluid row">
 
         <div class="classDescrPiatto col-sm-12 col-lg-4">
-        <label for="NomePiatto">Nome:</label>
+        <label class="onBoard" for="NomePiatto">Nome:</label>
         <textarea class="form-control " name="NomePiatto" placeholder="Nome del piatto"></textarea>
 
 
-          <label for="DescrizionePiatto">Descrizione:</label>
+          <label class="onBoard" for="DescrizionePiatto">Descrizione:</label>
           <textarea class="form-control " name="DescrizionePiatto" placeholder="Descrizione del piatto"></textarea>
         </div>
 
         <div class="classTipoPiatto col-sm-12 col-lg-4">
 
-          <label for="TipoPiatto">Piatto:</label>
+          <label class="onBoard" for="TipoPiatto">Piatto:</label>
           <select class="form-control" name="TipoPiatto">
             <option>Primo</option>
             <option>Secondo</option>
@@ -334,20 +334,20 @@ if(isset($_GET["cats"])){
         <div class="classButtonsPiatto col-sm-12 col-lg-4">
           <div class="classCheckboxes">
             <div class="col-sm-12">
-              <label for="VegP">Vegetariano</label>
+              <label class="onBoard" for="VegP">Vegetariano</label>
               <input  type="checkbox" name="VegP">
             </div>
             <div class="col-sm-12">
-              <label for="PicP">Piccante</label>
+              <label class="onBoard" for="PicP">Piccante</label>
               <input type="checkbox" name="PicP">
             </div>
 
-            <label for="PrezzoPiatto">Prezzo: </label>
+            <label class="onBoard" for="PrezzoPiatto">Prezzo: </label>
             <textarea class="form-control" name="PrezzoPiatto" placeholder="Prezzo"></textarea>
           </div>
 
           <!-- ADD JS AND/OR PHP-->
-          <button class="btn btn-default row" name="InserisciPiattoF" style="margin-top:1em;">Conferma</button>
+          <button class="btn btn-success btn3d row" name="InserisciPiattoF" style="margin-top:1em;">Conferma</button>
           </div>
 
       </form>
@@ -355,7 +355,7 @@ if(isset($_GET["cats"])){
     </div>
 
 
-  <button class="btn-xl btn-warning btn3d col onBoard-space-md" style="margin-top:1em" onclick="window.location.href='HomeF.php'">INDIETRO</button>
+  <button class="btn-md btn-warning btn3d col onBoard-space-md" style="margin-top:1em" onclick="window.location.href='HomeF.php'"><strong>INDIETRO</strong></button>
 
 </div>
 

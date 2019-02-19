@@ -73,9 +73,6 @@ label {
 
 }
 
-.btn3d:focus:hover {
-  background-color:  #E6E6E6;
-}
 .btn3d:active, .btn3d.active {
     top:2px;
 }
@@ -485,4 +482,17 @@ html {
 .onBoard-space-md {
     margin-top: 25px;
     margin-bottom: 25px;
+}
+
+.removePSpace {
+    margin: 0;
+    padding: 0;
+}
+
+.homeTitleSpace {
+    margin-bottom: 100px;
+}
+
+.homeSectionSpace {
+    margin-bottom: 50px;
 }

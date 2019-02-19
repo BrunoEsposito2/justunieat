@@ -11,9 +11,10 @@ if ($mysqli->connect_error) {
 
 session_start();
 //echo $_SESSION["Nome"] . "<br>" . $_SESSION["Cognome"];
-
+$ord = [];
 $QueryOrdiniF = $mysqli->prepare("SELECT * FROM ordine WHERE ID_RESTURANT = ? AND ORDINE_INVIATO = 1 AND Stato != -1");
 $QueryOrdiniF->bind_param("i", $_SESSION["ID_FORNITORE"]);
+echo $_SESSION["ID_FORNITORE"];
 
 $QueryOrdiniF->execute();
 
@@ -35,7 +36,7 @@ while($row = $result->fetch_assoc()){
 
 $QueryOrdiniF->close();
 
-$queryPiattiF = $mysqli->prepare("SELECT Nome, Prezzo, Tipologia, Valutazione FROM pietanza WHERE ID_MENU = ?");
+$queryPiattiF = $mysqli->prepare("SELECT Nome, Prezzo, Tipologia, Valutazione, Descrizione FROM pietanza WHERE ID_MENU = ?");
 $queryPiattiF->bind_param("i", $_SESSION["ID_FORNITORE"]);
 
 $queryPiattiF->execute();
@@ -48,6 +49,7 @@ while($ress = $resultp->fetch_assoc()){
   $prezzo[$y] = $ress["Prezzo"];
   $tipo[$y] = $ress["Tipologia"];
   $valp[$y] = $ress["Valutazione"];
+  $desc[$y] = $ress["Descrizione"];
 }
  ?>
 
@@ -141,62 +143,78 @@ while($ress = $resultp->fetch_assoc()){
 
 
 <div class="container col-sm-12 col-md-8">
-  <h1 style="text-align:center"><?php echo $_SESSION["Ristorante"] . "<br>";?></h1>
-  <h2 style="text-align:center">I TUOI ORDINI</h2>
+  <h1 class="text-center onBoard homeTitleSpace"><?php echo $_SESSION["Ristorante"] . "<br>";?></h1>
+  <hr class="onBoard-hr">
+  <h3 class="text-center onBoard onBoard-space">I TUOI ORDINI</h3>
+  <hr class="onBoard-hr homeSectionSpace">
+  
+  <?php if(count($ord) > 0) {?>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>ORDINE</th>
+          <th>ORARIO</th>
+          <th>LUOGO</th>
+          <th>STATO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        if(count($ord) < 5){
+            $maxx = count($ord);
+        } else {
+        $maxx = 4;
+        }
+        
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>ORDINE</th>
-        <th>ORARIO</th>
-        <th>LUOGO</th>
-        <th>STATO</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-      if(count($ord) < 5){
-          $maxx = count($ord);
-      } else {
-      $maxx = 4;
-      }
-      for($x=0; $x < $maxx; $x++){
-       echo '<tr>
-              <td>'.$ord[$x].'</td>
-              <td>'.$ora[$x].'</td>
-              <td>'.$loc[$x].'</td>
+        
+          for($x=0; $x < $maxx; $x++){
+          echo '<tr>
+                  <td>'.$ord[$x].'</td>
+                  <td>'.$ora[$x].'</td>
+                  <td>'.$loc[$x].'</td>
 
-              <td>';if($state[$x]==1)
-                      echo 'Concluso</br>';
-                    else if ($state[$x]==0)
-                      echo 'In consegna</br>';
-                    else if ($state[$x]==-1)
-                      echo 'Annullato</br>';
-              echo '</td>
-            </tr>';
-      }
+                  <td>';if($state[$x]==1)
+                          echo 'Concluso</br>';
+                        else if ($state[$x]==0)
+                          echo 'In consegna</br>';
+                        else if ($state[$x]==-1)
+                          echo 'Annullato</br>';
+                  echo '</td>
+                </tr>';
+          }
+    } else {
+      echo "<div class=\"text-center alert alert-dismissible onBoard-space-md fade show alert-warning\" role=\"alert\">
+      <h3>Nessun Ordine Da Svolgere!</h3>
+      <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+        <span aria-hidden=\"true\">&times;</span>
+      </button>
+    </div>";
+    }
       ?>
 
 
     </tbody>
   </table>
 
-  <div class="col-sm-2"></div>
-  <button class="btn btn-default col-sm-4" onclick="window.location.href='OrdiniF.php'"> Vedi tutti gli ordini </button>
-  <div class="col-sm-2"></div>
+  <div class="col-sm-4 offset-sm-5">
+    <button class="btn btn-info btn3d homeSectionSpace" onclick="window.location.href='OrdiniF.php'">VEDI TUTTI</button>
+  </div>
 </div>
 </br>
 <!--I TUOI PIATTI -->
 <div class="container col-sm-12 col-md-8">
-  <h2 style="text-align:center">I TUOI PIATTI</h2>
+<hr class="onBoard-hr">
+  <h2 class="text-center onBoard">I TUOI PIATTI</h2>
+  <hr class="onBoard-hr homeSectionSpace">
 
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>PIATTO</th>
-        <th>TIPOLOGIA</th>
-        <th>PREZZO</th>
-        <th>VALUTAZIONE</th>
+        <th class="text-center onBoard">PIATTO</th>
+        <th class="text-center onBoard">TIPOLOGIA</th>
+        <th class="text-center onBoard">PREZZO</th>
+        <th class="text-center onBoard">DESCRIZIONE</th>
       </tr>
     </thead>
     <tbody>
@@ -209,10 +227,10 @@ while($ress = $resultp->fetch_assoc()){
         }
         for($h=0; $h < $maxp; $h++){
           echo '<tr>
-            <td>'.$name[$h].'</td>
-            <td>'.$tipo[$h].'</td>
-            <td>'.$prezzo[$h].'</td>
-            <td>'.$valp[$h].'</td>
+            <td class="text-center onBoard">'.$name[$h].'</td>
+            <td class="text-center onBoard">'.$tipo[$h].'</td>
+            <td class="text-center onBoard">'.$prezzo[$h]. ' €' . '</td>
+            <td class="text-center onBoard">'.$desc[$h].'</td>
           </tr>';
         }
       ?>
@@ -220,8 +238,9 @@ while($ress = $resultp->fetch_assoc()){
     </tbody>
   </table>
 
-<div class="col-sm-2"></div>
-  <button class="btn btn-default col-sm-4" onclick="window.location.href='ListinoF.php'"> Vedi tutti i tuoi piatti </button>
+<div class="col-sm-4 offset-sm-5">
+  <button class="btn btn-info btn3d" onclick="window.location.href='ListinoF.php'">VEDI TUTTI</button>
+</div>
 <div class="col-sm-2"></div>
 </div>
 
