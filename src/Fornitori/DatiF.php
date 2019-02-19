@@ -112,43 +112,47 @@ while($res = $result->fetch_assoc()){
 <!--I TUOI ORDINI -->
 
 <div class="container-fluid col-lg-8 col-sm-12">
-  <h4 class="mb-0" style="text-align:center">I TUOI DATI</h4>
-  <br>
-  <h5 class="mb-0" style="text-align:center"><?php echo $Ristorante; ?></h5><br>
+  <h2 class="mb-0 text-center onBoard" >I TUOI DATI</h2>
+  <hr class="onBoard-hr">             
+  <h5 class="mb-0 onBoard"><?php echo $Ristorante; ?></h5><br>
   <div class="container-fluid row">
-  <div class="col-lg-6 col-sm-12">
+  <div class="col-lg-6 col-sm-12 onBoard">
     Nome: <?php echo $Nome; ?><br>
     Cognome: <?php echo $Cognome; ?><br>
     Ristorante: <?php echo $Ristorante; ?><br>
     Partita IVA: <?php echo $Partita_IVA; ?><br>
     Cellulare: <?php echo $Cellulare; ?><br>
     Email: <?php echo $Email; ?><br>
-    <br>
-    <!--Città: <?php// echo $Citta; ?><br>-->
     Indirizzo: <?php echo $Via_e_Num; ?>
     <br><br>
     <h5 class="mb-0">Il tuo ID: <?php echo $ID; ?></h5>
   </div>
-  <div class="col-lg-6 col-sm-12">
+  <div class="col-lg-3 offset-lg-3 col-sm-12">
     <?php if($Foto!=NULL){
     ?>
-    <h6 class="mb-0">La tua immagine:</h6>
-    <img alt="resturant_photo" src="../index/resturant_photo/<?php echo $Foto?>" style="height:200px; width:200px;">
-
+    <img class="img-rounded img-responsive" alt="resturant_photo" src="../index/<?php echo $Foto?>" width=200px; height="200px;">
 
   <?php
   } else {
-    echo '<h6 class="mb-0">Non hai ancora caricato una tua immagine!</h6>
+    echo '<h6 class="mb-0 onBoard">Non hai ancora caricato una tua immagine!</h6>
       <img src="../index/resturant_photo/sad.jpg" style="height:200px; width:200px;">
-      <h6 class="mb-0">Carica subito un\'immagine!</h6>';
+      <h6 class="mb-0 onBoard">Carica subito un\'immagine!</h6>';
 
   }
   ?>
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Modifica i tuoi dati
-  </button>
+  
+  
   </div>
+  
 </div>
+
+<div class="row onBoard-space-md">
+    <div class="col-sm-4 offset-sm-5">
+      <button type="button" class="btn btn-info btn3d" data-toggle="modal" data-target="#exampleModal">
+      MODIFICA
+      </button>
+    </div>
+  </div>
 
 
 <!-- Modal -->
@@ -156,7 +160,7 @@ while($res = $result->fetch_assoc()){
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Modifica dati <?php echo $Ristorante;?></h5>
+      <h5 class="modal-title text-center" id="exampleModalLabel">Modifica</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -178,9 +182,6 @@ while($res = $result->fetch_assoc()){
         <label for="Cellulare">Cellulare: </label>
         <input type="text" class="form-control" name="Cellulare" placeholder="Cellulare" value="<?php echo $Cellulare;?>"></input>
 
-      <!--  <label for="Città">Città: </label>
-        <input type="text" class="form-control" name="Città" placeholder="Città" value="<?php// echo $Citta;?>"></input>-->
-
         <label for="Indirizzo">Indirizzo: </label>
         <input type="text" class="form-control" name="Via_e_Num" placeholder="Indirizzo" value="<?php echo $Via_e_Num;?>"></input>
 
@@ -200,7 +201,7 @@ while($res = $result->fetch_assoc()){
 </div>
 
 
-  <button class="btn btn-default col" style="margin-top:1em" onclick="window.location.href='HomeF.php'">INDIETRO</button>
+  <button class="btn btn-warning btn3d col" style="margin-top:1em" onclick="window.location.href='HomeF.php'">INDIETRO</button>
 </div>
 
 <div class="content">

@@ -127,7 +127,7 @@ while($row = $result->fetch_assoc()){
 for($i=0; $i< count($ord); $i++){
   echo '<div class="card">
         <button class="btn btn-default card-header" id="headingOne" data-toggle="collapse" data-target="#collapse'.$ord[$i].'" aria-expanded="true" aria-controls="collapseOne">
-          '. 'Ordine: ' .$ord[$i].'
+          '. '<strong>' . 'Ordine: ' .$ord[$i]. '</strong>' .'
         </button>
 
     <div id="collapse'.$ord[$i].'" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
@@ -156,7 +156,7 @@ for($i=0; $i< count($ord); $i++){
 }
  ?>
 
-  <button class="btn btn-default col" style="margin-top:1em" onclick="window.location.href='HomeF.php'">INDIETRO</button>
+  <button class="btn btn-warning btn3d col onBoard-space-md" onclick="window.location.href='HomeF.php'">INDIETRO</button>
 </div>
 
 <div class="content">
