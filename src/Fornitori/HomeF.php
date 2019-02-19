@@ -62,6 +62,7 @@ while($ress = $resultp->fetch_assoc()){
      <link rel="stylesheet" href="style.css">
      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
      <link rel="icon" href="http://example.com/favicon.png">
+     <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
      <title>Just Uni Eat Fornitori</title>
@@ -70,30 +71,50 @@ while($ress = $resultp->fetch_assoc()){
 
    <!---HEADER--->
    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-       </button>
-       <a class="navbar-brand" href="#">Just Uni Eat</a>
-        <a href="#">
-          <img class="carts" src="../../doc/shopping-cart-empty-side-view.png" alt="shopping carts">
-         </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+       <a class="navbar-brand" href="HomeF.php">Just Uni Eat</a>
        <div class="collapse navbar-collapse" id="navbarSupportedContent">
          <div class="navbar-nav float-left text-left pr-3">
            <ul class="navbar-nav mr-auto">
              <li class="nav-item">
-              <a class="nav-link" href="#">Benvenuto!</a>
+              <a class="nav-link" href="HomeF.php">Benvenuto!</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><?php echo $_SESSION["Nome"] . " " . $_SESSION["Cognome"];?></a>
+              <a class="nav-link" href="DatiF.php"><?php echo $_SESSION["Nome"] . " " . $_SESSION["Cognome"];?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Notifiche</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+              <a class="nav-link" id="navMes" href="MessageF.php">
+                  <i class="fa fa-envelope-o">
+                      <span id="countMess" class="badge badge-danger">
+
+                          <?php
+
+                          $conn = new mysqli(HOST, USER, PASSWORD, DATABASE);
+
+                          if ($conn->connect_error) {
+                              die("Connection failed: " . $conn->connect_error);
+                          }
+                          //NOTIFICA PER MESSAGGI RICEVUTI
+                          if(isset($_SESSION["ID_FORNITORE"])) {
+                              $q= "SELECT COUNT(*) FROM fornitore AS F, messaggio AS M WHERE
+                              F.ID_FORNITORE='".$_SESSION["ID_FORNITORE"]."' AND F.ID_FORNITORE = M.ID_RISTORANTE AND M.Letto='0' AND M.Ricevuto_Dal_Utente='0'";
+                              $query=mysqli_query($conn, $q);
+                              $result = mysqli_fetch_array($query);
+                              echo $result['COUNT(*)'];
+                          } else echo "0";?>
+                      </span>
+                  </i>
+                  Messaggi
+              </a>
              </li>
              <li class="nav-item">
-                 <a class="nav-link" href="#">Miei Ordini</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+                 <a class="nav-link" href="OrdiniF.php">Miei Ordini</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/Progetto2019/src/index/logout.php">Esci</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+                <a class="nav-link" href="../index/logout.php">Esci</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
              </li>
            </ul>
         </div>
@@ -144,7 +165,14 @@ while($ress = $resultp->fetch_assoc()){
               <td>'.$ord[$x].'</td>
               <td>'.$ora[$x].'</td>
               <td>'.$loc[$x].'</td>
-              <td>'.$state[$x].'</td>
+
+              <td>';if($state[$x]==1)
+                      echo 'Concluso</br>';
+                    else if ($state[$x]==0)
+                      echo 'In consegna</br>';
+                    else if ($state[$x]==-1)
+                      echo 'Annullato</br>';
+              echo '</td>
             </tr>';
       }
       ?>
@@ -196,6 +224,118 @@ while($ress = $resultp->fetch_assoc()){
   <button class="btn btn-default col-sm-4" onclick="window.location.href='ListinoF.php'"> Vedi tutti i tuoi piatti </button>
 <div class="col-sm-2"></div>
 </div>
+
+<div class="content">
+    </div>
+    <footer id="myFooter">
+
+        <div class="social-networks">
+            <a target="_blank" href="https://twitter.com/JustUniEat1" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.facebook.com/justuni.eat.5" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" href="https://plus.google.com/u/0/114848465565497583176" class="google"><i class="fa fa-google-plus"></i></a>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2018 Copyright Just Uni Eat</p>
+        </div>
+    </footer>
+    </div>
+    </div>
+
+<script>
+
+        var id = <?php echo $_SESSION['ID_FORNITORE']?>;
+        $('#inBoxMsg').click(function() {
+            $('.msgList').toggle('slow', function() {
+            });
+        });
+
+        $('#recMsg').click(function() {
+            document.getElementById('top_rec_arr').style.display = "block";
+            $('.msgListRec').toggle('fadeOut', function() {
+                $.ajax({
+
+                url : 'updateMessageCountF.php',
+                method : 'post',
+                data : {id : id},
+
+                success : function(response) {
+
+                document.getElementById("messUnRead").innerHTML = "0";
+
+                }
+
+                });
+            });
+        });
+
+</script>
+
+<?php
+
+    if(isset($_SESSION["ID_FORNITORE"])) {
+
+    ?>
+
+    <script>
+
+    $(document).ready(function() {
+        var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['Ristorante']); ?>");
+        var hello = "Ciao, ";
+        document.getElementById('navUser').innerHTML = hello.concat(myvar);
+        document.getElementById('navUser').style.display = "block";
+        document.getElementById('navAcc').style.display = "none";
+        document.getElementById('navReg').style.display = "none";
+        document.getElementById('navMes').style.display = "block";
+        document.getElementById('navOrd').style.display = "block";
+        document.getElementById('navExit').style.display = "block";
+    });
+
+
+    var ajax_call = function() {
+
+    var id_user = <?php echo $_SESSION['ID_FORNITORE'];?>
+
+    $.ajax({
+
+    url : 'checkMessageNew.php',
+    method : 'post',
+    data : {id_user : id_user},
+
+        success : function(response) {
+
+            if(response == "1") {
+                var toast = new Toasty();
+                //toast.progressBar("true");
+                toast.success("Hai un nuovo messaggio!");
+                $('#countMess').text("1");
+            }
+
+        }
+
+    });
+
+};
+
+var interval = 30000; //30 secondi
+
+setInterval(ajax_call, interval);
+
+    </script>
+    <?php
+    } else {
+    ?>
+
+    <script>
+
+
+    </script>
+
+    <?php
+
+
+    }
+    ?>
+
  </body>
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

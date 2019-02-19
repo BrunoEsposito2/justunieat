@@ -85,21 +85,44 @@ while($res = $resp->fetch_assoc()){
  <body>
    <!---HEADER--->
    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-         <span class="navbar-toggler-icon"></span>
-       </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
        <a class="navbar-brand" href="HomeF.php">Just Uni Eat</a>
        <div class="collapse navbar-collapse" id="navbarSupportedContent">
          <div class="navbar-nav float-left text-left pr-3">
-         <ul class="navbar-nav mr-auto">
+           <ul class="navbar-nav mr-auto">
              <li class="nav-item">
-              <a class="nav-link" href="#">Benvenuto!</a>
+              <a class="nav-link" href="HomeF.php">Benvenuto!</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"><?php echo $_SESSION["Nome"] . " " . $_SESSION["Cognome"];?></a>
+              <a class="nav-link" href="DatiF.php"><?php echo $_SESSION["Nome"] . " " . $_SESSION["Cognome"];?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Notifiche</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+              <a class="nav-link" id="navMes" href="MessageF.php">
+                  <i class="fa fa-envelope-o">
+                      <span id="countMess" class="badge badge-danger">
+
+                          <?php
+
+                          $conn = new mysqli(HOST, USER, PASSWORD, DATABASE);
+
+                          if ($conn->connect_error) {
+                              die("Connection failed: " . $conn->connect_error);
+                          }
+                          //NOTIFICA PER MESSAGGI RICEVUTI
+                          if(isset($_SESSION["ID_FORNITORE"])) {
+                              $q= "SELECT COUNT(*) FROM fornitore AS F, messaggio AS M WHERE
+                              F.ID_FORNITORE='".$_SESSION["ID_FORNITORE"]."' AND F.ID_FORNITORE = M.ID_RISTORANTE AND M.Letto='0' AND M.Ricevuto_Dal_Utente='0'";
+                              $query=mysqli_query($conn, $q);
+                              $result = mysqli_fetch_array($query);
+                              echo $result['COUNT(*)'];
+                          } else echo "0";?>
+                      </span>
+                  </i>
+                  Messaggi
+              </a>
              </li>
              <li class="nav-item">
                  <a class="nav-link" href="OrdiniF.php">Miei Ordini</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
@@ -150,13 +173,124 @@ while($res = $resp->fetch_assoc()){
   <?php if($val[0] == NULL){
     echo '<h6 class="mb-0 text-center onBoard">L\'ordine non è ancora stato valutato.</h6>';
   } else {
-    
+
   }
   ?>
   <hr class="onBoard-hr onBoard-space-md">
   <button class="btn btn-warning onBoard-space-md col btn3d" style="margin-top:1em" onclick="window.location.href='OrdiniF.php'">INDIETRO</button>
 </div>
 
+<div class="content">
+    </div>
+    <footer id="myFooter">
+
+        <div class="social-networks">
+            <a target="_blank" href="https://twitter.com/JustUniEat1" class="twitter"><i class="fa fa-twitter"></i></a>
+            <a target="_blank" href="https://www.facebook.com/justuni.eat.5" class="facebook"><i class="fa fa-facebook"></i></a>
+            <a target="_blank" href="https://plus.google.com/u/0/114848465565497583176" class="google"><i class="fa fa-google-plus"></i></a>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2018 Copyright Just Uni Eat</p>
+        </div>
+    </footer>
+    </div>
+    </div>
+
+<script>
+
+        var id = <?php echo $_SESSION['ID_FORNITORE']?>;
+        $('#inBoxMsg').click(function() {
+            $('.msgList').toggle('slow', function() {
+            });
+        });
+
+        $('#recMsg').click(function() {
+            document.getElementById('top_rec_arr').style.display = "block";
+            $('.msgListRec').toggle('fadeOut', function() {
+                $.ajax({
+
+                url : 'updateMessageCountF.php',
+                method : 'post',
+                data : {id : id},
+
+                success : function(response) {
+
+                document.getElementById("countMess").innerHTML = "0";
+
+                }
+
+                });
+            });
+        });
+
+</script>
+
+<?php
+
+    if(isset($_SESSION["ID_FORNITORE"])) {
+
+    ?>
+
+    <script>
+
+    $(document).ready(function() {
+        var myvar = decodeURIComponent("<?php echo rawurlencode($_SESSION['Ristorante']); ?>");
+        var hello = "Ciao, ";
+        document.getElementById('navUser').innerHTML = hello.concat(myvar);
+        document.getElementById('navUser').style.display = "block";
+        document.getElementById('navAcc').style.display = "none";
+        document.getElementById('navReg').style.display = "none";
+        document.getElementById('navMes').style.display = "block";
+        document.getElementById('navOrd').style.display = "block";
+        document.getElementById('navExit').style.display = "block";
+    });
+
+
+    var ajax_call = function() {
+
+    var id_user = <?php echo $_SESSION['ID_FORNITORE'];?>
+
+    $.ajax({
+
+    url : 'checkMessageNewF.php',
+    method : 'post',
+    data : {id_user : id_user},
+
+        success : function(response) {
+
+            if(response == "1") {
+                var toast = new Toasty();
+                //toast.progressBar("true");
+                toast.success("Hai un nuovo messaggio!");
+                $('#countMess').text("1");
+            }
+
+        }
+
+    });
+
+};
+
+var interval = 3000; //3 secondi
+
+setInterval(ajax_call, interval);
+
+    </script>
+
+<?php
+} else {
+?>
+
+<script>
+
+
+</script>
+
+<?php
+
+
+}
+?>
 
  </body>
  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

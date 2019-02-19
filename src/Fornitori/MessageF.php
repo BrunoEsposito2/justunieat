@@ -1,4 +1,8 @@
 <?php
+define("HOST", "localhost"); // E' il server a cui ti vuoi connettere
+define("USER", "admin_user"); // E' l'utente con cui ti collegherai al DB.
+define("PASSWORD", "Justunieat2019"); // Password di accesso al DB.
+define("DATABASE", "just_database"); // Nome del database.
 session_start();
 $nMess = 0;
 function controllo_cookie(){
@@ -46,7 +50,7 @@ function controllo_cookie(){
 
 if(!isset($_SESSION["ID_FORNITORE"])){
     $auth = false;
-	header("location: accedi.php");
+	header("location: ../index/accedi.php");
 } else {
     $auth = true;
 }
@@ -91,85 +95,55 @@ while($risto = $query->fetch_array()) {
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="index.php">Just Uni Eat</a>
-        <a href="checkout.php">
-            <?php
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "just_database";
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+       </button>
+      <a class="navbar-brand" href="HomeF.php">Just Uni Eat</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav float-left text-left pr-3">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+             <a class="nav-link" href="HomeF.php">Benvenuto!</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" href="DatiF.php"><?php echo $_SESSION["Nome"] . " " . $_SESSION["Cognome"];?></a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link" id="navMes" href="MessageF.php">
+                 <i class="fa fa-envelope-o">
+                     <span id="countMess" class="badge badge-danger">
 
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            if ($conn->connect_error) {
-                die("Connection failed: " . $conn->connect_error);
-            }
+                         <?php
 
-            if(isset($_SESSION['id'])) {
-                $idUs = $_SESSION['id'];
-                $checkCart = "SELECT ID_ORDINE FROM ordine WHERE ID_USER='$idUs' AND ORDINE_INVIATO=0";
-                $execControl = mysqli_query($conn, $checkCart);
-                $n_rows = mysqli_num_rows($execControl);
+                         $conn = new mysqli(HOST, USER, PASSWORD, DATABASE);
 
-                if($n_rows === 0) {
-                ?>
-                <i class="material-icons md-36 carts">remove_shopping_cart</i>
-                <?php
-                } else if($n_rows > 0) {
-                ?>
-                <i class="material-icons md-36 carts">shopping_cart</i>
-                <?php
-                }
-
-            }
-            ?>
-        </a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <div class="navbar-nav float-left text-left pr-3">
-                <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                        <a class="nav-link" id="navUser" href="profile.php"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navAcc" href="accedi.php">Accedi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navReg" href="registrati.html">Registrati</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navMes" href="message.php">
-                            <i class="fa fa-envelope-o">
-                                <span id="countMess" class="badge badge-danger">
-
-                                    <?php
-                                    //NOTIFICA PER MESSAGGI RICEVUTI
-                                    if(isset($_SESSION["ID_FORNITORE"])) {
-                                        $q= "SELECT COUNT(*) FROM fornitore AS F, messaggio AS M WHERE
-                                        F.ID_FORNITORE='".$_SESSION["ID_FORNITORE"]."' AND F.ID_FORNITORE = M.ID_RISTORANTE AND M.Letto='0' AND M.Ricevuto_Dal_Utente='0'";
-                                        $query=mysqli_query($conn, $q);
-                                        $result = mysqli_fetch_array($query);
-                                        echo $result['COUNT(*)'];
-                                    } else echo "0";?>
-                                </span>
-                            </i>
-                            Messaggi
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navOrd" href="mieiOrdini.php">Miei Ordini</a>
-                        <!--da rendere hidden se non si ha fatto ancora l'accesso-->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="navExit" href="logout.php">Esci</a>
-                        <!--da rendere hidden se non si ha fatto ancora l'accesso-->
-                    </li>
-                </ul>
-            </div>
-        </div>
+                         if ($conn->connect_error) {
+                             die("Connection failed: " . $conn->connect_error);
+                         }
+                         //NOTIFICA PER MESSAGGI RICEVUTI
+                         if(isset($_SESSION["ID_FORNITORE"])) {
+                             $q= "SELECT COUNT(*) FROM fornitore AS F, messaggio AS M WHERE
+                             F.ID_FORNITORE='".$_SESSION["ID_FORNITORE"]."' AND F.ID_FORNITORE = M.ID_RISTORANTE AND M.Letto='0' AND M.Ricevuto_Dal_Utente='0'";
+                             $query=mysqli_query($conn, $q);
+                             $result = mysqli_fetch_array($query);
+                             echo $result['COUNT(*)'];
+                         } else echo "0";?>
+                     </span>
+                 </i>
+                 Messaggi
+             </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="OrdiniF.php">Miei Ordini</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+           </li>
+           <li class="nav-item">
+               <a class="nav-link" href="../index/logout.php">Esci</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+            </li>
+          </ul>
+       </div>
+      </div>
     </nav>
 
     <div>
@@ -438,13 +412,13 @@ while($risto = $query->fetch_array()) {
                 $('.msgListRec').toggle('fadeOut', function() {
                     $.ajax({
 
-                    url : 'updateMessageCount.php',
+                    url : 'updateMessageCountF.php',
                     method : 'post',
                     data : {id : id},
 
                     success : function(response) {
 
-                    document.getElementById("messUnRead").innerHTML = "0";
+                    document.getElementById("countMess").innerHTML = "0";
 
                     }
 
@@ -481,7 +455,7 @@ while($risto = $query->fetch_array()) {
 
         $.ajax({
 
-        url : 'checkMessageNew.php',
+        url : 'checkMessageNewF.php',
         method : 'post',
         data : {id_user : id_user},
 
@@ -500,7 +474,7 @@ while($risto = $query->fetch_array()) {
 
     };
 
-    var interval = 30000; //30 secondi
+    var interval = 3000; //3 secondi
 
     setInterval(ajax_call, interval);
 
