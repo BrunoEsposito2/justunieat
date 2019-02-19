@@ -14,7 +14,6 @@ session_start();
 $ord = [];
 $QueryOrdiniF = $mysqli->prepare("SELECT * FROM ordine WHERE ID_RESTURANT = ? AND ORDINE_INVIATO = 1 AND Stato != -1");
 $QueryOrdiniF->bind_param("i", $_SESSION["ID_FORNITORE"]);
-echo $_SESSION["ID_FORNITORE"];
 
 $QueryOrdiniF->execute();
 
@@ -152,10 +151,10 @@ while($ress = $resultp->fetch_assoc()){
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>ORDINE</th>
-          <th>ORARIO</th>
-          <th>LUOGO</th>
-          <th>STATO</th>
+          <th class="text-center titleColor onBoard">ORDINE</th>
+          <th class="text-center titleColor onBoard">ORARIO</th>
+          <th class="text-center titleColor onBoard">LUOGO</th>
+          <th class="text-center titleColor onBoard">STATO</th>
         </tr>
       </thead>
       <tbody>
@@ -170,11 +169,11 @@ while($ress = $resultp->fetch_assoc()){
         
           for($x=0; $x < $maxx; $x++){
           echo '<tr>
-                  <td>'.$ord[$x].'</td>
-                  <td>'.$ora[$x].'</td>
-                  <td>'.$loc[$x].'</td>
+                  <td class="text-center onBoard">'.$ord[$x].'</td>
+                  <td class="text-center onBoard">'.$ora[$x].'</td>
+                  <td class="text-center onBoard" >'.$loc[$x].'</td>
 
-                  <td>';if($state[$x]==1)
+                  <td class="text-center onBoard">';if($state[$x]==1)
                           echo 'Concluso</br>';
                         else if ($state[$x]==0)
                           echo 'In consegna</br>';
@@ -211,10 +210,10 @@ while($ress = $resultp->fetch_assoc()){
   <table class="table table-hover">
     <thead>
       <tr>
-        <th class="text-center onBoard">PIATTO</th>
-        <th class="text-center onBoard">TIPOLOGIA</th>
-        <th class="text-center onBoard">PREZZO</th>
-        <th class="text-center onBoard">DESCRIZIONE</th>
+        <th class="text-center titleColor onBoard">PIATTO</th>
+        <th class="text-center titleColor onBoard">TIPOLOGIA</th>
+        <th class="text-center titleColor onBoard">PREZZO</th>
+        <th class="text-center titleColor onBoard">DESCRIZIONE</th>
       </tr>
     </thead>
     <tbody>
