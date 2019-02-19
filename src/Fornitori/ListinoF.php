@@ -63,13 +63,6 @@ $rows = $result->num_rows;
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
-    <style>
-    
-    .navbar-brand {
-    font-family: 'Faster One';
-    font-size: 25px;
-}
-    </style>
      <title>Just Uni Eat Fornitori - Il tuo Listino</title>
  </head>
 
@@ -109,7 +102,7 @@ $rows = $result->num_rows;
 
   <h1 class="text-center onBoard"><?php echo $_SESSION["Ristorante"] . "<br>";?></h1>
   <hr class="onBoard-hr">
-  <h2 class="text-center onBoard onBoard-space">IL TUO LISTINO</h2>
+  <h2 class="text-center onBoard onBoard-space-md">IL TUO LISTINO</h2>
   <div class="card">
     <div class="card-header" id="headingTitle">
       <h5 class="mb-0 text-center"> I TUOI PIATTI</h5>
@@ -131,42 +124,48 @@ $rows = $result->num_rows;
     echo '<div id="'.$ris["Nome"].'" class="collapse container-fluid" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body row">
 
-        <div class="classDescrPiatto col-sm-4 col-lg-4">
+        <div class="classDescrPiatto onBoard col-sm-4 col-lg-4">
           <label for="DescrizionePiatto">Descrizione:</label>
           <p name="DescrizionePiatto">'.$ris["Descrizione"].'</p>
         </div>
 
-        <div class="classTipoPiatto col-sm-4 col-lg-4">
+        <div class="classTipoPiatto onBoard col-sm-4 col-lg-4">
           <label for="TipoCucina">Tipologia:</label>
           <h6 name="TipoCucina">'.$ris["Tipologia"].'</h6>
         </div>
 
-        <div class="classButtonsPiatto col-sm-4 col-lg-4">';
+        <div class="">';
 
 
-        if($ris["Vegetariano"]){
-        echo '<div class="col-sm-12">
-          Vegetariano
-        </div>';
-        }
+          if($ris["Vegetariano"]){
+          echo '<div class="onBoard col-sm-12">
+            Vegetariano
+          </div>';
+          }
 
-        if($ris["Piccante"]){
-        echo '<div class="col-sm-12">
-          Piccante
-        </div>';
-        }
-        echo  '<label for="PrezzoPiatto">Prezzo: </label>
-          <h6 class="mb-0" name="PrezzoPiatto">'.$ris["Prezzo"].'</h6>
+          if($ris["Piccante"]){
+          echo '<div class="onBoard col-sm-12">
+            Piccante
+          </div>';
+          }
+          echo  '<label class="onBoard" for="PrezzoPiatto">Prezzo: </label>
+            <h6 class="mb-0 onBoard" name="PrezzoPiatto">'.$ris["Prezzo"].'</h6>
 
-          <!-- ADD JS OR PHP-->
-
-            <button class="btn btn-default" style="margin-bottom:2px" data-toggle="modal" data-target="#Modify'.$ris["Nome"].'" name="modificare" value="'.$ris["ID_PIETANZA"].'">Modifica</button>
-
-          <form action="deletePiatto.php" method="post">
-            <button class="btn btn-default" onclick="jsDelete(this.parentElement.parentElement.parentElement.parentElement.id)" name="eliminare" id="'.$ris["Nome"].'" value="'.$ris["ID_PIETANZA"].'">Elimina</button>
-          </form>
+            <!-- ADD JS OR PHP-->
+          
         </div>
+        
       </div>
+      <div class="row">
+            <div class="col-sm-3">
+              <button class="btn btn-info btn3d" style="margin-bottom:2px" data-toggle="modal" data-target="#Modify'.$ris["Nome"].'" name="modificare" value="'.$ris["ID_PIETANZA"].'">Modifica</button>
+              </div> 
+              <div class="col-sm-3">
+              <form action="deletePiatto.php" method="post">
+                <button class="btn btn-warning btn3d" onclick="jsDelete(this.parentElement.parentElement.parentElement.parentElement.id)" name="eliminare" id="'.$ris["Nome"].'" value="'.$ris["ID_PIETANZA"].'">Elimina</button>
+              </form>
+            </div> 
+          </div>  
     </div>';
 
     echo '<div class="modal fade" id="Modify'.$ris["Nome"].'" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -331,7 +330,7 @@ $rows = $result->num_rows;
     </div>
 
 
-  <button class="btn btn-default col" style="margin-top:1em" onclick="window.location.href='HomeF.php'">INDIETRO</button>
+  <button class="btn-xl btn-warning btn3d col onBoard-space-md" style="margin-top:1em" onclick="window.location.href='HomeF.php'">INDIETRO</button>
 
 </div>
 
@@ -369,7 +368,7 @@ $rows = $result->num_rows;
     </div>
 
     <div class="ButtonsCategorie col-sm-6 col-lg-6 ">
-    <button class="btn btn-default col-12" data-target="#AddCategorie" data-toggle="modal" style="margin-top:5px;">MODIFICA</button>
+    <button class="btn btn-info btn3d col-12" data-target="#AddCategorie" data-toggle="modal" style="margin-top:5px;">MODIFICA</button>
     </div>
   </div>
 </div>

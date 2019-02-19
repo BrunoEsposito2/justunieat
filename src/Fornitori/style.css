@@ -230,10 +230,11 @@ label {
 
 /*FOOTER*/
 
-  #myFooter {
+#myFooter {
     background-color: #182c39;
     color: white;
     padding-top: 20px;
+    width: 100%;
 }
 
 #map-container {

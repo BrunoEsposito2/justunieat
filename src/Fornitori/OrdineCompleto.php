@@ -67,14 +67,18 @@ while($res = $resp->fetch_assoc()){
  <!DOCTYPE html>
  <html lang="it-IT">
  <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <!--Bootstrap CSS-->
-     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-     <link rel="stylesheet" href="style.css">
-     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-     <link rel="icon" href="http://example.com/favicon.png">
+ <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="keywords" content="Cibo, food, Just Eat, Just Uni Eat, just uni eat, asporto, università, fame, veloce, eat"/>
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="icon" href="http://example.com/favicon.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
      <title>Just Uni Eat Fornitori - Ordine #ADDNUMBERWITHPHPORJS</title>
  </head>
 
@@ -84,27 +88,24 @@ while($res = $resp->fetch_assoc()){
        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
          <span class="navbar-toggler-icon"></span>
        </button>
-       <a class="navbar-brand" href="#">Just Uni Eat</a>
-        <a href="#">
-          <img class="carts" src="../../doc/shopping-cart-empty-side-view.png" alt="shopping carts">
-         </a>
+       <a class="navbar-brand" href="HomeF.php">Just Uni Eat</a>
        <div class="collapse navbar-collapse" id="navbarSupportedContent">
          <div class="navbar-nav float-left text-left pr-3">
-           <ul class="navbar-nav mr-auto">
+         <ul class="navbar-nav mr-auto">
              <li class="nav-item">
-              <a class="nav-link" href="#">Accedi</a>
+              <a class="nav-link" href="#">Benvenuto!</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Registrati</a>
+              <a class="nav-link" href="#"><?php echo $_SESSION["Nome"] . " " . $_SESSION["Cognome"];?></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Notifiche</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
              </li>
              <li class="nav-item">
-                 <a class="nav-link" href="#">Miei Ordini</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+                 <a class="nav-link" href="OrdiniF.php">Miei Ordini</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Esci</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
+                <a class="nav-link" href="../index/logout.php">Esci</a> <!--da rendere hidden se non si ha fatto ancora l'accesso-->
              </li>
            </ul>
         </div>
@@ -117,15 +118,15 @@ while($res = $resp->fetch_assoc()){
 </div>
 
 <div class="container-fluid col-lg-8 col-sm-12 ">
-  <h5 class="mb-0 " style="text-align:center;">ORDINE #<?php echo $ord[0];?></h5>
-
+  <h4 class="mb-0 text-center onBoard">ORDINE #<?php echo $ord[0];?></h4>
+  <hr class="onBoard-hr onBoard-space-md">
   <div class="container-fluid row">
-    <div class="col-sm-6 col" style="">
+    <div class="col-sm-6 col onBoard" style="">
       Orario Richiesto: <?php echo $time[0];?></br>
       <?php for ($x=0; $x < count($pname); $x++){
         echo 'Piatto: '.$pname[$x].'</br>';
         echo 'Quantità: '.$pqta[$x].'</br>';
-        echo 'Prezzo: '.$pprice[$x].'</br>';
+        echo 'Prezzo: '.$pprice[$x]. ' €' . '</br>';
       } ?>
       Luogo: <?php echo $loc[0];?></br>
 
@@ -138,21 +139,22 @@ while($res = $resp->fetch_assoc()){
       ?>
     </div>
 
-    <div class="col-sm-6 col">
+    <div class="col-sm-6 col onBoard">
       ID_Utente: <?php echo $user[0];?></br>
       Nome: <?php echo $UName[0];?></br>
       Telefono:<?php echo $cell[0];?></br>
     </div>
 </div>
 
-  <h5 class="mb-0" style="text-align:center">Valutazione</h5>
+  <h5 class="mb-0 text-center">Valutazione</h5>
   <?php if($val[0] == NULL){
-    echo '<h6 class="mb-0" style="text-align:center">L\'ordine non è ancora stato valutato.</h6>';
+    echo '<h6 class="mb-0 text-center onBoard">L\'ordine non è ancora stato valutato.</h6>';
   } else {
     
   }
   ?>
-  <button class="btn btn-default col" style="margin-top:1em" onclick="window.location.href='OrdiniF.php'">INDIETRO</button>
+  <hr class="onBoard-hr onBoard-space-md">
+  <button class="btn btn-warning onBoard-space-md col btn3d" style="margin-top:1em" onclick="window.location.href='OrdiniF.php'">INDIETRO</button>
 </div>
 
 
