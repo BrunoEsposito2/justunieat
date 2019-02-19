@@ -124,14 +124,14 @@ while($ress = $resultp->fetch_assoc()){
 <!--BODY-->
 
 <!--I TUOI ORDINI -->
-<button class="ShowMenuF btn btn-default row" style="margin:1em" onclick="ToggleMenu()">Menu</button></br>
+<button class="ShowMenuF btn btn-default row" style="margin:1em; display:none;" onclick="ToggleMenu()">Menu</button></br>
 <script> function ToggleMenu() {
 
   $(".containerMenu").toggle();
 }
 </script>
 
-<div class="containerMenu col-sm-12 col-md-4" style="margin-left: 2%; float:left;">
+<div class="containerMenu col-sm-12 col-md-4" style="margin-left: 2%; float:left; display:none;">
 
   <button class="btn btn-default" style="margin-bottom:0.5em" onclick="window.location.href='DatiF.php'">I TUOI DATI</button></br>
   <button class="btn btn-default" style="margin-bottom:0.5em" onclick="window.location.href='OrdiniF.php'">ORDINI</button></br>

@@ -9,6 +9,7 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 
+//$mysqli->set_charset("latin1_swedish_ci");
 session_start();
 //echo $_SESSION["Nome"] . "<br>" . $_SESSION["Cognome"];
 
@@ -18,35 +19,75 @@ $uploaddir = "../index/resturant_photo/";
 
 if(isset($_FILES["foto"])){
   $nomefile = $_FILES["foto"]["name"];
+  $userfile_tmp = $_FILES["foto"]["tmp_name"];
 
+  move_uploaded_file($userfile_tmp, $uploaddir . $nomefile);
 
+  $queryFoto = "UPDATE fornitore SET path_photo = '".$nomefile."' WHERE ID_FORNITORE = '".$_SESSION["ID_FORNITORE"]."'";
+  $mysqli->query($queryFoto);
 }
 
-$userfile_tmp = $_FILES["foto"]["tmp_name"];
 
-if (move_uploaded_file($userfile_tmp, $uploaddir . $nomefile)){
-  echo "Funziona";
+/*
+if ()){
+  //echo "Funziona";
 } else {
-  echo "Non caricato";
+  //echo "Non caricato";
 }
+*/
+
+
+     /*if(isset($_FILES["foto"])){
+       $nomefile = $_FILES["foto"]["name"];
+
+       $userfile_tmp = $_FILES["foto"]["tmp_name"];
+
+       if (move_uploaded_file($userfile_tmp, $uploaddir . $nomefile)){*/
+
+         /*$QueryUpdateFoto = $mysqli->prepare("UPDATE fornitore SET path_photo = ? WHERE ID_FORNITORE = ?");
+         $QueryUpdateFoto->bind_param("si", $nomefile, $_SESSION["ID_FORNITORE"]);
+         $QueryUpdateFoto->execute();
+         $QueryUpdateFoto->close();*/
+    /*   } else {
+         //echo "Non caricato";
+       }
+
+     }
+
+*/
 
 if(isset($_POST["Nome"]) &&
    isset($_POST["Cognome"]) &&
    isset($_POST["Ristorante"]) &&
    isset($_POST["Partita_IVA"]) &&
    isset($_POST["Cellulare"]) &&
-   isset($_POST["Città"]) &&
-   isset($_POST["Via_e_Num"])){
 
-  $QueryUpdateData = $mysqli->prepare("UPDATE fornitore SET path_photo = ? ,Nome = ?, Cognome = ?, Ristorante = ?, Partita_IVA = ?, Cellulare = ?, Città = ?, Via_e_Num = ? WHERE ID_FORNITORE = ?");
-  $QueryUpdateData->bind_param("ssssssssi", $nomefile, $_POST["Nome"], $_POST["Cognome"], $_POST["Ristorante"], $_POST["Partita_IVA"], $_POST["Cellulare"], $_POST["Città"], $_POST["Indirizzo"], $_SESSION["ID_FORNITORE"]);
+   isset($_POST["Via_e_Num"])
+ ){
+   $queryUpdateData = "UPDATE fornitore SET Nome = '".$_POST["Nome"]."',
+                                            Cognome = '".$_POST["Cognome"]."',
+                                            Ristorante = '".$_POST["Ristorante"]."',
+                                            Partita_IVA = '".$_POST["Partita_IVA"]."',
+                                            Cellulare = '".$_POST["Cellulare"]."',
+                                            Via_e_Num = '".$_POST["Via_e_Num"]."'
+                                            WHERE ID_FORNITORE = '".$_SESSION["ID_FORNITORE"]."' ";
+
+    $mysqli->query($queryUpdateData);
+ }
+
+
+
+/*
+*/
+     /*
+  $QueryUpdateData = $mysqli->prepare("UPDATE fornitore SET Nome = ?, Cognome = ?, Ristorante = ?, Partita_IVA = ?, Cellulare = ?, Città = ?, Via_e_Num = ? WHERE ID_FORNITORE = ?");
+  $QueryUpdateData->bind_param("sssssssi", $_POST["Nome"], $_POST["Cognome"], $_POST["Ristorante"], $_POST["Partita_IVA"], $_POST["Cellulare"], $_POST['Città'], $_POST["Indirizzo"], $_SESSION["ID_FORNITORE"]);
   $QueryUpdateData->execute();
   $QueryUpdateData->close();
-
-
-
-  header("location: ModifyDataF.php?e=0");
-
+*/
+  header("location: DatiF.php");
+  exit();/*
 } else {
-  header("location: ModifyDataF.php?e=1");
-}
+  header("location: HomeF.php?e=1");
+  exit();
+}*/
