@@ -458,6 +458,30 @@ html {
   visibility: hidden;
   position: absolute;
   background-color: white;
+  z-index:"99";
+}
 
-  z-index = "99";
+.navbar-brand {
+    font-family: 'Faster One';
+    font-size: 25px;
+}
+
+.onBoard {
+    color: white;
+}
+
+.onBoard-hr {
+    height: 2px;
+    color: white; 
+    background-color: white; 
+}
+
+.onBoard-space {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.onBoard-space-md {
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
