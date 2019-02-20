@@ -200,11 +200,18 @@ while($res = $resp->fetch_assoc()){
 
   }
   ?>
+<div class="container-fluid row">
+  <div class="col-lg-6">
   <form action="OrdineSpedito.php" method="post">
-
     <button class="btn btn-primary" name="ORDINE" value="<?php echo $ord[0]; ?>"  style="margin-top:1em">ORDINE SPEDITO</button>
   </form>
-
+  </div>
+  <div class="col-lg-6">
+    <form action="OrdineCompletato.php" method="post">
+      <button class="btn btn-primary" name="ORDINE" value="<?php echo $ord[0]; ?>"  style="margin-top:1em">ORDINE COMPLETATO</button>
+    </form>
+  </div>
+</div>
   <hr class="onBoard-hr onBoard-space-md">
   <button class="btn btn-warning onBoard-space-md col btn3d" style="margin-top:1em" onclick="window.location.href='OrdiniF.php'">INDIETRO</button>
 </div>

@@ -322,7 +322,7 @@ while($ress = $resultp->fetch_assoc()){
 
     $.ajax({
 
-    url : 'checkMessageNew.php',
+    url : 'checkMessageNewF.php',
     method : 'post',
     data : {id_user : id_user},
 
@@ -341,7 +341,7 @@ while($ress = $resultp->fetch_assoc()){
 
 };
 
-var interval = 30000; //30 secondi
+var interval = 3000; //30 secondi
 
 setInterval(ajax_call, interval);
 
