@@ -88,11 +88,11 @@ if(isset($_POST["inputNameF"]) &&
 
           $queryMenuFInse->close();
 
-          header("location: /../Progetto2019/src/Fornitori/HomeF.php");
+          header("location: ../Fornitori/HomeF.php");
 //||||||| merged common ancestors
-          header("location: /../Progetto2019/src/Fornitori/HomeF.php");
+          header("location: ../Fornitori/HomeF.php");
 //=======
-          header("location: HomeF.php");
+          header("location: ../Fornitori/HomeF.php");
 //>>>>>>> 4a00fa3e03cc74be24543ef9a29798360009812a
         } else {
           //If exists
@@ -101,7 +101,7 @@ if(isset($_POST["inputNameF"]) &&
         }
       } else {
           echo "Le password non coincidono!";
-          header("location: /../Progetto2019/src/index/registrati.php?pass=1");
+          header("location: registrati.php?pass=1");
       }
 
  } else {
