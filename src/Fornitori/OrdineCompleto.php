@@ -11,6 +11,10 @@ if ($mysqli->connect_error) {
 
 session_start();
 
+if(!isset($_SESSION["ID_FORNITORE"])){
+  header("location: ../index/accedi.php");
+}
+
 $QueryOrdine = $mysqli->prepare("SELECT ordine.ID_ORDINE, ordine.Orario_Richiesto, ordine.Stato, ordine.ID_USER, ordine.Luogo, ordine.valutazione, pietanza.Nome, pietanza.Prezzo, pietanza_nel_ordine.Quantita, utente.Nome as UName, utente.Cellulare
                                  FROM ordine, pietanza_nel_ordine, pietanza, utente
                                  WHERE ordine.ID_ORDINE=pietanza_nel_ordine.ID_ORDINE

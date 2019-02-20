@@ -12,6 +12,10 @@ if ($mysqli->connect_error) {
 
 session_start();
 
+if(!isset($_SESSION["ID_FORNITORE"])){
+  header("location: ../index/accedi.php");
+}
+
 $queryFindPiattoF = $mysqli->prepare("SELECT * FROM pietanza WHERE ID_MENU = ? AND ID_PIETANZA = ?");
 $queryFindPiattoF->bind_param("ii", $_SESSION["ID_FORNITORE"], $_POST["eliminare"]);
 

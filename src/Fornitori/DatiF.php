@@ -10,6 +10,10 @@ if ($mysqli->connect_error) {
 }
 //$mysqli->set_charset("UTF-8");
 session_start();
+
+if(!isset($_SESSION["ID_FORNITORE"])){
+  header("location: ../index/accedi.php");
+}
 //echo $_SESSION["Nome"] . "<br>" . $_SESSION["Cognome"];
 
 if(isset($_GET["e"])){
@@ -113,7 +117,7 @@ while($res = $result->fetch_assoc()){
 
 <div class="container-fluid col-lg-8 col-sm-12">
   <h2 class="mb-0 text-center onBoard" >I TUOI DATI</h2>
-  <hr class="onBoard-hr">             
+  <hr class="onBoard-hr">
   <h5 class="mb-0 onBoard"><?php echo $Ristorante; ?></h5><br>
   <div class="container-fluid row">
   <div class="col-lg-6 col-sm-12 onBoard">
@@ -140,10 +144,10 @@ while($res = $result->fetch_assoc()){
 
   }
   ?>
-  
-  
+
+
   </div>
-  
+
 </div>
 
 <div class="row onBoard-space-md">

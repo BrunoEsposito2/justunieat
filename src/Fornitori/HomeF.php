@@ -10,6 +10,10 @@ if ($mysqli->connect_error) {
 }
 
 session_start();
+
+if(!isset($_SESSION["ID_FORNITORE"])){
+  header("location: ../index/accedi.php");
+}
 //echo $_SESSION["Nome"] . "<br>" . $_SESSION["Cognome"];
 $ord = [];
 $QueryOrdiniF = $mysqli->prepare("SELECT * FROM ordine WHERE ID_RESTURANT = ? AND ORDINE_INVIATO = 1 AND Stato != -1");

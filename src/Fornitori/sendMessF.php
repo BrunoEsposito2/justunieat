@@ -41,7 +41,7 @@ function controllo_cookie(){
 
 if(!isset($_SESSION["ID_FORNITORE"])){
     $auth = false;
-	header("location: accedi.php");
+	header("location: ../index/accedi.php");
 } else {
     $auth = true;
 }

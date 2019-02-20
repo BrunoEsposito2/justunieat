@@ -11,7 +11,11 @@ if ($mysqli->connect_error) {
 
 session_start();
 
-$QueryOrdF= $mysqli->prepare("SELECT * FROM ordine WHERE ID_RESTURANT = ? AND ORDINE_INVIATO = 1 ORDER BY Orario_richiesto DESC");
+if(!isset($_SESSION["ID_FORNITORE"])){
+  header("location: ../index/accedi.php");
+}
+
+$QueryOrdF= $mysqli->prepare("SELECT * FROM ordine WHERE ID_RESTURANT = ? AND ORDINE_INVIATO = 1 ORDER BY ID_ORDINE DESC");
 $QueryOrdF->bind_param("i", $_SESSION["ID_FORNITORE"]);
 
 $QueryOrdF->execute();

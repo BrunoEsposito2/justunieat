@@ -12,6 +12,10 @@ if ($mysqli->connect_error) {
 
 session_start();
 
+if(!isset($_SESSION["ID_FORNITORE"])){
+  header("location: ../index/accedi.php");
+}
+
 if(isset($_GET["mod"])){
   echo "Il piatto" . $_SESSION["piatto"] . " è stato modificato";
 }

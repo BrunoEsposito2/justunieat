@@ -12,6 +12,9 @@ if ($mysqli->connect_error) {
 
 session_start();
 
+if(!isset($_SESSION["ID_FORNITORE"])){
+  header("location: ../index/accedi.php");
+}
 
 $QuerySelectCats = $mysqli->prepare("SELECT Nome FROM categoria_ristorante");
 $QuerySelectCats->execute();

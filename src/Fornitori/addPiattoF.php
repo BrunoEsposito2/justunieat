@@ -6,6 +6,10 @@ define("PASSWORD", "Justunieat2019"); // Password di accesso al DB.
 define("DATABASE", "just_database"); // Nome del database.
 $mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
 
+if(!isset($_SESSION["ID_FORNITORE"])){
+  header("location: ../index/accedi.php");
+}
+
 // Check connection
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);

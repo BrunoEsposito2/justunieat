@@ -4,6 +4,11 @@ define("USER", "admin_user"); // E' l'utente con cui ti collegherai al DB.
 define("PASSWORD", "Justunieat2019"); // Password di accesso al DB.
 define("DATABASE", "just_database"); // Nome del database.
 session_start();
+
+if(!isset($_SESSION["ID_FORNITORE"])){
+  header("location: ../index/accedi.php");
+}
+
 $nMess = 0;
 function controllo_cookie(){
 

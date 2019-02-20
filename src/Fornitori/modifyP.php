@@ -1,5 +1,4 @@
 <?php
-
 define("HOST", "localhost"); // E' il server a cui ti vuoi connettere
 define("USER", "admin_user"); // E' l'utente con cui ti collegherai al DB.
 define("PASSWORD", "Justunieat2019"); // Password di accesso al DB.
@@ -11,6 +10,10 @@ if ($mysqli->connect_error) {
 }
 
 session_start();
+
+if(!isset($_SESSION["ID_FORNITORE"])){
+  header("location: ../index/accedi.php");
+}
 
   $queryModifyP = $mysqli->prepare("SELECT * FROM pietanza WHERE ID_PIETANZA = ? AND ID_MENU = ?");
   $queryModifyP->bind_param("ii", $_POST["ModificaPiattoF"], $_SESSION["ID_FORNITORE"]);
