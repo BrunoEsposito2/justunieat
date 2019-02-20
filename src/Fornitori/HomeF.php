@@ -95,7 +95,7 @@ while($ress = $resultp->fetch_assoc()){
             <li class="nav-item">
               <a class="nav-link" id="navMes" href="MessageF.php">
                   <i class="fa fa-envelope-o">
-                      <span id="countMess" class="badge badge-danger">
+                      <span id="countMess" style="font-family:sans-serif" class="badge badge-danger">
 
                           <?php
 

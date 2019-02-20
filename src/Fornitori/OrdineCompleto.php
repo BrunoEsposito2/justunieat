@@ -108,7 +108,7 @@ while($res = $resp->fetch_assoc()){
             <li class="nav-item">
               <a class="nav-link" id="navMes" href="MessageF.php">
                   <i class="fa fa-envelope-o">
-                      <span id="countMess" class="badge badge-danger">
+                      <span id="countMess" style="font-family:sans-serif" class="badge badge-danger">
 
                           <?php
 
@@ -200,15 +200,15 @@ while($res = $resp->fetch_assoc()){
 
   }
   ?>
-<div class="container-fluid row">
-  <div class="col-lg-6">
+<div class="container-fluid row onBoard-space-md">
+  <div class="col-lg-3 offset-lg-3">
   <form action="OrdineSpedito.php" method="post">
-    <button class="btn btn-primary" name="ORDINE" value="<?php echo $ord[0]; ?>"  style="margin-top:1em">ORDINE SPEDITO</button>
+    <button class="btn btn-primary btn3d" name="ORDINE" value="<?php echo $ord[0]; ?>"  style="margin-top:1em">ORDINE SPEDITO</button>
   </form>
   </div>
-  <div class="col-lg-6">
+  <div class="col-lg-3 offset-lg-1">
     <form action="OrdineCompletato.php" method="post">
-      <button class="btn btn-primary" name="ORDINE" value="<?php echo $ord[0]; ?>"  style="margin-top:1em">ORDINE COMPLETATO</button>
+      <button class="btn btn-primary btn3d" name="ORDINE" value="<?php echo $ord[0]; ?>"  style="margin-top:1em">ORDINE COMPLETATO</button>
     </form>
   </div>
 </div>

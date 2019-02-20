@@ -12,28 +12,54 @@ if ($mysqli->connect_error) {
 
 session_start();
 
-if(!isset($_SESSION["ID_FORNITORE"])){
-  header("location: ../index/accedi.php");
-}
-
 if(isset($_GET["mod"])){
-  echo "Il piatto" . $_SESSION["piatto"] . " è stato modificato";
+  ?><div class="alert alert-success text-center col-sm-3 alert-dismissible fade show" role="alert">
+  <strong><?php echo "Il piatto" . $_SESSION["piatto"] . " è stato modificato";?></strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<?php  
 }
 
 if(isset($_GET["c"])){
-  echo "Il piatto " . $_SESSION["piatto"] . " è stato inserito";
+  ?><div class="alert alert-success text-center col-sm-3 alert-dismissible fade show" role="alert">
+  <strong><?php echo "Il piatto " . $_SESSION["piatto"] . " è stato inserito";?></strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<?php 
 }
 
 if(isset($_GET["e"])){
-  echo "Errore: Il piatto " . $_SESSION["piatto"] . " esiste già.";
+  ?><div class="alert alert-warning  text-center col-sm-3 alert-dismissible fade show" role="alert">
+  <strong><?php echo "Errore: Il piatto " . $_SESSION["piatto"] . " esiste già.";?></strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<?php 
 }
 
 if(isset($_GET["del"])){
-  echo "Il piatto " . $_SESSION["piatto"] . " è stato eliminato.";
+  ?><div class="alert alert-warning text-center col-sm-3 alert-dismissible fade show" role="alert">
+  <strong><?php echo "Il piatto " . $_SESSION["piatto"] . " è stato eliminato.";?></strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<?php 
 }
 
 if(isset($_GET["cats"])){
-  echo "Le tue categorie sono state modificate.";
+  ?><div class="alert alert-warning col-sm-3 text-center alert-dismissible fade show" role="alert">
+  <strong><?php echo "Le tue categorie sono state modificate.";?></strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<?php 
 }
 
 
@@ -82,7 +108,7 @@ if(isset($_GET["cats"])){
             <li class="nav-item">
               <a class="nav-link" id="navMes" href="MessageF.php">
                   <i class="fa fa-envelope-o">
-                      <span id="countMess" class="badge badge-danger">
+                      <span id="countMess" style="font-family:sans-serif" class="badge badge-danger">
 
                           <?php
 

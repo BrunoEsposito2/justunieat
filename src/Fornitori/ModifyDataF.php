@@ -14,6 +14,7 @@ session_start();
 //echo $_SESSION["Nome"] . "<br>" . $_SESSION["Cognome"];
 
 $uploaddir = "../index/resturant_photo/";
+$path = "resturant_photo/";
 
 
 
@@ -23,7 +24,7 @@ if(isset($_FILES["foto"])){
 
   move_uploaded_file($userfile_tmp, $uploaddir . $nomefile);
 
-  $queryFoto = "UPDATE fornitore SET path_photo = '".$nomefile."' WHERE ID_FORNITORE = '".$_SESSION["ID_FORNITORE"]."'";
+  $queryFoto = "UPDATE fornitore SET path_photo = " . "'"  . $path . $nomefile . "'" . " WHERE ID_FORNITORE = '".$_SESSION["ID_FORNITORE"]."'";
   $mysqli->query($queryFoto);
 }
 
