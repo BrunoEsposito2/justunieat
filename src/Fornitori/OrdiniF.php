@@ -128,6 +128,8 @@ while($row = $result->fetch_assoc()){
     </table>
   </div>
 <?php
+
+if(count($row) > 0) {
 for($i=0; $i< count($ord); $i++){
   echo '<div class="card">
         <button class="btn btn-default card-header" id="headingOne" data-toggle="collapse" data-target="#collapse'.$ord[$i].'" aria-expanded="true" aria-controls="collapseOne">
@@ -157,6 +159,15 @@ for($i=0; $i< count($ord); $i++){
       </table>
     </div>
   </div>';
+}
+
+} else {
+  echo "<div class=\"text-center alert alert-dismissible onBoard-space-md fade show alert-warning\" role=\"alert\">
+  <h3>Nessun Ordine Da Svolgere!</h3>
+  <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+    <span aria-hidden=\"true\">&times;</span>
+  </button>
+</div>";
 }
  ?>
 
