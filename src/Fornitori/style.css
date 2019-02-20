@@ -500,3 +500,9 @@ html {
 .titleColor {
     color: #FF7D73;
 }
+
+.inbox-menu ul {
+    margin-top: 30px;
+    padding: 0;
+    list-style: none
+}

@@ -27,7 +27,7 @@ if($result){
     //$query2 = "UPDATE ordine SET Stato = 0 WHERE ID_ORDINE = '".$_POST["ORDINE"]."'";
     //$mysqli->query($query2);
 
-    $testo = "L ordine ".$_POST["ORDINE"]. " è stato spedito.";
+    $testo = "Ordine ".$_POST["ORDINE"]. " è stato spedito.";
     $orario=time();
     $data=date('d-m-y');
     $titolo ="Il tuo ordine";

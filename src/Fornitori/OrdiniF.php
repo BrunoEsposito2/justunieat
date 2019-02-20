@@ -10,7 +10,7 @@ if ($mysqli->connect_error) {
 }
 
 session_start();
-
+$row = [];
 if(!isset($_SESSION["ID_FORNITORE"])){
   header("location: ../index/accedi.php");
 }
@@ -53,6 +53,7 @@ while($row = $result->fetch_assoc()){
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="style.css">
     <link href='https://fonts.googleapis.com/css?family=Faster One' rel='stylesheet'>
+    <link href="Toasty.js-master/dist/toasty.min.css" rel="stylesheet">
      <title>Just Uni Eat Fornitori - I tuoi ordini</title>
  </head>
 
@@ -76,7 +77,7 @@ while($row = $result->fetch_assoc()){
             <li class="nav-item">
               <a class="nav-link" id="navMes" href="MessageF.php">
                   <i class="fa fa-envelope-o">
-                      <span id="countMess" class="badge badge-danger">
+                      <span id="countMess" style="font-family:sans-serif" class="badge badge-danger">
 
                           <?php
 
@@ -129,7 +130,7 @@ while($row = $result->fetch_assoc()){
   </div>
 <?php
 
-if(count($row) > 0) {
+if($row > 0) {
 for($i=0; $i< count($ord); $i++){
   echo '<div class="card">
         <button class="btn btn-default card-header" id="headingOne" data-toggle="collapse" data-target="#collapse'.$ord[$i].'" aria-expanded="true" aria-controls="collapseOne">

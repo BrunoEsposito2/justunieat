@@ -164,7 +164,7 @@ while($risto = $query->fetch_array()) {
                 <div class="col-md-3">
                     <div class="panel panel-default">
 
-                            <ul>
+                            <ul style="list-style:none;">
 
                                 <li>
                                      <button id="inBoxMsg" class="btn btn-primary btn3d">Messaggi Inviati</button>
@@ -282,7 +282,7 @@ while($risto = $query->fetch_array()) {
                 <div class="col-md-3">
                     <div class="panel panel-default">
 
-                            <ul>
+                            <ul class="list-style:none;">
 
                                 <li>
                                      <button id="recMsg" class="btn btn-info btn3d">Messaggi Ricevuti</button>
